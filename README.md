@@ -8,9 +8,11 @@ In this repository information for the specifications of the web application can
 ***CoffeSquad*** team
 
 *Reynaldo Belfort Pierrilus*
+
 *Leslie Soto Vargas*
+
 *Tania Hernandez Colón*
 
 ----------
 
-Heroku web server: [musicvenue.herokuapp.com](musicvenue.herokuapp.com)
+Heroku web server: musicvenue.herokuapp.com
