@@ -185,13 +185,13 @@ In the following document the reader can find all of the information pertaining 
 
 > **2.3 Optional Requirements**
 
->  Classify singer's voice type via a simple test
+> * Classify singer's voice type via a simple test
 
->  Pin-point an event location on a map using the physical address provided by the user
+> * Pin-point an event location on a map using the physical address provided by the user
 
->  Tutorial on how to use __MusicVenue__
+> * Tutorial on how to use __MusicVenue__
 
->  Mechanism to invite a friend to create an account
+> * Mechanism to invite a friend to create an account
 
->  User will be able to upload and share guitar tabs
+> * User will be able to upload and share guitar tabs
 
