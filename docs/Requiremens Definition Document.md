@@ -32,15 +32,15 @@ In the following document the reader can find all of the information pertaining 
 >> **1.2.1 Terms**
 
 
-: Term: Definition
+>>> Term: Definition
 
->> User: Someone who utilizes the social network.
+>>> User: Someone who utilizes the social network.
 
->> Web-Based: An application or program that is accessed over a network connection using HTTP.
+>>> Web-Based: An application or program that is accessed over a network connection using HTTP.
 
->> Entity: Group or event.
+>>> Entity: Group or event.
 
->> Event: An occurrence involving the presence of the musician or musicians.
+>>  Event: An occurrence involving the presence of the musician or musicians.
 
 >> Group: An assemblage of individuals in a band, choir, or other.
 
