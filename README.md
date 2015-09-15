@@ -1,4 +1,7 @@
 # music-socialnet-repo
+
+MusicVenue
+
 Social network dedicated to musicians!
 
 ----------
@@ -11,8 +14,9 @@ In this repository information for the specifications of the web application can
 
 *Leslie Soto Vargas*
 
-*Tania Hernandez Colón*
+*Tania Hernández Colón*
 
 ----------
 
 Heroku web server: musicvenue.herokuapp.com
+
