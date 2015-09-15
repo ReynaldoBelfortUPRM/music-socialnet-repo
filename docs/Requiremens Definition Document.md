@@ -30,11 +30,8 @@ In the following document the reader can find all of the information pertaining 
 > **1.3 Key Concepts**
 
 >> **1.2.1 Terms**
-this is a normal line of text
-  * this is the first level of bullet points, made up of <space><space>*<space>
-    * this is more indented, composed of <space><space><space><space>*<space>
-    * 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This will appear with six space characters in front of it
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TThis will appear with six space characters in front of it
 
 >> Term: Definition
 
