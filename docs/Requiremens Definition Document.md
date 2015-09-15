@@ -62,7 +62,7 @@ In the following document the reader can find all of the information pertaining 
 
 >> Administrative Requirement Rules: Set of rules set specifically for Administrators.
 
->> **1.2.2 Abbreviations**
+>> **1.3.2 Abbreviations**
 
 >> SN: Social Network.
 
