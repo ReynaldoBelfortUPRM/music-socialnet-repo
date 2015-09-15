@@ -99,7 +99,7 @@ In the following document the reader can find all of the information pertaining 
 
 > **1. 4 Overview**
 
-A further description of the interactions, hierarchies, and system functionality of __MusicVenue__ can be found on the remainder of this document.
+>A further description of the interactions, hierarchies, and system functionality of __MusicVenue__ can be found on the remainder of this document.
 
 **2. Functional Requirements**
 
