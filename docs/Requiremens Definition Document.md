@@ -31,7 +31,7 @@ In the following document the reader can find all of the information pertaining 
 
 >> **1.2.1 Terms**
 
->> Term: Definition
+     Term: Definition
 
 >> User: Someone who utilizes the social network.
 
