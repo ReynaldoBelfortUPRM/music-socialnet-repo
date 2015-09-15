@@ -4,63 +4,63 @@
 
 *Due Date: ​September 29, 2015*
 
-ER Mapping and working DBMS instance hosted somewhere on the Cloud
+1. ER Mapping and working DBMS instance hosted somewhere on the Cloud
 
-App (client side) mock screenshots and/or wire frames with matching requirements and task descriptions
+2. App (client side) mock screenshots and/or wire frames with matching requirements and task descriptions
 
-Updated Gantt chart with percent completion for each task 
+3. Updated Gantt chart with percentage of completion for each task 
 
-Detailed Project Development Plan for Sprint II 
+4. Detailed Project Development Plan for Sprint II 
 
-Updated Master Project Development Plan
+5. Updated Master Project Development Plan
 
 
 **Sprint II: Implementation of the server functionalities**
 
 *Due Date: ​October 13, 2015* 
 
-Implementation of the server Functionalities
+1. Implementation of the server functionalities
 
-The GUI, server functionalities and the DBMS should be all working independently
+2. The GUI, server functionalities, and DBMS should all be working independently
 
-Detailed Project Development Plan for Sprint III 
+3. Detailed Project Development Plan for Sprint III 
 
-Updated Master Project Development Plan 
+4. Updated Master Project Development Plan 
 
 
 **Sprint III: Integration Phase and Testing**
 
 *Due Date: ​October 27, 2015*
 
-Integration of each of the client side, server and DBMS
+1. Integration of the client side, server, and DBMS
 
-Start the testing process of the product.
+2. Initiation of the testing process of the product
 
-Detailed Project Development Plan for Sprint IV
+3. Detailed Project Development Plan for Sprint IV
 
-Updated general Project Development Plan
+4. Updated general Project Development Plan
 
 
 **Sprint IV: Additional Features and Testing**
 
 *Due Date: ​November 10, 2015*
 
-Implementing additional Features or Optional requirements
+1. Implemention of additional features or optional requirements
 
-Testing additional Features or Optional Requirements
+2. Testing additional features or optional requirements
 
-Detailed Project Development Plan for Sprint V 
+3. Detailed Project Development Plan for Sprint V 
 
-Updated general Project Development Plan 
+4. Updated general Project Development Plan 
 
 
 **Sprint V: Testing**
 
 *Due Date: ​November 24, 2015*
 
-Finish testing process.
+1. Complete testing process
 
-Updated Gantt chart with 100% percent completion for each sprint I-V tasks
+2. Updated Gantt chart with 100% percent completion for each sprint (I-V) task
 
-Fully working project hosted on the Cloud
+3. Fully working project hosted on the Cloud
 
