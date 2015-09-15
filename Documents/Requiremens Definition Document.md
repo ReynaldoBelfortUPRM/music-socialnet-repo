@@ -3,8 +3,8 @@
 
 **The CoffeeSquad Team:**
 
-Reynaldo Belfort Pierrilus
+    Reynaldo Belfort Pierrilus
 
-Tania A. Hernández Colón
+    Tania A. Hernández Colón
 
-Leslie Soto Vargas
+    Leslie Soto Vargas
