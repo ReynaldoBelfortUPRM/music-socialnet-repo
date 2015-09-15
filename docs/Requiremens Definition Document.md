@@ -31,47 +31,47 @@ In the following document the reader can find all of the information pertaining 
 
 >> **1.2.1 Terms**
 
->>- Term: Definition
+>> Term: Definition
 
->>- User: Someone who utilizes the social network.
+>> User: Someone who utilizes the social network.
 
->>- Web-Based: An application or program that is accessed over a network connection using HTTP.
+>> Web-Based: An application or program that is accessed over a network connection using HTTP.
 
->>- Entity: Group or event.
+>> Entity: Group or event.
 
->>- Event: An occurrence involving the presence of the musician or musicians.
+>> Event: An occurrence involving the presence of the musician or musicians.
 
->>- Group: An assemblage of individuals in a band, choir, or other.
+>> Group: An assemblage of individuals in a band, choir, or other.
 
->>- Organization: A business dedicated to promote or venture musicians.
+>> Organization: A business dedicated to promote or venture musicians.
 
->>- Administrator: User in charge of managing an entity where the one who created it is the administrator by default.
+>> Administrator: User in charge of managing an entity where the one who created it is the administrator by default.
 
->>- Content: Can be a sound, visual reference or entity expressed through some medium or act.
+>> Content: Can be a sound, visual reference or entity expressed through some medium or act.
 
->>- Regular User: A musician or music fanatic.
+>> Regular User: A musician or music fanatic.
 
->>- Business/Organization: Group of people associated and/or organized for a line of work in terms of business transactions, promotions, and venues geared towards musical entertainment.
+>> Business/Organization: Group of people associated and/or organized for a line of work in terms of business transactions, promotions, and venues geared towards musical entertainment.
 
->>- Board: Space in the user’s homepage that displays the posts shared by those followed.
+>> Board: Space in the user’s homepage that displays the posts shared by those followed.
 
->>- Marketplace: Space where users can advertise their products and/or offers following the CRUD methodology.
+>> Marketplace: Space where users can advertise their products and/or offers following the CRUD methodology.
 
->>- Available: Product or offer that is yet to be sold.
+>> Available: Product or offer that is yet to be sold.
 
->>- Administrative Requirement Rules: Set of rules set specifically for Administrators.
+>> Administrative Requirement Rules: Set of rules set specifically for Administrators.
 
 >> **1.2.2 Abbreviations**
 
->>- SN: Social Network.
+>> SN: Social Network.
 
->>- CRUD: Create, read, update, and delete.
+>> CRUD: Create, read, update, and delete.
 
->>- ARR: Administrative Requirement Rules (see above for definition).
+>> ARR: Administrative Requirement Rules (see above for definition).
 
 >> **1.2.3 Rules and Protocols**
 
->>- Password Reset Protocol:
+>> Password Reset Protocol:
 
 >> * The system will allow a maximum number of five (5) failed log-in attempts.
 
