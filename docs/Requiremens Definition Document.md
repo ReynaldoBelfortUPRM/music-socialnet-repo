@@ -31,9 +31,8 @@ In the following document the reader can find all of the information pertaining 
 
 >> **1.2.1 Terms**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TThis will appear with six space characters in front of it
 
->> Term: Definition
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Term: Definition
 
 >> User: Someone who utilizes the social network.
 
