@@ -176,12 +176,13 @@ In the following document the reader can find all of the information pertaining 
 
 > Search:
 
->> * User can search another user, a group, post, or tags by name
+> * User can search another user, a group, post, or tags by name
 
 > **2.2 Desirable Requirements**
 
 > Messaging:
->> * Instant messaging among users via private channels with the appropriate permissions of both users
+
+> * Instant messaging among users via private channels with the appropriate permissions of both users
 
 > **2.3 Optional Requirements**
 
