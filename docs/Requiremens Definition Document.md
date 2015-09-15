@@ -29,16 +29,16 @@ In the following document the reader can find all of the information pertaining 
 
 > **1.3 Key Concepts**
 
->> **1.2.1 Terms**
+>> **1.3.1 Terms**
 
 
->>> Term: Definition
+>> Term: Definition
 
->>> User: Someone who utilizes the social network.
+>> User: Someone who utilizes the social network.
 
->>> Web-Based: An application or program that is accessed over a network connection using HTTP.
+>> Web-Based: An application or program that is accessed over a network connection using HTTP.
 
->>> Entity: Group or event.
+>> Entity: Group or event.
 
 >>  Event: An occurrence involving the presence of the musician or musicians.
 
@@ -70,7 +70,7 @@ In the following document the reader can find all of the information pertaining 
 
 >> ARR: Administrative Requirement Rules (see above for definition).
 
->> **1.2.3 Rules and Protocols**
+>> **1.3.3 Rules and Protocols**
 
 >> Password Reset Protocol:
 
@@ -113,75 +113,75 @@ In the following document the reader can find all of the information pertaining 
 
 > For All User Categories:
 
-> * Use basic CRUD functionalities in order to maintain an up-to-date profile and events
-> * Post content such as audio, music, text, and video
-> * Share information in terms of musical skills, likes, and experiences
-> * If user does not provide a profile picture, the system will set a default photo
-> * Password management in terms of a password reset protocol and a forgotten password protocol
+>> * Use basic CRUD functionalities in order to maintain an up-to-date profile and events
+>> * Post content such as audio, music, text, and video
+>> * Share information in terms of musical skills, likes, and experiences
+>> * If user does not provide a profile picture, the system will set a default photo
+>> * Password management in terms of a password reset protocol and a forgotten password protocol
 
 > Regular Users Only:
-> * Can follow other Regular Users and Business/Organization profiles
+>> * Can follow other Regular Users and Business/Organization profiles
 
 > Business/Organization Only:
 
-> * Must provide a description of the entity within a maximum range of 2000 characters and an address in order to set up a profile
-> * Should be oriented to businesses based solely on musical contexts
-> * May view certain details about the users who interact with it, such as their user names
+>> * Must provide a description of the entity within a maximum range of 2000 characters and an address in order to set up a profile
+>> * Should be oriented to businesses based solely on musical contexts
+>> * May view certain details about the users who interact with it, such as their user names
 
 > Posting Options:
 
-> * May include media and/or text
-> * Basic CRUD rules and categorization apply
-> * Scheduling posts will be possible
-> * Post visibility is modifiable
-> * Users can comment and like posts
-> * Notification is sent to users whose post has been commented or liked
+>> * May include media and/or text
+>> * Basic CRUD rules and categorization apply
+>> * Scheduling posts will be possible
+>> * Post visibility is modifiable
+>> * Users can comment and like posts
+>> * Notification is sent to users whose post has been commented or liked
 
 > Follow Perks:
 
-> * Users can follow any other type of user of their desire
-> * Following a user implies viewing said user’s posts in the Board
+>> * Users can follow any other type of user of their desire
+>> * Following a user implies viewing said user’s posts in the Board
 
 > Social Interactions:
 
-> * Board displays shared content
->  * For Regular Users: Content shown comes from all user categories
->  * For Business/Organizations: Own posted content is shown on Board including those who have been shared by followers
-> * Marketplace advertisements must include a title, a limited description of what is being offered, the category of the ad, and offering price; providing a picture is optional
-> * Ads are classified under Available and Sold states
+>> * Board displays shared content
+>>  * For Regular Users: Content shown comes from all user categories
+>>  * For Business/Organizations: Own posted content is shown on Board including those who have been shared by followers
+>> * Marketplace advertisements must include a title, a limited description of what is being offered, the category of the ad, and offering price; providing a picture is optional
+>> * Ads are classified under Available and Sold states
 
 > Events:
 
-> * Basic CRUD rules and categorization apply
-> * Description of event must include its name, presentation dates, location, and event classification (conference, concert, jamming event...) 
-> * Administrators of the event can invite users to it
-> * Appear in the homepage as a small rectangle
-> * Regular Users can mark their attendance as “Going”, “Maybe”, and “Not going” (this option available only for those users who have been invited)
-> * May be private or public
->  *Public: Any user can attend the event
->  *Private: Only the Administrator(s) decide(s) who is allowed an invitation to the event as well as which users can invite other users, including the amount of invitations granted
-> * Notification is sent to users who have been invited to an event
-> * ARR apply
+>> * Basic CRUD rules and categorization apply
+>> * Description of event must include its name, presentation dates, location, and event classification (conference, concert, jamming event...) 
+>> * Administrators of the event can invite users to it
+>> * Appear in the homepage as a small rectangle
+>> * Regular Users can mark their attendance as “Going”, “Maybe”, and “Not going” (this option available only for those users who have been invited)
+>> * May be private or public
+>>  *Public: Any user can attend the event
+>>  *Private: Only the Administrator(s) decide(s) who is allowed an invitation to the event as well as which users can invite other users, including the amount of invitations granted
+>> * Notification is sent to users who have been invited to an event
+>> * ARR apply
 
 > Groups:
 
-> * Will have a designated area in which information can be shared within the group
-> * Basic CRUD rules and categorization apply
-> * Administrators can add and remove members
-> * Classifications include: band, choir, or other
-> * Roles within these groups can be either common or customized where customizations include the role played by specific group members
-> * ARR apply
-> * Members can post on the Groups' page
-> * Notification is sent to each member once another posts content or makes a change in the group
+>> * Will have a designated area in which information can be shared within the group
+>> * Basic CRUD rules and categorization apply
+>> * Administrators can add and remove members
+>> * Classifications include: band, choir, or other
+>> * Roles within these groups can be either common or customized where customizations include the role played by specific group members
+>> * ARR apply
+>> * Members can post on the Groups' page
+>> * Notification is sent to each member once another posts content or makes a change in the group
 
 > Search:
 
-> * User can search another user, a group, post, or tags by name
+>> * User can search another user, a group, post, or tags by name
 
 > **2.2 Desirable Requirements**
 
 > Messaging:
-> * Instant messaging among users via private channels with the appropriate permissions of both users
+>> * Instant messaging among users via private channels with the appropriate permissions of both users
 
 > **2.3 Optional Requirements**
 
