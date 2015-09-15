@@ -107,8 +107,8 @@ In the following document the reader can find all of the information pertaining 
 
 > Main User Categories:
 
-> 1. Regular User  
-> 2. Business/Organization
+>> 1. Regular User  
+>> 2. Business/Organization
 
 > For All User Categories:
 
@@ -124,7 +124,7 @@ In the following document the reader can find all of the information pertaining 
 > Business/Organization Only:
 
 > * Must provide a description of the entity within a maximum range of 2000 characters and an address in order to set up a profile
-> * Exclusively for businesses based solely on musical contexts
+> * Should be oriented to businesses based solely on musical contexts
 > * May view certain details about the users who interact with it, such as their user names
 
 > Posting Options:
@@ -184,9 +184,13 @@ In the following document the reader can find all of the information pertaining 
 
 > **2.3 Optional Requirements**
 
-> * Classify singer's voice type via a simple test
-> * Pin-point an event location on a map using the physical address provided by the user
-> * Tutorial on how to use __MusicVenue__
-> * Mechanism to invite a friend to create an account
-> * User will be able to upload and share guitar tabs
+>  Classify singer's voice type via a simple test
+
+>  Pin-point an event location on a map using the physical address provided by the user
+
+>  Tutorial on how to use __MusicVenue__
+
+>  Mechanism to invite a friend to create an account
+
+>  User will be able to upload and share guitar tabs
 
