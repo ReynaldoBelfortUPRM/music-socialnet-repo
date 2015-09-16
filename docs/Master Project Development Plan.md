@@ -4,16 +4,15 @@
 
 *Due Date: ​September 29, 2015*
 
-1. ER Mapping and working DBMS instance hosted somewhere on the Cloud
-
-2. App (client side) mock screenshots and/or wire frames with matching requirements and task descriptions
-
-3. Updated Gantt chart with percentage of completion for each task 
-
-4. Detailed Project Development Plan for Sprint II 
-
-5. Updated Master Project Development Plan
-
+1. ER Mapping and DBMS instance setup on Heroku server
+2. Common Use Case descriptions for all users
+3. Site Map development
+4. Elaboration of the Brand Guidelines
+5. Description and planification of User Interfaces
+6. Client-side wireframe designs
+7. Wireframe evaluations
+8. Elaboration of Project Development Plan for Sprint II 
+9. Gantt chart updates
 
 **Sprint II: Implementation of the server functionalities**
 
