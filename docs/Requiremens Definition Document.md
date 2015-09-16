@@ -3,7 +3,7 @@
 
 ***The CoffeeSquad Team:***
 
-    Reynaldo Belfort Pierrilus
+    Reynaldo Belfort Pierrilus (Project Manager)
 
     Tania A. Hernández Colón
 
@@ -50,7 +50,7 @@ In the following document the reader can find all of the information pertaining 
 
 >> Content: Can be a sound, visual reference or entity expressed through some medium or act.
 
->> Regular User: A musician or music fanatic.
+>> Regular User: A musician or music enthusiastic.
 
 >> Business/Organization: Group of people associated and/or organized for a line of work in terms of business transactions, promotions, and venues geared towards musical entertainment.
 
@@ -60,6 +60,8 @@ In the following document the reader can find all of the information pertaining 
 
 >> Available: Product or offer that is yet to be sold.
 
+>> Chord progression: A series of music chords that are played one after the other repeatedly.
+
 >> Administrative Requirement Rules: Set of rules set specifically for Administrators.
 
 >> **1.3.2 Abbreviations**
@@ -68,7 +70,7 @@ In the following document the reader can find all of the information pertaining 
 
 >> CRUD: Create, read, update, and delete.
 
->> ARR: Administrative Requirement Rules (see above for definition).
+>> ARR: Administrative Requirement Rules (see below for definition).
 
 >> **1.3.3 Rules and Protocols**
 
@@ -92,7 +94,6 @@ In the following document the reader can find all of the information pertaining 
 >> Administrative Rules Requirements (ARR):
 
 >> * Entities must have at least one Administrator
-
 >> * Administrators are allowed to perform CRUD operations on events
 >> * Administrators can assign Administrative Duties to other users
 >> * User who created the entity will, by default, be the Administrator
@@ -147,8 +148,8 @@ In the following document the reader can find all of the information pertaining 
 > * Board displays shared content
 >  * For Regular Users: Content shown comes from all user categories
 >  * For Business/Organizations: Own posted content is shown on Board including those who have been shared by followers
->> * Marketplace advertisements must include a title, a limited description of what is being offered, the category of the ad, and offering price; providing a picture is optional
-> * Ads are classified under Available and Sold states
+>  * Marketplace advertisements must include a title, a limited description of what is being offered, the category of the ad, and offering price; providing a picture is optional
+>  * Ads are classified under Available and Sold states
 
 > Events:
 
@@ -161,7 +162,7 @@ In the following document the reader can find all of the information pertaining 
 >  *Public: Any user can attend the event
 >  *Private: Only the Administrator(s) decide(s) who is allowed an invitation to the event as well as which users can invite other users, including the amount of invitations granted
 > * Notification is sent to users who have been invited to an event
-> * ARR apply
+> * Entity will follow the ARR rules.
 
 > Groups:
 
@@ -170,10 +171,10 @@ In the following document the reader can find all of the information pertaining 
 > * Administrators can add and remove members
 > * Classifications include: band, choir, or other
 > * Roles within these groups can be either common or customized where customizations include the role played by specific group members
-> * ARR apply
+> * Entity will follow the ARR rules.
 > * Members can post on the Groups' page
 > * Notification is sent to each member once another posts content or makes a change in the group
-
+ma
 > Search:
 
 > * User can search another user, a group, post, or tags by name
@@ -195,4 +196,6 @@ In the following document the reader can find all of the information pertaining 
 > * Mechanism to invite a friend to create an account
 
 > * User will be able to upload and share guitar tabs
+
+> * Jamming Riffs for regular users: A way of sharing chord progressions for jamming sessions from where  other users can interact with and elaborate. 
 
