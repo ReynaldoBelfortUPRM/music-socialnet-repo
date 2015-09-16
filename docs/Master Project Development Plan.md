@@ -5,14 +5,23 @@
 *Due Date: ​September 29, 2015*
 
 1. ER Mapping and DBMS instance setup on Heroku server
+
 2. Common Use Case descriptions for all users
+
 3. Site Map development
+
 4. Elaboration of the Brand Guidelines
+
 5. Description and planification of User Interfaces
+
 6. Client-side wireframe designs
+
 7. Wireframe evaluations
+
 8. Elaboration of Project Development Plan for Sprint II 
+
 9. Gantt chart updates
+
 
 **Sprint II: Implementation of the server functionalities**
 
