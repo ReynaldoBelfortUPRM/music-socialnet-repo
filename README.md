@@ -1,6 +1,6 @@
 # music-socialnet-repo
 
-MusicVenue
+*MusicVenue*
 
 Social network dedicated to musicians!
 
@@ -31,7 +31,7 @@ Heroku web server: musicvenue.herokuapp.com
 
 2. Every member was always in communication via WhatsApp or Trello.
 
-3. The differences of each member and how we can use that in our favor.
+3. The differences of each member and how we used those in our favor.
 
 
 
@@ -40,9 +40,9 @@ Heroku web server: musicvenue.herokuapp.com
 
 1. There was a point where the members did not have the same vision about the project.
 
-2. The frameworks were specified in a moment, but later to changed.
+2. The frameworks were specified in a moment, but later were changed.
 
-3. Not had a specific meeting in the week.
+3. Not having a specific meeting in the week.
 
 4. Had not specified the tasks of the sprint that each member would have in charge from the beginning of working. 
 
@@ -51,11 +51,37 @@ Heroku web server: musicvenue.herokuapp.com
 **What We Learned?**
 
 
-1. Get to a medium point in the different visions of the project
+1. Get to a medium point in the different visions of the idea for the project
 
 
-2. Select a specific day an hour in which we will have our weekly meeting.
+2. Select a specific day and hour in which we will have our weekly meeting.
 
 
-3. Assign specific tasks of each sprint to the members of the group.
+3. We should assign specific tasks of each sprint to the members of the group.
 
+
+4. The use of software like Trello or the Kanban System is really helpful for team organization.
+
+#Planning for next Sprint 1 phase:
+
+**Sprint I: App GUI Design and DBMS instance**
+
+*Due Date: ​September 29, 2015*
+
+1. ER Mapping and DBMS instance setup on Heroku server
+
+2. Common Use Case descriptions for all users
+
+3. Site Map development
+
+4. Elaboration of the Brand Guidelines
+
+5. Description and planification of User Interfaces
+
+6. Client-side wireframe designs
+
+7. Wireframe evaluations
+
+8. Elaboration of Project Development Plan for Sprint II 
+
+9. Gantt chart updates
