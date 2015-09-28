@@ -1,9 +1,9 @@
-#Data Base
+#Database
 
 -----
 ##Tables
 
-This photo presents the tables and this respective names created  in Heroku
+This photo contains the tables and their respective names found in the Heroku database:
 
 
 ![Regular Events Image](https://trello-attachments.s3.amazonaws.com/5608ceb80fb0dd1ba9219a8b/799x649/902d2d186972d9961594bd7307cf2a0c/DB_tables_names.PNG)
@@ -27,8 +27,8 @@ This photo presents the tables and this respective names created  in Heroku
 ##Tags
   tag
   
-    tag(tag_id:integer, owner_id:integer, owner_category:string, tag_data:string)
     PRIMARY KEY (tag_id, owner_id, owner_category)
+    tag(tag_id:integer, owner_id:integer, owner_category:string, tag_data:string)
   
 ##Follow
   follow
