@@ -151,8 +151,7 @@ In the following document the reader can find all of the information pertaining 
 > * Board displays shared content
 >  * For Regular Users: Content shown comes from all user categories
 >  * For Business/Organizations: Own posted content is shown on Board including those who have been shared by followers
->  * TradeSpace advertisements must include a title, a limited description of what is being offered, the category of the ad, and offering price; providing a picture is optional
->  * Ads are classified under Available and Sold states
+>  * TradeSpace advertisements must include a title, a limited description of what is being offered, the category of the ad,      and offering price; providing a picture is optional
 
 > Events:
 
@@ -173,11 +172,11 @@ In the following document the reader can find all of the information pertaining 
 > * Basic CRUD rules and categorization apply
 > * Administrators can add and remove members
 > * Classifications include: band, choir, or other
-> * Roles within these groups can be either common or customized where customizations include the role played by specific group members
+> * Roles within these groups can be either common or customized where customizations include the role played by specific       group members
 > * Entity will follow the ARR rules.
 > * Members can post on the Groups' page
 > * Notification is sent to each member once another posts content or makes a change in the group
-ma
+
 > Search:
 
 > * User can search another user, a group, post, or tags by name
