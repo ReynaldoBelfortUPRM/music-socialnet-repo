@@ -49,7 +49,7 @@ ___What We Learned?___
 
 ### Planification for Sprint 2:
 
-**Sprint II: Open **
+**Sprint II: Open**
 
 *Due Date: ​October 13, 2015*
 
