@@ -49,14 +49,24 @@ ___What We Learned?___
 
 ### Planification for Sprint 2:
 
-**Sprint II: Open**
+**Sprint II: Web Page Front-End Development**
 
 *Due Date: ​October 13, 2015*
 
-1. Completed front-end app, including dummy data stored via a JSON file on the client side, with matching requirements and task descriptions aformentioned in the Requirements Definition Document (see Requirements Definition Document in repository /docs folder).
-2. Updated Trello (Project Management Tool) with progress achieved
-3. Detailed Project Development Plan for Sprint III
-4. Updated Master Project Development Plan
+1. Make Brand Guideline decisions for the web application
+  * Typography
+  * Iconography
+  * Logos
+    * MusicVenue logo
+    * CoffeSquad logo
+2. Generate content list for notifications
+3. Study of development tools that will aid in the webpages’ implementations and study of frameworks to be adapted to AngularJS.
+4. Development of web pages using wireframes as reference.
+5. Dummy data elaboration for testing.
+6. Development of testing plan.
+7. Iterative page modification and test process for all pages locally.
+8. Testing of all pages on updated web server.
+
 
 -----------
 
