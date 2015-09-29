@@ -22,18 +22,25 @@
 
 9. Gantt chart updates
 
+**Sprint II: Web Page Front-End Development**
 
-**Sprint II: Implementation of the server functionalities**
+*Due Date: ​October 13, 2015*
 
-*Due Date: ​October 13, 2015* 
-
-1. Implementation of the server functionalities
-
-2. The GUI, server functionalities, and DBMS should all be working independently
-
-3. Detailed Project Development Plan for Sprint III 
-
-4. Updated Master Project Development Plan 
+1. Make Brand Guideline decisions for the web application
+  * Typography
+  * Iconography
+  * Color Pallette
+  * Personality
+  * Logos
+    * MusicVenue logo
+    * CoffeSquad logo
+2. Generate content list for notifications
+3. Study of development tools that will aid in the webpages’ implementations and study of frameworks to be adapted to AngularJS.
+4. Development of web pages using wireframes as reference.
+5. Dummy data elaboration for testing.
+6. Development of testing plan.
+7. Iterative page modification and test process for all pages locally.
+8. Testing of all pages on updated web server.
 
 
 **Sprint III: Integration Phase and Testing**
