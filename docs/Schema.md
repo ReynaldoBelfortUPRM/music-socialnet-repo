@@ -58,7 +58,7 @@ This photo contains the tables and their respective names found in the Heroku da
     PRIMARY KEY (post_id, liked_by_id, liked_by_category)
     post_like(post_id:integer, liked_by_id:integer, liked_by_category:string)
 
-##Coment
+##Comment
   comment
   
     PRIMARY KEY(post_id, by_id, by_category)
