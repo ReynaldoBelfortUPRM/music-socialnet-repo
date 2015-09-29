@@ -45,7 +45,7 @@ ___What We Learned?___
 3. Better time organization and task distribution
 4. Each team member's particular set of skills
 5. To organize our different ideas in order to create the best possible webpage wireframes
-6. Drawing wireframes helped in developing the idea on a deeper level before arriving at the final wireframe display
+6. Drawing wireframes on paper helped in developing the idea on a deeper level before arriving at the final wireframe display
 
 ### Planification for Sprint 2:
 
