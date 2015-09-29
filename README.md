@@ -56,6 +56,8 @@ ___What We Learned?___
 1. Make Brand Guideline decisions for the web application
   * Typography
   * Iconography
+  * Color Pallette
+  * Personality
   * Logos
     * MusicVenue logo
     * CoffeSquad logo
