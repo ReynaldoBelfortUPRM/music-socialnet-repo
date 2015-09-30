@@ -7,7 +7,7 @@ The following wire frames portray the way the business profile and its posts (co
 -----
 #####_Business Profile Page_
 
-![BP Image](https://trello-attachments.s3.amazonaws.com/5608cd90f4f1cd8a88a01656/396x486/6834352873569e5a956feab625f607a7/profile_business.PNG)
+![BP Image](https://trello-attachments.s3.amazonaws.com/5608cd90f4f1cd8a88a01656/300x366/b0f7936c51113b65d453d95a566adc8e/profile_business.PNG)
 
 #####_Types of Content Boxes_
 
