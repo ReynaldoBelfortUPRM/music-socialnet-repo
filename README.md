@@ -37,6 +37,7 @@ ___What Did Not Work Well?___
 1. Slight difference in terms of the vision of the future GUI for the web application
 2. Still need to improve our organizational and task distribution skills
 3. Must learn to work faster, therefore enhancing our use of available and/or set time
+4. Underestimate the complexity and time involved in the development of wireframes.
 
 ___What We Learned?___
 
