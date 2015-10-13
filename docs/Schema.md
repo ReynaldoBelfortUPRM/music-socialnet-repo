@@ -182,12 +182,8 @@ media_event
 
 
 
-<<<<<<< HEAD
 media_post
-=======
-##Comment
-  comment
->>>>>>> origin/master
+
   
 	CREATE TABLE media_post
 	(
@@ -417,7 +413,7 @@ trade_post
 
 uuser
   
-   CREATE TABLE uuser
+   	CREATE TABLE uuser
 	(
 	  user_id integer NOT NULL,
 	  first_name character varying(40),
