@@ -1,0 +1,53 @@
+{post_like:[
+    {
+        "post_id": "1",
+        "liked_by": "1"
+    },
+    {
+        "post_id": "3",
+        "liked_by": "2"
+    },
+    {
+        "post_id": "3",
+        "liked_by": "3"
+    },
+    {
+        "post_id": "3",
+        "liked_by": "1"
+    },
+    {
+        "post_id": "3",
+        "liked_by": "2"
+    },
+    {
+        "post_id": "2",
+        "liked_by": "3"
+    },
+    {
+        "post_id": "1",
+        "liked_by": "1"
+    },
+    {
+        "post_id": "4",
+        "liked_by": "2"
+    },
+    {
+        "post_id": "5",
+        "liked_by": "3"
+    },
+    {
+        "post_id": "6",
+        "liked_by": "1"
+    },
+    {
+        "post_id": "7",
+        "liked_by": "2"
+    },
+    {
+        "post_id": "7",
+        "liked_by": "3"
+    },
+    {
+        "post_id": ""
+    }
+]}

@@ -1,0 +1,17 @@
+{ggroup:[
+    {
+        "group_id": "1",
+        "name": "'musicvenue'",
+        "description": "'dbgroup'",
+        "group_administrator": "1"
+    },
+    {
+        "group_id": "2",
+        "name": "'groupname'",
+        "description": "'gd'",
+        "group_administrator": "2"
+    },
+    {
+        "group_id": ""
+    }
+]}

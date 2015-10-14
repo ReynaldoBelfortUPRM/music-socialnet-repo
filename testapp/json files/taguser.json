@@ -1,0 +1,37 @@
+{tag_user:[
+    {
+        "user_id": "1",
+        "data": "'hola'"
+    },
+    {
+        "user_id": "2",
+        "data": "'thisismusic'"
+    },
+    {
+        "user_id": "3",
+        "data": "'anothertag'"
+    },
+    {
+        "user_id": "1",
+        "data": "'tag'"
+    },
+    {
+        "user_id": "2",
+        "data": "'sometag'"
+    },
+    {
+        "user_id": "3",
+        "data": "'music'"
+    },
+    {
+        "user_id": "3",
+        "data": "'guitar"
+    },
+    {
+        "user_id": "1",
+        "data": "'bateria'"
+    },
+    {
+        "user_id": ""
+    }
+]}

@@ -1,0 +1,8 @@
+event_id,location,description,privacy,administrator_id,start_time,end_time,date,name,,,,,
+1,Puerto Rico,somedescription,public,1,'1970-01-01 00:00:01','1970-01-01 00:00:01',"""2013-01-08""",Feel the Music 1,,,,,
+2,Puerto Rico,somedescription,private,2,'1970-01-01 00:00:01','1970-01-01 00:00:01',"""2013-01-08""",Feel the Music 2,,,,,
+3,Stefani,somedescription,public,3,'1970-01-01 00:00:01','1970-01-01 00:00:01',"""2013-01-08""",Party Hits,,,,,
+4,SJ,somedescription,private,1,'1970-01-01 00:00:01','1970-01-01 00:00:01',"""2013-01-08""",Just  Dance,,,,,
+5,SJ,somedescription,public,2,'1970-01-01 00:00:01','1970-01-01 00:00:01',"""2013-01-08""", Salsa Night,,,,,
+6,SJ,somedescription,private,3,'1970-01-01 00:00:01','1970-01-01 00:00:01',"""2013-01-08""",Indie Fest,,,,,
+7,SJ,somedescription,public,1,'1970-01-01 00:00:01','1970-01-01 00:00:01',"""2013-01-08""",Music Fest,,,,,

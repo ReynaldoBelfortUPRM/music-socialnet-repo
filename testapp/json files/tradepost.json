@@ -1,0 +1,26 @@
+{trade_post:[
+    {
+        "trade_id": "1",
+        "user_id": "1",
+        "trade_description": "'Vendo guitarra'",
+        "phone": "'3333333330'",
+        "price": "8.35"
+    },
+    {
+        "trade_id": "2",
+        "user_id": "2",
+        "trade_description": "'Clases de bateria'",
+        "phone": "'9999999999'",
+        "price": "10"
+    },
+    {
+        "trade_id": "3",
+        "user_id": "3",
+        "trade_description": "'Clases de piano'",
+        "phone": "'5555555555'",
+        "price": "15"
+    },
+    {
+        "trade_id": ""
+    }
+]}

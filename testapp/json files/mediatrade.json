@@ -1,0 +1,20 @@
+{media_trade:[
+    {
+        "trade_id": "1",
+        "media_path": "'http://images.clipartpanda.com/guitar-clip-art-Chrisdesign_LP_Guitar_black.png'",
+        "media_type": "'p'"
+    },
+    {
+        "trade_id": "1",
+        "media_path": "'http://images.clipartpanda.com/guitar-clip-art-Chrisdesign_LP_Guitar_black.png'",
+        "media_type": "'p'"
+    },
+    {
+        "trade_id": "2",
+        "media_path": "'http://images.clipartpanda.com/guitar-clip-art-Chrisdesign_LP_Guitar_black.png'",
+        "media_type": "'p'"
+    },
+    {
+        "trade_id": ""
+    }
+]}

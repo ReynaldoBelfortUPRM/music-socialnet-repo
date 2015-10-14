@@ -1,0 +1,37 @@
+{tag_trade:[
+    {
+        "trade_id": "1",
+        "data": "'hola'"
+    },
+    {
+        "trade_id": "2",
+        "data": "'thisismusic'"
+    },
+    {
+        "trade_id": "3",
+        "data": "'anothertag'"
+    },
+    {
+        "trade_id": "1",
+        "data": "'tag'"
+    },
+    {
+        "trade_id": "2",
+        "data": "'sometag'"
+    },
+    {
+        "trade_id": "3",
+        "data": "'music'"
+    },
+    {
+        "trade_id": "3",
+        "data": "'guitar"
+    },
+    {
+        "trade_id": "1",
+        "data": "'bateria'"
+    },
+    {
+        "trade_id": ""
+    }
+]}

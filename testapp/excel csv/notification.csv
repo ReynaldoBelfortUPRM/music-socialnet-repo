@@ -1,0 +1,5 @@
+notification_id,data,user_id,notification_type
+1,'somedata',1,'e'
+2,'somedata',2,'t'
+3,'somedata',3,'e'
+4,'somedata',3,'t'

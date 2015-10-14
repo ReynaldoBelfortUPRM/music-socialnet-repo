@@ -1,0 +1,29 @@
+{notification:[
+    {
+        "notification_id": "1",
+        "data": "'somedata'",
+        "user_id": "1",
+        "notification_type": "'e'"
+    },
+    {
+        "notification_id": "2",
+        "data": "'somedata'",
+        "user_id": "2",
+        "notification_type": "'t'"
+    },
+    {
+        "notification_id": "3",
+        "data": "'somedata'",
+        "user_id": "3",
+        "notification_type": "'e'"
+    },
+    {
+        "notification_id": "4",
+        "data": "'somedata'",
+        "user_id": "3",
+        "notification_type": "'t'"
+    },
+    {
+        "notification_id": ""
+    }
+]}

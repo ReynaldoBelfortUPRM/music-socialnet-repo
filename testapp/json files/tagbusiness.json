@@ -1,0 +1,37 @@
+{tag_business:[
+    {
+        "business_id": "1",
+        "data": "'hola'"
+    },
+    {
+        "business_id": "2",
+        "data": "'butag'"
+    },
+    {
+        "business_id": "3",
+        "data": "'anothertag'"
+    },
+    {
+        "business_id": "4",
+        "data": "'tag'"
+    },
+    {
+        "business_id": "1",
+        "data": "'sometag'"
+    },
+    {
+        "business_id": "2",
+        "data": "'music'"
+    },
+    {
+        "business_id": "3",
+        "data": "'guitar"
+    },
+    {
+        "business_id": "4",
+        "data": "'bateria'"
+    },
+    {
+        "business_id": ""
+    }
+]}

@@ -1,0 +1,4 @@
+user_id,first_name,middle_name,last_name,email,password,photopath
+1,'Reynaldo', ','Be?','rey@something.com','pass','http://images.clipartpanda.com/user-clipart-xTgodLLTA.png'
+2,'Leslie','L','Soto','leslie@soto.com','lesliepass','http://images.clipartpanda.com/user-clipart-xTgodLLTA.png'
+3,'Tania','T','Hernandez','tania@hernande.com','taniapass','http://images.clipartpanda.com/user-clipart-xTgodLLTA.png'

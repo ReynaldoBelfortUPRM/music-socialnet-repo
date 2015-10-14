@@ -1,0 +1,37 @@
+{tag_group:[
+    {
+        "group_id": "1",
+        "data": "'hola'"
+    },
+    {
+        "group_id": "2",
+        "data": "'thisismusic'"
+    },
+    {
+        "group_id": "1",
+        "data": "'anothertag'"
+    },
+    {
+        "group_id": "2",
+        "data": "'tag'"
+    },
+    {
+        "group_id": "2",
+        "data": "'sometag'"
+    },
+    {
+        "group_id": "1",
+        "data": "'music'"
+    },
+    {
+        "group_id": "2",
+        "data": "'guitar"
+    },
+    {
+        "group_id": "1",
+        "data": "'bateria'"
+    },
+    {
+        "group_id": ""
+    }
+]}

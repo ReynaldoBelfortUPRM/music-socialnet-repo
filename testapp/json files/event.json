@@ -1,0 +1,61 @@
+{event:[
+    {
+        "event_id": "1",
+        "date_time": "'June 1",
+        "location": " BC 2000 03:20 PDT'",
+        "description": "'Puerto Rico'",
+        "privacy": "'somedescription'",
+        "administrator_id": "'pu'"
+    },
+    {
+        "event_id": "2",
+        "date_time": "'June 1",
+        "location": " BC 2000 03:20 PDT'",
+        "description": "'Puerto Rico'",
+        "privacy": "'somedescription'",
+        "administrator_id": "'pr'"
+    },
+    {
+        "event_id": "3",
+        "date_time": "'June 1",
+        "location": " BC 2000 03:20 PDT'",
+        "description": "'Stefani'",
+        "privacy": "'somedescription'",
+        "administrator_id": "'pu'"
+    },
+    {
+        "event_id": "4",
+        "date_time": "'June 1",
+        "location": " BC 2000 03:20 PDT'",
+        "description": "'Celis'",
+        "privacy": "'somedescription'",
+        "administrator_id": "'pu'"
+    },
+    {
+        "event_id": "5",
+        "date_time": "'June 1",
+        "location": " BC 2000 03:20 PDT'",
+        "description": "'Puerto Rico'",
+        "privacy": "'somedescription'",
+        "administrator_id": "'pr'"
+    },
+    {
+        "event_id": "6",
+        "date_time": "'June 1",
+        "location": " BC 2000 03:20 PDT'",
+        "description": "'Mayaguez'",
+        "privacy": "'somedescription'",
+        "administrator_id": "'pu'"
+    },
+    {
+        "event_id": "7",
+        "date_time": "'June 1",
+        "location": " BC 2000 03:20 PDT'",
+        "description": "'SJ'",
+        "privacy": "'somedescription'",
+        "administrator_id": "'pu'"
+    },
+    {
+        "event_id": ""
+    }
+]}

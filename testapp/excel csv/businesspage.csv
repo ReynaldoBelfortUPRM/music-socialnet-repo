@@ -1,0 +1,5 @@
+business_id,user_id,name,about,photo_path
+1,1,'Reys Business','ask Rey something about his business','http://dreamatico.com/data_images/music/music-5.jpg'
+2,1,'Reys second business','There is nothing to say','http://dreamatico.com/data_images/music/music-5.jpg'
+3,2,'Leslies  guitars','Leslie is teaching music','http://dreamatico.com/data_images/music/music-5.jpg'
+4,3,'Business','BusinessAbout','http://dreamatico.com/data_images/music/music-5.jpg'

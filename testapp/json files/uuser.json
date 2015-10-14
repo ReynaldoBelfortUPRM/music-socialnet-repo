@@ -1,0 +1,32 @@
+{uuser:[
+    {
+        "user_id": "1",
+        "first_name": "'Reynaldo'",
+        "middle_name": " '",
+        "last_name": "'Be?'",
+        "email": "'rey@something.com'",
+        "password": "'pass'",
+        "photopath": "'http://images.clipartpanda.com/user-clipart-xTgodLLTA.png'"
+    },
+    {
+        "user_id": "2",
+        "first_name": "'Leslie'",
+        "middle_name": "'L'",
+        "last_name": "'Soto'",
+        "email": "'leslie@soto.com'",
+        "password": "'lesliepass'",
+        "photopath": "'http://images.clipartpanda.com/user-clipart-xTgodLLTA.png'"
+    },
+    {
+        "user_id": "3",
+        "first_name": "'Tania'",
+        "middle_name": "'T'",
+        "last_name": "'Hernandez'",
+        "email": "'tania@hernande.com'",
+        "password": "'taniapass'",
+        "photopath": "'http://images.clipartpanda.com/user-clipart-xTgodLLTA.png'"
+    },
+    {
+        "user_id": ""
+    }
+]}
