@@ -19,7 +19,38 @@ The ***CoffeeSquad*** team
 
 Heroku Web Server: musicvenue.herokuapp.com
 
-Heroku Database: musicvenue-database.herokuapp.com; 
+Heroku Database: musicvenue-database.herokuapp.com
+
+-----------
+
+# Sprint 2: Retrospective Analysis
+
+___What Worked Well?___
+
+1. Focusing first on the functinality of the pages and then on the visual details produced a higher agility when it came to developing the webpages
+2. Communication among members and decisions among team members greatly improved
+
+___What Did Not Work Well?___
+
+1. Should have found a plug-in that could directly develop wireframes into webpages as it was designed
+2. Not taking advantage of the branches in GitHub
+
+___What We Learned?___
+
+1. Inserting tasks directly into each group member's to-do list helps save time
+2. Focus on functionality first and then on the visual details
+3. It is best to mention an idea first and then decide if it should be changed instead of waiting for it and deciding later
+
+
+### Planification for Sprint 3:
+
+**Sprint III: Open**
+
+*Due Date: ​October 27, 2015*
+
+1. 
+
+
 
 -----------
 
@@ -82,8 +113,6 @@ ___What Worked Well?___
 2. Every member was always in communication via WhatsApp or Trello.
 3. The differences of each member and how we used those in our favor.
 
-
-
 ___What Did Not Work Well?___
 
 
@@ -113,4 +142,4 @@ ___What We Learned?___
 6. Client-side wireframe designs
 7. Wireframe evaluations
 8. Elaboration of Project Development Plan for Sprint II 
-9. Gantt chart updates
+9. Gantt chart update
