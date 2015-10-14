@@ -1,6 +1,3 @@
-//Added files for static server
-var connect = require('connect');
-var serveStatic = require('serve-static');
 
 //var cool = require('cool-ascii-faces');
 //var express = require('express');
@@ -18,7 +15,7 @@ var serveStatic = require('serve-static');
 //   response.render('pages/index')
 // });
 
-connect().use(serveStatic(__dirname + '/www')).listen(5000);
+
 
 // app.get('/cool', function(request, response) {
 //   response.send(cool());
@@ -27,3 +24,16 @@ connect().use(serveStatic(__dirname + '/www')).listen(5000);
 // app.listen(app.get('port'), function() {
 //   console.log('Node app is running on port', app.get('port'));
 // });
+
+//---------------Method 1 for static files-------------------
+var express = require('express'); 
+var app = express();
+app.use(express.static(__dirname + '/www'));
+
+app.listen(process.env.PORT || 5000);
+
+
+//---------------Method 2 for static files-------------------
+// var connect = require('connect');
+// var serveStatic = require('serve-static');
+// onnect().use(serveStatic(__dirname + '/www')).listen(8080);
