@@ -21,18 +21,20 @@ Heroku Web Server: musicvenue.herokuapp.com
 
 Heroku Database: musicvenue-database.herokuapp.com
 
+Heroku MusicVenue Main Page: https://musicvenue.herokuapp.com/welcome_page.html
+
 -----------
 
 # Sprint 2: Retrospective Analysis
 
 ___What Worked Well?___
 
-1. Focusing first on the functinality of the pages and then on the visual details produced a higher agility when it came to developing the webpages
+1. Focusing first on the functionality of the pages and then on the visual details produced a higher agility when it came to developing the web pages
 2. Communication among members and decisions among team members greatly improved
 
 ___What Did Not Work Well?___
 
-1. Should have found a plug-in that could directly develop wireframes into webpages as it was designed
+1. Should have found a plug-in that could directly develop wireframes into web pages as it was designed
 2. Not taking advantage of the branches in GitHub
 
 ___What We Learned?___
@@ -48,7 +50,14 @@ ___What We Learned?___
 
 *Due Date: ​October 27, 2015*
 
-1. 
+1. Finalization of front-end details
+2. Domain name integration with the Heroku server
+3. Full functionality of web page navigation
+4. Integration of the database and server sides of the web application
+5. Insertion and extraction testing of the database data
+6. Basic integration of server and front-end sides of the web application
+7. Complete front-end functionality
+8. Develop and commence testing process
 
 
 
@@ -76,7 +85,7 @@ ___What We Learned?___
 2. Use of Visual Studio Blend for WireFrame creation
 3. Better time organization and task distribution
 4. Each team member's particular set of skills
-5. To organize our different ideas in order to create the best possible webpage wireframes
+5. To organize our different ideas in order to create the best possible web page wireframes
 6. Drawing wireframes on paper helped in developing the idea on a deeper level before arriving at the final wireframe display
 
 ### Planification for Sprint 2:
@@ -94,7 +103,7 @@ ___What We Learned?___
     * MusicVenue logo
     * CoffeSquad logo
 2. Generate content list for notifications
-3. Study of development tools that will aid in the webpages’ implementations and study of frameworks to be adapted to AngularJS.
+3. Study of development tools that will aid in the web pages’ implementations and study of frameworks to be adapted to AngularJS.
 4. Development of web pages using wireframes as reference.
 5. Dummy data elaboration for testing.
 6. Development of testing plan.
