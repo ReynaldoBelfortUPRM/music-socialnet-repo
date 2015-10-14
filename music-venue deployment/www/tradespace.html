@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MusicVenue - Tradespace</title>
+        <meta content="text/html; charset=utf-8" http-equiv="content-type">
+        <meta name="description" content="Freewall demo for pinterest-like layout" />
+        <meta name="keywords" content="javascript, dynamic, grid, layout, jquery plugin, pinterest like layouts" />
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <!-- CSS files -->
+        <!-- Necessary -->
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <!-- Tradespace relevant -->
+        <link rel="stylesheet" type="text/css" href="css/musicvenue-styles.css" />
+        <link rel="stylesheet" type="text/css" href="css/pinterest-style.css" />
+        <!-- Libraries -->
+        <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="js/freewall.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/jquery.slidereveal.min.js"></script>
+        <!-- <script type="text/javascript" src="js/scotchPanels.js"></script> -->
+        <!-- <script type="text/javascript" src="js/angular.min.js"></script> -->
+    </head>
+    <body>
+        <!-- ****Nav Bar**** -->
+        <div class="navbar-wrapper">
+            <div class="container">
+                <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+                    <ul class="nav navbar-nav inline-div-fix">
+                        <li class="active">
+                            <a href="#">Home</a>
+                        </li>
+                        <li>
+                            <a href="#about">About</a>
+                        </li>
+                        <li>
+                            <a href="#contact">Contact</a>
+                        </li>
+                    </ul>
+                    <div class="navbar-header inline-div-fix">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#"><span class="app-name-style"> MusicVenue</span></a>
+                    </div>
+                    <ul class="nav navbar-nav inline-div-fix">
+                        <li class="active">
+                            <a href="#">Home</a>
+                        </li>
+                        <li>
+                            <a href="#about">About</a>
+                        </li>
+                        <li>
+                            <a href="#contact">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade pg-show-modal" id="addAnnouncement" tabindex="-1" role="dialog" aria-hidden="true"> 
+            <div class="modal-dialog modal-lg modal-sm"> 
+                <div class="modal-content"> 
+                    <div class="modal-header"> 
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>                         
+                        <h4 class="modal-title">Add Announcement</h4> 
+                    </div>                     
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <input type="text" class="form-control" placeholder="Placeholder text">
+                            </div>
+                            <div class="row">
+                                <textarea class="form-control" placeholder="Description of your announcement" rows="5"></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="containter-fluid">
+                                    <div class="row">
+                                        <h5>Images:</h5>
+                                        <ul class="list-group"> 
+                                            <li class="list-group-item">Cras justo odio</li>                                             
+                                            <li class="list-group-item">Dapibus ac facilisis in</li>                                             
+                                            <li class="list-group-item">Morbi leo risus</li>                                             
+                                        </ul>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 text-center col-md-offset-4">
+                                            <div class="btn-group"> 
+                                                <button type="button" class="btn btn-default">Left</button>                                                 
+                                                <button type="button" class="btn btn-default">Middle</button>
+                                            </div>                                             
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group"> 
+                                    <label class="control-label" for="formInput166">Phone number:</label>
+                                    <input type="text" class="form-control" id="formInput166">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label> 
+                                    <input class="control-label" type="checkbox" value="">                                                                                                                                                                                                                                                                                                        Checkbox label        
+                                </label>
+                                <h4>Tags:</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <input type="text" class="form-control" placeholder="Placeholder text">                                     
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3"> 
+                                    <div class="panel"> 
+                                        <div class="panel-body">List of available tags</div>                                         
+                                    </div>                                     
+                                </div>
+                            </div>
+                        </div>                         
+                    </div>                     
+                    <div class="modal-footer"> 
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>                         
+                        <button type="button" class="btn btn-info" id="btnAddAnn">Add</button>                         
+                    </div>                     
+                </div>                 
+            </div>             
+        </div>
+        <!-- ****Add new announcements window**** -->
+        <div id="freewall" class="free-wall">
+            <div class="brick">
+                <img src="i/photo/1.jpg" width="100%">
+                <div class="info">
+                    <h3>Freewall</h3>
+                    <h5>Pinterest layout</h5>
+                    <button type="button" class="btn btn-info">Label</button>
+                </div>
+            </div>
+            <div class="brick">
+                <div class="container-fluid">
+                    <div class="row">
+                        <h4>Gibson Les Paul</h4>
+                    </div>
+                    <div class="row">
+                        <div class="well">Description of announcement</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Seller Info</h6>
+                            <h3>John Doe</h3>
+                            <h6>(787) 555-4545</h6>                              
+                        </div>
+                        <div class="col-md-6"> 
+                            <h3>$0.00 3</h3> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="brick">
+                <img src="i/photo/2.jpg" width="100%">
+                <div class="info">
+                    <h3>Freewall</h3>
+                    <h5>Pinterest layout</h5>
+                </div>
+            </div>
+            <div class="brick">
+                <img src="i/photo/3.jpg" width="100%">
+                <div class="info">
+                    <h3>The Music</h3>
+                    <h5>Pinterest layout</h5>
+                </div>
+            </div>
+        </div>
+        <!-- Slide menu testing -->
+        <div id='slider' class="slide-menu-style">
+            <div class="container-fluid slide-menu-container-style">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <div class="row">
+</div>                         
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation"> 
+            <div class="container-fluid"> 
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
+                    <ul class="nav navbar-nav navbar-right"> 
+                        <li> 
+                            <button id="btnSide" type="button" class="btn btn-default toggle-panel">Side menu</button>
+                            <button id="btnAdd" type="button" class="btn btn-success" data-toggle="modal" data-target="#addAnnouncement">Add</button>
+                        </li>                         
+                    </ul>                     
+                </div>                 
+            </div>             
+        </nav>
+        <!-- Functionallity -->
+        <script type="text/javascript" src="js/tradespace-logic.js"></script>
+    </body>
+</html>

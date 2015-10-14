@@ -1,0 +1,79 @@
+
+
+body
+{
+    background: rgba(231, 231, 231, 0.43);
+}
+
+/*----Tradespace Wall related----*/
+
+.free-wall
+{
+    margin: 80px 15px 15px;
+}
+
+.brick
+{
+    width: 221.2px;
+}
+
+.info
+{
+    padding: 15px;
+    color: #333;
+}
+
+.brick img
+{
+    margin: 0px;
+    padding: 0px;
+    display: block;
+}
+
+/*----Navigation bar customization----*/
+
+.navbar-wrapper
+{
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+}
+
+/* Flip around the padding for proper display in narrow viewports */
+
+.navbar-wrapper .container
+{
+    padding-right: 0;
+    padding-left: 0;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+.navbar-wrapper .navbar
+{
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+/*----Extras----*/
+
+.outerDiv
+{
+    height: 1;
+    background-color: #b50909;
+}
+
+.inner
+{
+    margin-top: 500;
+}
+
+.navbar-extrapos
+{
+}
+

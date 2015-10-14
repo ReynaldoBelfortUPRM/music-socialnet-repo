@@ -1,0 +1,286 @@
+
+
+/*
+ * Globals
+ */
+
+/* Links */
+
+a,
+a:focus,
+a:hover
+{
+    color: #fff;
+}
+
+/*Fonts*/
+
+@font-face{
+    font-family: 'Damion';
+    src: url(fonts/Damion-Regular.ttf) format('truetype');
+}
+
+@font-face{
+    font-family: 'Aller Light';
+    src: url(fonts/Aller_LtIt.ttf) format('truetype');
+}
+
+@font-face{
+    font-family: 'Alako';
+    src: url(fonts/Alako.ttf) format('truetype');
+}
+
+/* Custom default button */
+
+.btn-default,
+.btn-default:hover,
+.btn-default:focus
+{
+    color: #333;
+    text-shadow: none;
+    background-color: #fff;
+    border: 1px solid #fff;
+}
+
+/*
+ * Base structure
+ */
+
+html,
+body
+{
+    height: 100%;
+    background-color: #333;
+    /*Background Animation*/
+ /*   width:100px;
+    height:100px;*/
+    background:#333;
+    animation:myfirst 25 linear infinite;
+    -moz-animation:myfirst 25s linear infinite; /* Firefox */
+    -webkit-animation:myfirst 25s linear infinite; /* Safari and Chrome */
+    -o-animation:myfirst 25s linear infinite; /* Opera */
+}
+
+body
+{
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(0,0,0,.5);
+    box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+}
+
+/* Extra markup and styles for table-esque vertical and horizontal centering */
+
+.site-wrapper
+{
+    display: table;
+    width: 100%;
+    min-height: 100%;
+}
+
+.site-wrapper-inner
+{
+    display: table-cell;
+    vertical-align: top;
+}
+
+.cover-container
+{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Padding for spacing */
+
+.inner
+{
+    padding: 30px;
+}
+
+/*
+ * Header
+ */
+
+.masthead-brand
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.masthead-nav > li
+{
+    display: inline-block;
+}
+
+.masthead-nav > li + li
+{
+    margin-left: 20px;
+}
+
+.masthead-nav > li > a {
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff; /* IE8 proofing */
+  color: rgba(255,255,255,.75);
+  border-bottom: 2px solid transparent;
+}
+
+.masthead-nav > li > a:hover,
+.masthead-nav > li > a:focus
+{
+    background-color: transparent;
+    border-bottom-color: rgba(255,255,255,.25);
+}
+
+.masthead-nav > .active > a,
+.masthead-nav > .active > a:hover,
+.masthead-nav > .active > a:focus
+{
+    color: #fff;
+    border-bottom-color: #fff;
+}
+
+@media (min-width: 768px)
+{
+    .masthead-brand
+    {
+        float: left;
+    }
+    .masthead-nav
+    {
+        float: right;
+    }
+}
+
+/*
+ * Cover
+ */
+
+.cover
+{
+    padding: 0 20px;
+}
+
+.cover .btn-lg
+{
+    padding: 10px 30px;
+    font-weight: bold;
+}
+
+/*
+ * Footer
+ */
+
+.mastfoot {
+  color: #999; /* IE8 proofing */
+  color: rgba(255,255,255,.5);
+}
+
+/*
+ * Affix and center
+ */
+
+@media (min-width: 768px)
+{
+/* Pull out the header and footer */
+    .masthead
+    {
+        position: fixed;
+        top: 0;
+    }
+    .mastfoot
+    {
+        position: fixed;
+        bottom: 0;
+    }
+/* Start the vertical centering */
+    .site-wrapper-inner
+    {
+        vertical-align: middle;
+    }
+/* Handle the widths */
+    .masthead,
+  .mastfoot,
+  .cover-container
+    {
+        width: 100%;
+    }
+}
+
+@media (min-width: 992px)
+{
+    .masthead,
+  .mastfoot,
+  .cover-container
+    {
+        width: 700px;
+    }
+}
+
+.button-margins
+{
+    margin-left: 21px;
+}
+
+.cover-heading
+{
+    font-family: Damion;
+    font-size: 104px;
+}
+
+.lead
+{
+    font-size: 23px;
+    font-weight: 500;
+    font-family: Aller Light;
+}
+
+.footer-style
+{
+    font-size: 24px;
+    color: #fbf9f9;
+    font-family: Aller Light;
+    font-weight: 700;
+}
+
+.img
+{
+    margin-bottom: 15px;
+}
+
+/*Background animation*/
+
+@keyframes myfirst
+{
+    0%,100%   {background:#333;}
+    25%  {background:#61243C;}
+    50%  {background: #006342;}
+    75% {background:#61243C;}
+}
+
+@-moz-keyframes myfirst /* Firefox */
+{
+    0%,100%   {background:#333;}
+    25%  {background:#61243C;}
+    50%  {background: #006342;}
+    75% {background:#61243C;}
+}
+
+@-webkit-keyframes myfirst /* Safari and Chrome */
+{
+    0%,100%   {background:#333;}
+    25%  {background:#61243C;}
+    50%  {background: #006342;}
+    75% {background:#61243C;}
+}
+
+@-o-keyframes myfirst /* Opera */
+{
+    0%,100%   {background:#333;}
+    25%  {background:#61243C;}
+    50%  {background: #006342;}
+    75% {background:#61243C;}
+
+}
