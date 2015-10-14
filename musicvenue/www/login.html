@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <title>Music Venue</title>
+		<meta name="viewport" content="width-device-width, initial-scale=.3">
+		<link href ="css/bootstrap.min.css" rel ="stylesheet">
+		<link href ="css/styles.css" rel ="stylesheet">
+        <script type="text/javascript"  src="https://code.jquery.com/jquery-2.1.4.js"></script>
+        <script type="text/javascript"  src="js/function.js"></script>
+        <!--<script type="text/javascript"  src="js/boostrap.min.js"></script>-->
+	</head>
+	<body>
+	<!--
+    you can substitue the span of reauth email for a input with the email and
+    include the remember me checkbox
+    -->
+
+         
+   <div class="pull-right"><input id="signup" class="btn" type="button" value="Sign Up"></div>
+
+    <div class="container">
+        <div class="card card-container" id="logincontent">
+            <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+           <!-- <img id="profile-img" class="profile-img-card" src="https://trello-attachments.s3.amazonaws.com/560f20a1f325ff50c8b90193/1920x1080/7dd06f25c183c7c6962a9155c2ed0d15/logo.png" />-->
+            <p id="profile-name" class="profile-name-card"><h2 style="text-align:center">Welcome to MusicVenue!</h2></p>
+            <form class="form-signin">
+                <span id="reauth-email" class="reauth-email"></span>
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <button class="btn" type="submit">Sign in</button>
+            </form><!-- /form -->
+            <a href="#" class="forgot-password" id='forgotpass'>
+                Forgot the password?
+            </a>
+        </div><!-- /card-container -->
+    </div><!-- /container -->
+
+	</body>
+
+</html>
