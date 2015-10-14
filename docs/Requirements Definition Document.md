@@ -121,65 +121,59 @@ In the following document the reader can find all of the information pertaining 
 > * Password management in terms of a password reset protocol and a forgotten password protocol
 
 > Regular Users Only:
-> * Can follow other Regular Users, Groups, and Business/Organization profiles
-> * Can be followed back by other Users or Groups
-> * Can like Business/Organization, Group, or other User's posts
+> * Can follow other Regular Users profiles
+> * Can be followed back by other Users 
+> * Can like posts
 
 > Business/Organization Only:
 
-> * Must provide a description of the entity within a maximum range of 2000 characters and an address in order to set up a profile
-> * Should be oriented to businesses based solely on musical contexts
-> * May view certain details about the users who interact with it
-> * Cannot like any type of post but can follow a Group or User
+> * The user can create a Business/Organization page.
+> * Must provide a description of the entity to set up a profile.
+> * Should be oriented to businesses based solely on musical contexts.
+> * May view certain details about the users who interact with it.
+> * Cannot like any type of post.
 
 > Posting Options:
 
-> * May include media and/or text
-> * Basic CRUD rules and categorization apply
-> * Scheduling posts will be possible
-> * Users can comment and like posts
-> * Notification is sent to users whose post has been commented or liked
+> * May include media and/or text.
+> * Basic CRUD rules and categorization apply.
+> * Users can comment and like posts.
 
 > Follow Perks:
 
-> * Users can follow any other type of user of their desire
-> * Business/Organization user cannot follow anyone
+> * Users can follow other users.
+> * Business/Organization user cannot follow anyone.
 > * Following a user implies viewing said user’s posts in the Board
 
 > Social Interactions:
 
-> * Board displays shared content
->  * For Regular Users: Content shown comes from all user categories
->  * For Business/Organizations: Own posted content is shown on Board including those who have been shared by followers
->  * TradeSpace advertisements must include a title, a limited description of what is being offered, the category of the ad,      and offering price; providing a picture is optional
+>  * The Board page displays shared content.
+>  * For Regular Users: Content shown comes fron users followed.
+>  * TradeSpace advertisements include a title, a description of what is being offered, the category of the ad (tags); providing a picture and price is optional.
 
 > Events:
 
 > * Basic CRUD rules and categorization apply
-> * Description of event must include its name, presentation dates, location, and event classification (conference, concert, jamming event...) 
-> * Administrators of the event can invite users to it
-> * Appears in the homepage as a small rectangle
-> * Regular Users can mark their attendance as “Going”, “Maybe”, and “Not going” (this option available only for those users who have been invited)
+> * Description of event include its name, presentation dates, location and tags. 
+> * The administrator of the event can invite users to it.
 > * May be private or public
+> * Regular Users can mark their attendance as “Going”, “Maybe”, and “Not going” (this option available only for those users who have been invited if the event is private)
 >  *Public: Any user can attend the event
->  *Private: Only the Administrator(s) decide(s) who is allowed an invitation to the event as well as which users can invite other users, including the amount of invitations granted
+>  *Private: Only the Administrator decide who is allowed an invitation to the event as well as which users can invite other users, including the amount of invitations granted
 > * Notification is sent to users who have been invited to an event
 > * Entity will follow the ARR rules.
 
 > Groups:
 
-> * Will have a designated area in which information can be shared within the group
-> * Basic CRUD rules and categorization apply
-> * Administrators can add and remove members
-> * Classifications include: band, choir, or other
-> * Roles within these groups can be either common or customized where customizations include the role played by specific       group members
+> * Basic CRUD rules and categorization apply.
+> * The administrator can add and remove members.
+> * The group will be clasified with tags.
 > * Entity will follow the ARR rules.
-> * Members can post on the Groups' page
-> * Notification is sent to each member once another posts content or makes a change in the group
+> * The Group page will be populated with the posts where the group name is used as tag.
 
 > Search:
 
-> * User can search another user, a group, post, or tags by name
+> * User can search by tags.
 
 > **2.2 Desirable Requirements**
 
