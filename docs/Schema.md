@@ -251,9 +251,49 @@ notification
 ##Post
 
 
-post
+post_business
 
-	CREATE TABLE post
+
+	CREATE TABLE post_business
+	(
+	  post_id serial NOT NULL,
+	  business_id integer,
+	  data character varying,
+	  CONSTRAINT post_business_pkey PRIMARY KEY (post_id),
+	  CONSTRAINT post_business_business_id_fkey FOREIGN KEY (business_id)
+	      REFERENCES businesspage (business_id) MATCH SIMPLE
+	      ON UPDATE NO ACTION ON DELETE NO ACTION
+	)
+	WITH (
+	  OIDS=FALSE
+	);
+	ALTER TABLE post_business
+	  OWNER TO nhtxclclofbeab;
+
+
+post_business_like
+
+	CREATE TABLE post_business_like
+	(
+	  post_id integer NOT NULL,
+	  user_id integer NOT NULL,
+	  CONSTRAINT post_business_like_pkey PRIMARY KEY (post_id, user_id),
+	  CONSTRAINT post_business_like_post_id_fkey FOREIGN KEY (post_id)
+	      REFERENCES post_business (post_id) MATCH SIMPLE
+	      ON UPDATE NO ACTION ON DELETE NO ACTION,
+	  CONSTRAINT post_business_like_user_id_fkey FOREIGN KEY (user_id)
+	      REFERENCES uuser (user_id) MATCH SIMPLE
+	      ON UPDATE NO ACTION ON DELETE NO ACTION
+	)
+	WITH (
+	  OIDS=FALSE
+	);
+	ALTER TABLE post_business_like
+	  OWNER TO nhtxclclofbeab;
+
+post_user
+
+	CREATE TABLE post_user
 	(
 	  post_id integer NOT NULL,
 	  user_id integer,
@@ -261,31 +301,31 @@ post
 	  date_time timestamp without time zone,
 	  CONSTRAINT post_pkey PRIMARY KEY (post_id),
 	  CONSTRAINT post_user_id_fkey FOREIGN KEY (user_id)
-		  REFERENCES uuser (user_id) MATCH SIMPLE
-		  ON UPDATE NO ACTION ON DELETE NO ACTION
+	      REFERENCES uuser (user_id) MATCH SIMPLE
+	      ON UPDATE NO ACTION ON DELETE NO ACTION
 	)
 	WITH (
 	  OIDS=FALSE
 	);
-	ALTER TABLE post
+	ALTER TABLE post_user
 	  OWNER TO nhtxclclofbeab;
-
+	  
 		
-post_like
+post_user_like
   
-	CREATE TABLE post_like
+	CREATE TABLE post_user_like
 	(
 	  post_id integer NOT NULL,
 	  liked_by_id integer NOT NULL,
 	  CONSTRAINT post_like_pkey PRIMARY KEY (post_id, liked_by_id),
 	  CONSTRAINT post_like_liked_by_id_fkey FOREIGN KEY (liked_by_id)
-		  REFERENCES uuser (user_id) MATCH SIMPLE
-		  ON UPDATE NO ACTION ON DELETE NO ACTION
+	      REFERENCES uuser (user_id) MATCH SIMPLE
+	      ON UPDATE NO ACTION ON DELETE NO ACTION
 	)
 	WITH (
 	  OIDS=FALSE
 	);
-	ALTER TABLE post_like
+	ALTER TABLE post_user_like
 	  OWNER TO nhtxclclofbeab;
 
 
