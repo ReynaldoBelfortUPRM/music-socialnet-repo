@@ -9,8 +9,5 @@ Content boxes are the different type of posts a user can make, thoses being audi
 -----
 #####_Main Home Page_
 
-![Home Page Image](https://trello-attachments.s3.amazonaws.com/5604aef21dad457d39e3dc85/538x637/f07eab644a3bc191b8b1b30b264801c7/HomePage.PNG)
+![Home Page Image](https://trello-attachments.s3.amazonaws.com/5604aef21dad457d39e3dc85/361x425/ffbab124a9c4c1a5b8c6770ff8c59141/homepage_10-15-2015.PNG)
 
-#####_Type of Content Boxes_
-
-![Contect Boxes Image](https://trello-attachments.s3.amazonaws.com/5604aef21dad457d39e3dc85/407x685/c3b35c5501bedcb8548177a7ea03a136/contentbox_for_posts.PNG)
