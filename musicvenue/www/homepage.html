@@ -9,6 +9,9 @@
         <title>MusicVenue - Profile Page</title>
         <!-- CSS files -->
         <link rel="stylesheet" type="text/css" href="css/musicvenue-styles.css" />
+		
+		<link rel="stylesheet" type="text/css" href="css/styles.css" />
+
         <link href="css/profile-styles.css" rel="stylesheet" type="text/css">
         <link href="css/bootstrap.min.css" rel="stylesheet">         
         <!-- Custom styles for this template -->
@@ -21,19 +24,31 @@
         
     </head>
     <body>
+	
+	
+<!--NavBar Start...........................................................................................................-->
         <div class="navbar-wrapper">
             <div class="container">
                 <div class="navbar navbar-inverse navbar-static-top" role="navigation">
                     <ul class="nav navbar-nav inline-div-fix">
-                        <li class="active">
-                            <a href="#">Home</a>
+ 
+						<li ><!--<class="active">-->
+                            <a href="https://musicvenue.herokuapp.com/profile_page.html">Profile</a>
                         </li>
-                        <li>
-                            <a href="#about">About</a>
+						<li >
+                            <a href="https://musicvenue.herokuapp.com/tradespace.html">Trade Space</a>
                         </li>
-                        <li>
-                            <a href="#contact">Contact</a>
+						<li >
+                            <a href="https://musicvenue.herokuapp.com/event.html">Events</a>
                         </li>
+						
+						<!--<li >
+                            <a href="#gohome">Business Page</a>
+                        </li>-->
+						<!--<li >
+                            <a href="#gohome">Settings</a>
+                        </li>-->
+						
                     </ul>
                     <div class="navbar-header inline-div-fix">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -42,139 +57,87 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#"><span class="app-name-style"> MusicVenue</span></a>
+                        <a class="navbar-brand" href="https://musicvenue.herokuapp.com/homepage.html"><span class="app-name-style"> MusicVenue</span></a>
                     </div>
                     <ul class="nav navbar-nav inline-div-fix">
                         <li class="active">
-                            <a href="#">Home</a>
-                        </li>
-                        <li>
-                            <a href="#about">About</a>
-                        </li>
-                        <li>
-                            <a href="#contact">Contact</a>
+							<form class="form-signin">
+									<input type="submit" class="btn"  value="Find" style="float: right" />
+									<div style="overflow: hidden; padding-right: .5em;">
+									
+									   <input class="form-control"type="text" style="width: 100% ; height:100%;" value="Search" ></input>
+									</div>​
+							</form> 
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6" id="leftPanel">
+		
+<!--NavBar END......................................................................................................................................-->
+
+<!--LeftPanel START.................................................................................................................................-->				
+	
+
+       <!--     <div class="row">
+                <div class="col-md-6" id="leftPanel" style="background:#DDDDDD">
                     <div class="row">
-                        <div class="col-md-offset-2 col-md-9"> 
-                            <a href="#" class="thumbnail"> 
-                                <img src="file:///C:/Program%20Files%20(x86)/Pinegrow%20Web%20Designer/placeholders/img4.jpg" alt="">                                 
-                            </a>
-                            <h1>John Van Doe</h1>
-                            <button type="button" class="btn btn-block btn-success">Follow musician</button>                             
-                        </div>
+						<h1 style="color:black" class="app-name-style"><span class=app-name-style"><i class="fa fa-music"></i>MusicVenue</span><h1>
                     </div>
                     <div class="row">
                         <div class="col-md-offset-1 col-md-10">
-                            <h5>General description</h5>
-                            <hr /> 
+                            <h4>Home</h4>
+						<hr /> 
+
                         </div>
-                        <div class="well col-md-offset-1 col-md-10">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus aliquam dui nec nibh tincidunt, quis semper metus commodo. Vestibulum at felis nulla. In hac habitasse platea dictumst. In id dolor id nunc porta maximus. Donec imperdiet ac nunc non convallis. Ut ac mauris sit amet quam tincidunt scelerisque ut sit amet ipsum. Nunc commodo libero est. Nam non augue et metus ornare accumsan sed quis ex. </div>
+                        
                     </div>
-                    <div class="row">
-                        <h4>My Instruments</h4>
-                        <div class="well">
-                            <div class="container-fluid">
-                                <div class="row top-buffer">
-                                    <div class="col-xs-offset-1 col-md-3">
-                                        <img src="file:///C:/Program%20Files%20(x86)/Pinegrow%20Web%20Designer/placeholders/img8.jpg" width="200" class="img-responsive" /> 
-                                    </div>
-                                    <div class="col-md-3">
-                                        <img src="file:///C:/Program%20Files%20(x86)/Pinegrow%20Web%20Designer/placeholders/img8.jpg" width="200" class="img-responsive" /> 
-                                    </div>
-                                    <div class="col-md-3">
-                                        <img src="file:///C:/Program%20Files%20(x86)/Pinegrow%20Web%20Designer/placeholders/img8.jpg" width="200" class="img-responsive" /> 
-                                    </div>
-                                </div>
-                                <div class="row top-buffer">
-                                    <div class="col-md-3 col-xs-offset-1">
-                                        <img src="file:///C:/Program%20Files%20(x86)/Pinegrow%20Web%20Designer/placeholders/img8.jpg" width="200" class="img-responsive" /> 
-                                    </div>
-                                    <div class="col-md-3">
-                                        <img src="file:///C:/Program%20Files%20(x86)/Pinegrow%20Web%20Designer/placeholders/img8.jpg" width="200" class="img-responsive" /> 
-                                    </div>
-                                    <div class="col-md-3">
-                                        <img src="file:///C:/Program%20Files%20(x86)/Pinegrow%20Web%20Designer/placeholders/img8.jpg" width="200" class="img-responsive" /> 
-                                    </div>
-                                </div>
-                            </div>                             
-                        </div>
-                    </div>
-                    <div class="row">
-                        <h4>Groups involved</h4>
-                        <div class="well">
-                            <div class="container-fluid">
-                                <div class="row top-buffer">
-                                    <div class="col-xs-offset-1 col-md-3">
-                                        <img src="file:///C:/Program%20Files%20(x86)/Pinegrow%20Web%20Designer/placeholders/img8.jpg" width="200" class="img-responsive" /> 
-                                    </div>
-                                    <div class="col-md-3">
-                                        <img src="file:///C:/Program%20Files%20(x86)/Pinegrow%20Web%20Designer/placeholders/img8.jpg" width="200" class="img-responsive" /> 
-                                    </div>
-                                    <div class="col-md-3">
-                                        <img src="file:///C:/Program%20Files%20(x86)/Pinegrow%20Web%20Designer/placeholders/img8.jpg" width="200" class="img-responsive" /> 
-                                    </div>
-                                </div>
-                                <div class="row top-buffer">
-                                    <div class="col-md-3 col-xs-offset-1">
-                                        <img src="file:///C:/Program%20Files%20(x86)/Pinegrow%20Web%20Designer/placeholders/img8.jpg" width="200" class="img-responsive" /> 
-                                    </div>
-                                    <div class="col-md-3">
-                                        <img src="file:///C:/Program%20Files%20(x86)/Pinegrow%20Web%20Designer/placeholders/img8.jpg" width="200" class="img-responsive" /> 
-                                    </div>
-                                    <div class="col-md-3">
-                                        <img src="file:///C:/Program%20Files%20(x86)/Pinegrow%20Web%20Designer/placeholders/img8.jpg" width="200" class="img-responsive" /> 
-                                    </div>
-                                </div>
-                            </div>                             
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 col-xs-offset-4">
-                            <h3>Social</h3> 
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-11">
-                            <h2>25 followers</h2>
-                            <ul class="list-group"> 
-                                <li class="list-group-item">Cras justo odio</li>                                 
-                                <li class="list-group-item">Dapibus ac facilisis in</li>                                 
-                                <li class="list-group-item">Morbi leo risus</li>                                 
-                            </ul>                             
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-11">
-                            <h2>following</h2>
-                            <ul class="list-group"> 
-                                <li class="list-group-item">Cras justo odio</li>                                 
-                                <li class="list-group-item">Dapibus ac facilisis in</li>                                 
-                                <li class="list-group-item">Morbi leo risus</li>                                 
-                            </ul>                             
-                        </div>
-                    </div>
-                    <div class="row pg-empty-placeholder"></div>                     
+					
+					<div id="homepagebuttons">
+						<div class="row">
+							<button type="button" class="btn">Events Page</button> 
+							<hr /> 
+						</div>
+						<div class="row">
+							<button type="button" class="btn">Trade Space</button> 
+							<hr /> 
+							
+						</div>
+						<div class="row">
+							<button type="button" class="btn">Business Pages</button>
+							<hr /> 
+
+						</div>
+						<div class="row">
+							<button type="button" class="btn">Settings</button>
+							<hr /> 
+
+						</div>
+					</div>
+                               
                 </div>
-                <div class="col-md-6" id="rightPanel">
+				
+			</div>
+			-->
+	
+<!--LeftPanel END........................................................................................................................................-->				
+ 
+<!--FreeWall START.......................................................................................................................................-->				
+               <!-- <div class="col-md-6" id="rightPanel"> -->
                     <div id="freewall" class="free-wall"></div>
-                </div>
-            </div>
-        </div>
+               <!--</div> -->
+<!--FreeWall END..........................................................................................................................................-->				
+				
+				
+         
         <!-- Javascript Files
     ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="js/jquery-1.10.2.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/freewall.min.js"></script>
-        <script src="js/profilepage-logic.js"></script>
+        <script src="js/homepage-logic.js"></script>
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-        <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+        <!--<script src="assets/js/ie10-viewport-bug-workaround.js"></script>
     </body>
 </html>

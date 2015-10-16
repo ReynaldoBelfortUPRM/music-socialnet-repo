@@ -8,8 +8,8 @@ body, html {
     height: 100%;
     background-repeat: no-repeat;
     background-size: cover;
-   background-image: url("https://trello-attachments.s3.amazonaws.com/561940813bafb467b6776c38/818x544/0dddd453f0b3714d9349278c6babc853/pertharena_12.jpg");
-
+   /**background-image: url("https://trello-attachments.s3.amazonaws.com/561940813bafb467b6776c38/818x544/0dddd453f0b3714d9349278c6babc853/pertharena_12.jpg");
+**/
 }
 
 .card-container.card {
@@ -27,6 +27,12 @@ text-align: left;
 
 }
 
+
+.general-text-color{
+
+color:black;
+	
+}
 .btn {
   -webkit-border-radius: 8;
   -moz-border-radius: 8;
@@ -42,6 +48,23 @@ text-align: left;
   padding: 10px 20px 10px 20px;
   text-decoration: none;
 }
+
+.inputbtn {
+  -webkit-border-radius: 8;
+  -moz-border-radius: 8;
+  border-radius: 8px;
+  text-shadow: 1px 1px 3px #5c3b5c;
+  -webkit-box-shadow: 0px 0px 3px #666666;
+  -moz-box-shadow: 0px 0px 3px #666666;
+  box-shadow: 0px 0px 3px #666666;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 10px;
+  background: #00785e;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
 
 .btn:hover {
   background: #02c799;

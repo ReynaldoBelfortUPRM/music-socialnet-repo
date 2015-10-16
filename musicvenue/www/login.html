@@ -6,7 +6,7 @@
 		<link href ="css/bootstrap.min.css" rel ="stylesheet">
 		<link href ="css/styles.css" rel ="stylesheet">
         <script type="text/javascript"  src="https://code.jquery.com/jquery-2.1.4.js"></script>
-        <script type="text/javascript"  src="js/function.js"></script>
+        <script type="text/javascript"  src="js/login-register-logic.js"></script>
         <!--<script type="text/javascript"  src="js/boostrap.min.js"></script>-->
 	</head>
 	<body>
@@ -16,7 +16,6 @@
     -->
 
          
-   <div class="pull-right"><input id="signup" class="btn" type="button" value="Sign Up"></div>
 
     <div class="container">
         <div class="card card-container" id="logincontent">
@@ -27,8 +26,14 @@
                 <span id="reauth-email" class="reauth-email"></span>
                 <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
                 <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                <button class="btn" type="submit">Sign in</button>
+				
+				  <form><a href="https://musicvenue.herokuapp.com/homepage.html"> <input id="signin"type="submit" value="Sign in" class="inputbtn"></a>  <input type="submit" id="signup"value="Sign Up" class="inputbtn"></form>
+
             </form><!-- /form -->
+			
+			
+			<td>
+</td>
             <a href="#" class="forgot-password" id='forgotpass'>
                 Forgot the password?
             </a>
