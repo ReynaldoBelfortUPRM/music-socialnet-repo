@@ -27,7 +27,7 @@
                 <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
                 <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
 				
-				  <form><a href="https://musicvenue.herokuapp.com/homepage.html"> <input id="signin"type="submit" value="Sign in" class="inputbtn"></a>  <input type="submit" id="signup"value="Sign Up" class="inputbtn"></form>
+				  <form> <input id="signin"type="submit" value="Sign in" class="inputbtn" >  <input type="submit" id="signup"value="Sign Up" class="inputbtn"></form>
 
             </form><!-- /form -->
 			
@@ -39,7 +39,16 @@
             </a>
         </div><!-- /card-container -->
     </div><!-- /container -->
+		
+	<script>		
+		
+		$( '#signin' ).click(function() {
+            //re-direct to the home page:
+            window.location.href = "homepage.html";
 
+		});
+
+	</script>
 	</body>
 
 </html>

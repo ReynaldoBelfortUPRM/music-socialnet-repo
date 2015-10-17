@@ -10,6 +10,8 @@ body, html {
     background-size: cover;
    /**background-image: url("https://trello-attachments.s3.amazonaws.com/561940813bafb467b6776c38/818x544/0dddd453f0b3714d9349278c6babc853/pertharena_12.jpg");
 **/
+
+	background:#61243C;
 }
 
 .card-container.card {
