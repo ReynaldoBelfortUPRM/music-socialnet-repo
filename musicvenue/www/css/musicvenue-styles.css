@@ -12,6 +12,12 @@ body
     src: url(fonts/Damion-Regular.ttf) format('truetype');
 }
 
+@font-face{
+    font-family: 'Open Sans';
+    src: url(fonts/OpenSans-Regular.ttf) format('truetype');
+}
+
+
 /*----Tradespace Wall related----*/
 
 .free-wall
