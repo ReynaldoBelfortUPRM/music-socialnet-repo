@@ -1,38 +1,127 @@
-<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<html>
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/general.css"/>
+    <!--Custom Style-->
+    <link rel="stylesheet" type="text/css" href="css/settings.css"/>
+</head>
 
-  <head>
-    <title>MusicVenue - Settings</title>
+<body>
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="tradespace.html">Tradespace</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <input type="email" placeholder="Search">
+                        </a>
 
-    <meta name="viewport" content="width-device-width, initial-scale=1">
-    
-     
-  </head>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <button type="button" class="btn btn-sm btn-general">Search</button>
+                        </a>
+                    </li>
+                    <li><a href="homepage.html"><span class="app-name-style">MusicVenue</span></a>
+                    </li>
+                    <li><a href="event.html">Events</a>
+                    </li>
+                    <li><a href="group_page.html">Groups</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Nina Belafonte<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="profile_page.html">Profile</a>
+                            </li>
+                            <li><a href="settings.html">Settings</a>
+                            </li>
+                            <li><a href="#">Log Out</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+    <!-- End of Nav Bar -->
 
-  <body>
-    <!--Start of Settings List-->
+    <div class="container theme-showcase">
+        <div class="jumbotron">
+            <h1>Hey, subscriber!</h1>
+            Here in MusicVenue we strive to connect musicians by opening up a virtual world full of possibilities. Our mission is to provide an innovative experience in order to let your creative juices flow. Thanks for joining us!
+            <p></p>
+            <p>XOXO, The CoffeeSquad</p>
+
+        </div>
+
+        <!--Start of Settings Components-->
         <div>
             <div class="page-header">
                 <h1>Settings</h1>
             </div>
 
             <!--ACCOUNT-->
-            <div class="panel panel-primary">
+            <div class="panel panel-general">
                 <div class="panel-heading">
                     <h3 class="panel-title">Account</h3>
                 </div>
                 <div class="panel-body">
-                    <p>Edit Name
-                        <button type="button" class="btn btn-sm btn-danger">Save</button>
-                    </p>
-                    <p>Edit Profile Picture</p>
-                    <p>Reset Password</p>
-                    <p>Change E-Mail Address</p>
+                    <div class="row">
+                        <div class=".col-md-8">
+                            <ul class="list-group">
+                                <li class="list-group-item">Edit Profile Picture
+                                    <button type="button" class="btn btn-sm btn-general">Remove</button>
+                                </li>
+                                <li class="list-group-item">Edit Name
+                                    <input type="text" value="Nina">
+                                    <input type="text" value="Belafonte">
+                                    <button="" class="btn btn-sm btn-general">Save
+                                    </button="">
+                                </li>
+                                <li class="list-group-item">Reset Password
+                                    <input type="password" value="">
+                                    <button type="button" class="btn btn-sm btn-general">Save</button>
+                                </li>
+                                <li class="list-group-item">Change E-Mail Address
+                                    <input type="email" placeholder="nina.b@hotmail.com">
+                                    <button type="button" class="btn btn-sm btn-general">Save</button>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
                 </div>
             </div>
+
+            <!--ABOUT ME-->
+            <div class="panel panel-general">
+                <div class="panel-heading">
+                    <h3 class="panel-title">About Me</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class=".col-md-8">
+                            <ul class="list-group">
+                                <li class="list-group-item">Tags:
+                                    <input type="email" placeholder="guitar, piano ...">
+                                    <button type="button" class="btn btn-sm btn-general">Add</button>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
             <!--CHATS-->
-            <div class="panel panel-primary">
+            <div class="panel panel-general">
                 <div class="panel-heading">
                     <h3 class="panel-title">Chats</h3>
                 </div>
@@ -41,20 +130,82 @@
                         <div class=".col-md-8">
                             <ul class="list-group">
                                 <li class="list-group-item">Mandingo Rivera
-                                    <button type="button" class="btn btn-sm btn-danger">Save</button>
+                                    <button type="button" class="btn btn-sm btn-general">Remove</button>
                                 </li>
                                 <li class="list-group-item">Anacleta del Valle
-                                    <button type="button" class="btn btn-sm btn-danger">Save</button>
+                                    <button type="button" class="btn btn-sm btn-general">Remove</button>
+                                </li>
+                                <li class="list-group-item">Valeria García
+                                    <button type="button" class="btn btn-sm btn-general">Remove</button>
+                                </li>
+                                <li class="list-group-item">
+                                    <button type="button" class="btn btn-sm btn-general">Add a New Chat</button>
                                 </li>
                             </ul>
                         </div>
 
                     </div>
                 </div>
-                User information details. Basic info area (from Profile Page, left side panel) My instruments
-
-
             </div>
-</body>
 
-</html>
+            <!--BUSINESS-->
+            <div class="panel panel-general">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Business</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class=".col-md-8">
+                            <ul class="list-group">
+                                <li class="list-group-item">The Lonely Guitar Music Store
+                                    <button type="button" class="btn btn-sm btn-general">Remove</button>
+                                </li>
+                                <li class="list-group-item">Mecca Incorporated Label
+                                    <button type="button" class="btn btn-sm btn-general">Remove</button>
+                                </li>
+                                <li class="list-group-item">
+                                    <button type="button" class="btn btn-sm btn-general">Add New Business</button>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--GROUPS-->
+            <div class="panel panel-general">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Groups</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class=".col-md-8">
+                            <ul class="list-group">
+                                <li class="list-group-item">The CoffeeSquad
+                                    <button type="button" class="btn btn-sm btn-general">Remove</button>
+                                </li>
+                                <li class="list-group-item">Metalheads
+                                    <button type="button" class="btn btn-sm btn-general">Remove</button>
+                                </li>
+                                <li class="list-group-item">
+                                    <button type="button" class="btn btn-sm btn-general">Add New Group</button>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /container -->
+
+
+        <!-- Bootstrap core JavaScript
+    ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+    </div>
+</body>
