@@ -29,32 +29,39 @@ Heroku MusicVenue Main Page: https://musicvenue.herokuapp.com/welcome_page.html
 
 ___What Worked Well?___
 
-1. 
-2. 
+1. Addition of HCI details to the webpages
+2. The use of Pinegrow in order to facilitate the HTML views as we coded
+3. Changing the plug in for the dynamic grid in Tradespace
+4. Using AngularJS to connect the JSON data with all of the HTML elements
 
 ___What Did Not Work Well?___
 
-1. Github Usage
-2. Put too much tasks to do in the Planification for this sprint.
+1. Branch usage in GitHub
+2. Put too much work on our plate for this particular sprint
 
 ___What We Learned?___
 
-1. Use GitHub in a more wisely way.
-2. To measure the amount of work possible in a range of time in a more realistic way.
+1. To be more careful in the way we use GitHub branches
+2. To measure the amount of work possible per sprint in a more realistic manner
+3. Better understanding of Bootstrap
 
 
 ### Planification for Sprint 4:
 
-**Sprint III: Open**
+**Sprint IV: Open**
 
-*Due Date: ​October 3, 2015*
+*Due Date: ​November 10, 2015*
 
-1. Session Maintain
-2. All functions of communication with the server and database per page
+1. Basic integration of server and front-end sides of the web application
+2. Develop and possibly commence testing process
+3. Register and maintain user sessions on the social network
+4. Develop communication functionalities amongst the server and the database per webpage
+5. Insert and update the social network database
 
 
 
 -----------
+
 # Sprint 2: Retrospective Analysis
 
 ___What Worked Well?___
