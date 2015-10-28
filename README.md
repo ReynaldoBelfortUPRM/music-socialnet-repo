@@ -25,6 +25,36 @@ Heroku MusicVenue Main Page: https://musicvenue.herokuapp.com/welcome_page.html
 
 -----------
 
+# Sprint 3: Retrospective Analysis
+
+___What Worked Well?___
+
+1. 
+2. 
+
+___What Did Not Work Well?___
+
+1. Github Usage
+2. Put too much tasks to do in the Planification for this sprint.
+
+___What We Learned?___
+
+1. Use GitHub in a more wisely way.
+2. To measure the amount of work possible in a range of time in a more realistic way.
+
+
+### Planification for Sprint 4:
+
+**Sprint III: Open**
+
+*Due Date: ​October 3, 2015*
+
+1. Session Maintain
+2. All functions of communication with the server and database per page
+
+
+
+-----------
 # Sprint 2: Retrospective Analysis
 
 ___What Worked Well?___
