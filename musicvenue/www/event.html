@@ -9,7 +9,6 @@
 
         <link href ="css/mvenue-nav-bar-style.css" rel ="stylesheet">
         <link href ="css/musicvenue-styles.css" rel ="stylesheet">
-        <link href ="css/general.css" rel ="stylesheet">
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <script type="text/javascript"  src="https://code.jquery.com/jquery-2.1.4.js"></script>
@@ -68,7 +67,7 @@
 <!--administrate start pane-->
 
                     <div id="administrate_pane" >
-                        <div class="grid">
+                        <div class="grid ">
                             <div class="row">
                                 <div class="col-sm-4">
                                     <h3><i class="fa fa-gears"></i> Manage Your Events</h3>
@@ -78,7 +77,7 @@
                             </div>
                         </div><!--end header of the pane-->
 
-    <!--start adm list--><div class="container" ng-repeat="data in events">
+    <!--start adm list--><div class="event-container" ng-repeat="data in events">
                             <div class="row">
                                 <div class="col-md-7">
                                     <a href="#">
@@ -129,7 +128,7 @@
 
 
 
-            <div class="container" ng-repeat="data in events">
+            <div class="event-container" ng-repeat="data in events">
                 <div class="row">
                     <div class="col-md-7">
                         <a href="#">
@@ -170,7 +169,7 @@
 <!--going header end-->
 
 
-                        <div class="container" ng-repeat="data in events">
+                        <div class="event-container" ng-repeat="data in events">
                             <div class="row">
                                 <div class="col-md-7">
                                     <a href="#">

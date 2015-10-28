@@ -17,8 +17,24 @@ body, html {
     padding: 10pt;
     border-collapse: separate;
     text-align: left;
+    border-radius: 8px;
+    background-color: #DDDDDD;
+
 
 }
+
+.event-container{
+    border-top: 4pt ;
+    padding: 10pt;
+    border-collapse: separate;
+    text-align: left;
+    border-radius: 8px;
+    background-color: #DDDDDD;
+    margin-bottom: 17px;
+
+
+}
+
 
 .card {
     background-color: #F7F7F7;
