@@ -4,6 +4,8 @@ body
 {
     background: #e8e8e8;
     font-family: 'Helvetica Neue', Helvetica, Arial;
+    padding-top:50px;
+
 }
 
 /*Masonry layout plugin*/

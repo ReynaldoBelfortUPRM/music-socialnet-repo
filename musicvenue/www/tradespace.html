@@ -28,47 +28,75 @@
         <script src="js/upload_form/jquery.iframe-transport.js"></script>
         <script src="js/upload_form/jquery.fileupload.js"></script>
         <script src="js/upload_form/upload-form.js"></script>
+
+
+
+        <!--NavBar-->
+        <link rel="stylesheet" type="text/css" href="css/settings.css"/>
+
+
         <button type="button" id="btnNewAnn" class="btn btn-default btnAddAnn-style" data-toggle="modal" data-target="#addAnnouncement">+</button>
     </head>
     <body ng-app="app" ng-controller="TradespaceController as trademain">
-        <div class="navbar-wrapper">
-            <div class="container-fluid">
-                <div class="navbar navbar-inverse navbar-static-top" role="navigation">
-                    <ul class="nav navbar-nav inline-div-fix">
-                        <li class="active">
-                            <a href="#">Home</a>
-                        </li>
-                        <li>
-                            <a href="#about">About</a>
-                        </li>
-                        <li>
-                            <a href="#contact">Contact</a>
-                        </li>
-                    </ul>
-                    <div class="navbar-header inline-div-fix">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="#"><span class="app-name-style"> MusicVenue</span></a>
-                    </div>
-                    <ul class="nav navbar-nav inline-div-fix">
-                        <li class="active">
-                            <a href="#">Home</a>
-                        </li>
-                        <li>
-                            <a href="#about">About</a>
-                        </li>
-                        <li>
-                            <a href="#contact">Contact</a>
-                        </li>
-                    </ul>
-                </div>
+
+    <!-- NavBar start....................................................................................................-->
+
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="tradespace.html">Tradespace</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <input type="email" placeholder="Search">
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="#">
+                            <button type="button" class="btn btn-sm btn-general">Search</button>
+                        </a>
+                    </li>
+                    <li><a href="homepage.html"><span class="app-name-style">MusicVenue</span></a>
+                    </li>
+                    <li><a href="event.html">Events</a>
+                    </li>
+                    <li><a href="group_page.html">Groups</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Nina Belafonte<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="profile_page.html">Profile</a>
+                            </li>
+                            <li><a href="settings.html">Settings</a>
+                            </li>
+                            <li><a href="#">Log Out</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
+            <!--/.nav-collapse -->
         </div>
-        <div class="modal fade pg-show-modal" id="addAnnouncement" tabindex="-1" role="dialog" aria-hidden="true"> 
+    </div>
+    <!-- End of Nav Bar -->
+
+    <!-- NavBar end.....................................................................................................-->
+
+
+
+<!--DONT DELETE is for the space between navbar and tradeposts -->
+    <p style="opacity: 1">-</p>
+
+
+
+
+
+
+        <div class="modal fade pg-show-modal" id="addAnnouncement" tabindex="-1" role="dialog" aria-hidden="true"" >
             <div class="modal-dialog modalCustom"> 
                 <div class="modal-content"> 
                     <div class="modal-header"> 
