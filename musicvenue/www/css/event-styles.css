@@ -35,6 +35,7 @@ body, html {
 
 }
 
+.editEventBtn
 
 .card {
     background-color: #F7F7F7;
@@ -102,8 +103,7 @@ body, html {
 
 .col-xs-6{
     height: 100px;
-    background: yellow;
-    border:2px solid;
+    /**border:2px solid;**/
 }
 
 .col-xs-4{
