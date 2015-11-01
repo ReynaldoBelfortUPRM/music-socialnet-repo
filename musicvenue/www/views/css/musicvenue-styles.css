@@ -10,17 +10,17 @@ body
 
 @font-face{
     font-family: 'Damion';
-    src: url(fonts/Damion-Regular.ttf) format('truetype');
+    src: url(../../res/fonts/Damion-Regular.ttf) format('truetype');
 }
 
 @font-face{
     font-family: 'Open Sans';
-    src: url(fonts/OpenSans-Regular.ttf) format('truetype');
+    src: url(../../res/fonts/OpenSans-Regular.ttf) format('truetype');
 }
 
 @font-face{
     font-family: 'Aller Light';
-    src: url(fonts/Aller_LtIt.ttf) format('truetype');
+    src: url(../../res/fonts/Aller_LtIt.ttf) format('truetype');
 }
 
 
@@ -84,7 +84,7 @@ body
     width: 40px;
     height: 40px;
     margin-left: 3px;
-    background-image: url('../i/icons/thumbs4.png');
+    background-image: url('../../res/img/icons/thumbs4.png');
     background-size: 20px 20px;
     background-repeat: no-repeat;
     background-position: center;

@@ -17,17 +17,17 @@ a:hover
 
 @font-face{
     font-family: 'Damion';
-    src: url(fonts/Damion-Regular.ttf) format('truetype');
+    src: url(../../res/fonts/Damion-Regular.ttf) format('truetype');
 }
 
 @font-face{
     font-family: 'Aller Light';
-    src: url(fonts/Aller_LtIt.ttf) format('truetype');
+    src: url(../../res/fonts/Aller_LtIt.ttf) format('truetype');
 }
 
 @font-face{
     font-family: 'Alako';
-    src: url(fonts/Alako.ttf) format('truetype');
+    src: url(../../res/fonts/Alako.ttf) format('truetype');
 }
 
 /* Custom default button */
