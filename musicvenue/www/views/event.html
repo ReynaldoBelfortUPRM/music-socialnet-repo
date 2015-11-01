@@ -6,14 +6,14 @@
 
         <!-- CSS files -->
         <link rel="stylesheet" type="text/css" href="css/general.css"/>
-        <!--Custom Style-->
-        <link rel="stylesheet" type="text/css" href="css/settings.css"/>
+            <!--Custom Style-->
+            <link rel="stylesheet" type="text/css" href="css/settings.css"/>
+            <!-- CSS from libraries -->
+            <link href ="../res/lib/css/bootstrap.min.css" rel ="stylesheet">
         <link href ="css/event-styles.css" rel ="stylesheet">
         <link href ="css/mvenue-nav-bar-style.css" rel ="stylesheet">
         <link href ="css/musicvenue-styles.css" rel ="stylesheet">
-        <!-- CSS from libraries -->
-        <link href ="../res/lib/css/bootstrap.min.css" rel ="stylesheet">
-
+        
         <!-- Libraries -->
         <script type="text/javascript" src="../res/lib/jquery.min.js"></script>
         <script type="text/javascript" src="../res/lib/bootstrap.min.js"></script>
@@ -243,12 +243,12 @@
 
         </div>
 
-
+        <!-- Script for loading JSON data -->
         <script>
-            var events= angular.module ('events', []);
-            events.controller('myController', function($scope, $http){
+            var eventsModule = angular.module('events', []);
+            eventsModule.controller('myController', function($scope, $http){
                 $http.get('../data/event.json').success(function(response){
-                    $scope.events =response.events;
+                    $scope.events = response.events;
                 });
             });
         </script>
