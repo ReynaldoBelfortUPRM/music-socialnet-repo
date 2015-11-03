@@ -56,22 +56,22 @@ app.use(function(err, req, res, next) {
   });
 });
 
-//DB------------------------------------------------------------------------
+//DATABASE------------------------------------------------------------------------
 
-var pg = require("pg");
+// var pg = require("pg");
 
-var conString = "pg://nhtxclclofbeab:K9eQnPqG_yWOgquFHw9PkfhmhX@ec2-54-163-228-188.compute-1.amazonaws.com:5432/d1jo4i2pnj1en2";
+// var conString = "pg://nhtxclclofbeab:K9eQnPqG_yWOgquFHw9PkfhmhX@ec2-54-163-228-188.compute-1.amazonaws.com:5432/d1jo4i2pnj1en2";
 
-conString={
-  user: "nhtxclclofbeab",
-  password: "K9eQnPqG_yWOgquFHw9PkfhmhX",
-  database: "d1jo4i2pnj1en2",
-  port: 5432,
-  host: "ec2-54-163-228-188.compute-1.amazonaws.com",
-  ssl: true
-};
-var client = new pg.Client(conString);
-client.connect();
+// conString={
+//   user: "nhtxclclofbeab",
+//   password: "K9eQnPqG_yWOgquFHw9PkfhmhX",
+//   database: "d1jo4i2pnj1en2",
+//   port: 5432,
+//   host: "ec2-54-163-228-188.compute-1.amazonaws.com",
+//   ssl: true
+// };
+// var client = new pg.Client(conString);
+// client.connect();
 
 
 //client.query("INSERT INTO uuser(first_name, last_name, email, password, photo_path, about) VALUES ($1, $2,$3, $4,$5, $6)",
@@ -82,18 +82,18 @@ client.connect();
 
 
 
- client.query("CREATE TABLE IF NOT EXISTS emps(firstname varchar(64), lastname varchar(64))");
- client.query("INSERT INTO emps(firstname, lastname) values($1, $2)", ['Ronald', 'McDonald']);
- client.query("INSERT INTO emps(firstname, lastname) values($1, $2)", ['Mayor', 'McCheese']);
+//  client.query("CREATE TABLE IF NOT EXISTS emps(firstname varchar(64), lastname varchar(64))");
+//  client.query("INSERT INTO emps(firstname, lastname) values($1, $2)", ['Ronald', 'McDonald']);
+//  client.query("INSERT INTO emps(firstname, lastname) values($1, $2)", ['Mayor', 'McCheese']);
 
-var query = client.query("SELECT firstname, lastname FROM emps ORDER BY lastname, firstname");
-query.on("row", function (row, result) {
-  result.addRow(row);
-});
-query.on("end", function (result) {
-  //console.log(JSON.stringify(result.rows, null, "    "));
-  client.end();
-});
-//DB--------------------------------------------------------------------------
+// var query = client.query("SELECT firstname, lastname FROM emps ORDER BY lastname, firstname");
+// query.on("row", function (row, result) {
+//   result.addRow(row);
+// });
+// query.on("end", function (result) {
+//   //console.log(JSON.stringify(result.rows, null, "    "));
+//   client.end();
+// });
+//DATABASE--------------------------------------------------------------------------
 
 module.exports = app;
