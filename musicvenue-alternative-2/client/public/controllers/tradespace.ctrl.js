@@ -22,6 +22,22 @@ masonry.layout();
 angular.module('app').controller("TradespaceController", function($http){
 	var vmodel = this; //The scope of this controller.
 
+	//Variable initializations
+    vmodel.announcements = [];
+    vmodel.newAnn = {
+                "trade_id": 0,
+                "user_id": 0,
+                "title": '',    
+                "trade_description": '',
+                "phone": '',
+                "price": '',
+                "seller_name": '',
+                "tags": [],
+                "email": '',
+                "images": 0
+              };
+
+
     //--------Event handling-------------
 
 	//Adding new announcements:
@@ -74,27 +90,18 @@ angular.module('app').controller("TradespaceController", function($http){
 		vmodel.newAnn.singleTag = '';
 	};
 
-    //Variable initializations
-    vmodel.announcements = [];
-    vmodel.newAnn = {
-                "trade_id": 0,
-                "user_id": 0,
-                "title": '',    
-                "trade_description": '',
-                "phone": '',
-                "price": '',
-                "seller_name": '',
-                "tags": [],
-                "email": '',
-                "images": 0
-              };
-
-
 
     //----------------Loading Dummy data for testing-----------------------
-    $http.get('../data/tradespace.json').success(function(response){
-             vmodel.announcements = response.announcements;
-    });
+    // $http.get('../data/tradespace.json').success(function(response){
+    //          vmodel.announcements = response.announcements;
+    // });
+
+	//Retrieving JSON Data from database:
+	$http.get('/mvenue-database/tradespace/').success(function(response)
+	{
+		//Load data on the view
+		vmodel.announcements = response.announcements;
+	});
 
 
 });
