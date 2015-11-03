@@ -1,0 +1,49 @@
+
+
+/*To arrange the  input textbox and post button*/
+
+ul > li
+{
+    display: inline-block;
+    zoom: 1;
+}
+
+
+.masonryClassWall
+{
+}
+
+.post-bar
+{
+    background-color: #DDDDDD;
+    margin-left: 25%;
+    margin-top: 5%;
+    border-radius: 8px;
+    padding-top: 10px;
+    width: auto;
+    float: left;
+    min-height: 65px;
+    height: auto;
+}
+
+.input-post-style
+{
+    width: 446px;
+}
+
+.btn-post-bar
+{
+    margin-right: 3px;
+    border-radius: 25px;
+    width: 45px;
+    height: 45px;
+    margin-left: -2px;
+}
+
+.postbar-ul-buttons
+{
+    display: inline-block;
+    text-align: center;
+    height: 55px;
+}
+

@@ -4,9 +4,12 @@ var path = require('path');
 var pg = require('pg');
 var connectionString = require(path.join(__dirname, '../', '../', 'config'));
 
-
+//Sending the MusicVenue welcome page to the client
 router.get('/', function(req, res, next) {
-  res.sendFile(path.join(__dirname, '../', '../', 'client', 'views', 'index.html'));
+    //TODO For debugging purposes:
+    console.log("Path: " + path.join(__dirname, '../', '../', 'client', 'public', 'views', 'index.html'));
+
+  res.sendFile(path.join(__dirname, '../', '../', 'client', 'public', 'views', 'index.html'));
 });
 
 

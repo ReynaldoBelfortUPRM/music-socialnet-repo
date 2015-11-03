@@ -1,0 +1,114 @@
+
+
+body
+{
+    background: rgba(231, 231, 231, 0.43);
+}
+
+/*Fonts*/
+
+@font-face{
+    font-family: 'Damion';
+    src: url(fonts/Damion-Regular.ttf) format('truetype');
+}
+
+/*----Tradespace Wall related----*/
+
+.free-wall
+{
+    margin: 80px 15px 15px;
+}
+
+.brick
+{
+    width: 221.2px;
+}
+
+.info
+{
+    padding: 15px;
+    color: #333;
+}
+
+.brick img
+{
+    margin: 0px;
+    padding: 0px;
+    display: block;
+}
+
+/*----Navigation bar customization----*/
+
+.navbar-wrapper
+{
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    position: relative;
+    text-align: center;
+}
+
+/* Flip around the padding for proper display in narrow viewports */
+
+.navbar-wrapper .container
+{
+    padding-right: 0;
+    padding-left: 0;
+    text-align: center;
+    width: 100%;
+}
+
+.navbar-wrapper .navbar
+{
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 0 auto;
+    float: left;
+}
+
+/*----Extras----*/
+
+.outerDiv
+{
+    height: 1;
+    background-color: #b50909;
+}
+
+.inner
+{
+    margin-top: 500;
+}
+
+.navbar-extrapos
+{
+}
+
+.width-control
+{
+    display: inline-block;
+}
+
+@media (min-width:768px)
+{
+    .inline-div-fix
+    {
+        margin: 0 auto;
+    }
+}
+
+.app-name-style
+{
+    font-family: 'Damion';
+}
+
+.slide-menu-style
+{
+    margin-top: 90px;
+}
+
+.slide-menu-container-style
+{
+    background-color: rgba(255, 255, 255, 0.95);
+}
+

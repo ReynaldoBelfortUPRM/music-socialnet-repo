@@ -9,6 +9,7 @@ var routes = require('./server/routes/index');
 
 var app = express();
 
+//TODO Necessary condition for some reason
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -20,6 +21,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, './client', 'public')));
+//TODO The  folder containing the /html files must be added as well
+app.use(express.static(path.join(__dirname, './client', 'public', 'views')));
 
 app.use('/', routes);
 
