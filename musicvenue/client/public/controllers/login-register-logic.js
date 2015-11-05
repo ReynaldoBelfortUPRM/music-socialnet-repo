@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	$( "#signup" ).click(function() {
-	  $("#logincontent").html('<form class="form-signin"> </span><h2>Create your Account</h2> <input type="text" id="inputLastName" class="form-control" placeholder="Name" required autofocus><span id="reauth-email" class="reauth-email"></span> <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>  <input type="password" id="inputPassword" class="form-control" placeholder="Password" required> <input type="password" id="reinputPassword" class="form-control" placeholder="Re-enter your Password" required>                            <br/>   <button class="btn" type="submit">Create your account</button> </form><!-- /form -->');
+	  //$("#logincontent").html('<form class="form-signin"> </span><h2>Create your Account</h2> <input type="text" id="inputLastName" class="form-control" placeholder="Name" required autofocus><span id="reauth-email" class="reauth-email"></span> <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>  <input type="password" id="inputPassword" class="form-control" placeholder="Password" required> <input type="password" id="reinputPassword" class="form-control" placeholder="Re-enter your Password" required>                            <br/>   <button class="btn" type="submit">Create your account</button> </form><!-- /form -->');
 	
 
 	});

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MusicVenue-Create New Event</title>
+    <meta name="viewport" content="width-device-width, initial-scale=.3">
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" type="text/css" href="css/general.css"/>
+    <!-- CSS for plugins/libraries -->
+    <link rel ="stylesheet" href ="../res/lib/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../res/lib/css/video-js.css" />
+    <link rel="stylesheet" type="text/css" href="css/upload-form-homepage.css" />
+    <!--Custom Style-->
+    <link rel="stylesheet" type="text/css" href="css/settings.css"/>
+    <link href ="css/event-styles.css" rel ="stylesheet">
+    <link href ="css/musicvenue-styles.css" rel ="stylesheet">
+    <link href ="css/event-new-styles.css" rel ="stylesheet">
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../res/lib/jquery.min.js"></script>
+    <script type="text/javascript" src="../res/lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../res/lib/angular.min.js"></script>
+
+</head>
+<body>
+
+
+
+
+
+
+<div class="ne-container container-fluid cover inner" >
+
+    <div class="container">
+
+
+        <div class="grid">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <h1>Register</h1>
+                    </div>
+
+                </div>
+                <div class="col-md-12">
+
+                    <hr>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="inputdefault"> First Name</label>
+                                <input class="form-control" id="inputdefault" type="text">
+                                <hr/>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputdefault">Last Name</label>
+                                <input class="form-control" id="inputdefault" type="text">
+                                <hr/>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputdefault">Email</label>
+                                <input class="form-control" id="inputdefault" type="text">
+                                <hr/>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputdefault">Password</label>
+                                <input class="form-control" id="inputdefault" type="password">
+                                <hr/>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputdefault">Re-enter Password</label>
+                                <input class="form-control" id="inputdefault" type="password">
+                                <hr/>
+                            </div>
+
+
+
+
+                        </form>
+                        <hr>
+                        <div class="row">
+
+                            <div class="col-xs-3">
+                                <button type="button" class="btn btn-general">Create</button>
+
+
+                            </div>
+
+
+                            <div class="col-xs-3">
+                                <button type="button" class="btn btn-general">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6" >
+                <form id="upload" method="post" action="upload.php" enctype="multipart/form-data">
+                    <div id="drop">
+                        Drop Here A Photo
+
+                        <a>Browse</a>
+                        <input type="file" name="upl" multiple />
+                    </div>
+
+                    <ul>
+                        <!-- The file uploads will be shown here -->
+                    </ul>
+
+                </form>
+            </div>
+
+
+            <!-- JavaScript Includes -->
+            <script src="../res/lib/upload_form/jquery.knob.js"></script>
+
+            <!-- jQuery File Upload Dependencies -->
+            <script src="../res/lib/upload_form/jquery.ui.widget.js"></script>
+            <script src="../res/lib/upload_form/jquery.iframe-transport.js"></script>
+            <script s<!-- Our main JS file -->
+            <!-- <script src="../res/lib/script.js"></script> -->rc="../res/lib/upload_form/jquery.fileupload.js"></script>
+
+            <!-- Our main JS file -->
+            <!-- <script src="../res/lib/script.js"></script> -->
+</body>
+</html>
