@@ -27,9 +27,9 @@ angular.module('app').controller("LoginControl", function($http, $location){
 
     vmodel.signin = function (event){
             console.log("cliqueaste el signin");
-    //         $http.post('/mvenue-database/login/', {email: vmodel.loginemail, password: vmodel.loginpassword}).success(function(dbData){
-    //            console.log(dbData);
-    //         });
-    // };
+            $http.post('/mvenue-database/login/', {email: vmodel.loginemail, password: vmodel.loginpassword}).success(function(dbData){
+               console.log(JSON.stringify(dbData));
+            });
+    }
 
 });
