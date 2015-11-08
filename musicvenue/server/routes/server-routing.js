@@ -2,12 +2,54 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var pg = require('pg');
-var connectionString = require(path.join(__dirname, '../', '../', 'config'));
+//var connectionString = require(path.join(__dirname, '../', '../', 'config'));
+
+var connectionString={
+  user: "nhtxclclofbeab",
+  password: "K9eQnPqG_yWOgquFHw9PkfhmhX",
+  database: "d1jo4i2pnj1en2",
+  port: 5432,
+  host: "ec2-54-163-228-188.compute-1.amazonaws.com",
+  ssl: true
+};
 
 //Sending the MusicVenue welcome page to the client
 router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../', '../', 'client', 'public', 'views', 'index.html'));
 });
+
+var id =[];
+initialize_id();
+function initialize_id() {
+  pg.connect(connectionString, function (err, client, done) {
+    // Handle connection errors
+    if (err) {
+      done();
+      console.log(err);
+      return res.status(500).json({success: false, data: err});
+    }
+
+
+    // SQL Query > Select Data
+    var query = client.query("SELECT MAX(user_id) FROM uuser");
+
+    // Stream results back one row at a time
+    query.on('row', function (row) {
+      id.push(row);
+    });
+
+    // After all data is returned, close connection and return results
+    query.on('end', function () {
+      done();
+
+      console.log(id[0].max);//OMG este es el q es
+      id = id[0].max+1;
+    });
+
+
+  });
+}
+
 
 //--------------TODO Area where the database queries will be handled---------------------
 //--------------TODO Check section for info on router methods: Response methods    http://expressjs.com/guide/routing.html 
@@ -74,6 +116,99 @@ router.get('/mvenue-database/tradespace/', function(req, res) {
 });
 
 //------------------------ END Tradespace page------------------------------------------
+
+
+//------------------------ START login page------------------------------------------
+
+router.post('/mvenue-database/login/', function(req, res) {
+
+    var results = [];
+
+    // Grab data from http request
+    var logintry = {email: req.body.email, password: req.body.password };
+
+    // Get a Postgres client from the connection pool
+    pg.connect(connectionString, function(err, client, done) {
+        // Handle connection errors
+        if(err) {
+            done();
+            console.log(err);
+            return res.status(500).json({ success: false, data: err});
+        }
+
+
+        // client.query("INSERT INTO items(text, complete) values($1, $2)", [data.text, data.complete]);
+        //client.query("INSERT INTO uuser(user_id, first_name, last_name,email, password, photo_path, about) values($1, $2,$3, $4,$5, $6,$7)", [id, user.first_name, user.last_name, user.email, user.password, user.photo_path, user.about]);
+
+
+        //TODO Aquí se debería enviar de vuelta al usuario sobre si pasó el registro o no:
+        //Si email existe, etc.
+
+        var query = client.query("SELECT * FROM uuser WHERE email = $1", logintry.email);
+
+        // Stream results back one row at a time
+        query.on('row', function(row) {
+            results.push(row);
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function() {
+            done();
+            console.log(JSON.stringify(results));
+            return res.json(results);
+        });
+    });
+});
+//------------------------ END login page--------------------------------------------
+
+//------------------------ START Register page------------------------------------------
+
+ router.post('/mvenue-database/register/', function(req, res) {
+
+     var results = [];
+
+     // Grab data from http request
+     //var data = {text: req.body.text, complete: false};
+      var user = {first_name: req.body.text, last_name:"del valle", email:"asdsasa", password:"pass", photo_path:"photo", about:"about" };
+
+     // Get a Postgres client from the connection pool
+     pg.connect(connectionString, function(err, client, done) {
+         // Handle connection errors
+         if(err) {
+           done();
+           console.log(err);
+           return res.status(500).json({ success: false, data: err});
+         }
+
+    
+        // client.query("INSERT INTO items(text, complete) values($1, $2)", [data.text, data.complete]);
+        client.query("INSERT INTO uuser(user_id, first_name, last_name,email, password, photo_path, about) values($1, $2,$3, $4,$5, $6,$7)", [id, user.first_name, user.last_name, user.email, user.password, user.photo_path, user.about]);
+
+         
+         //TODO Aquí se debería enviar de vuelta al usuario sobre si pasó el registro o no: 
+            //Si email existe, etc.
+            
+         var query = client.query("SELECT * FROM uuser ORDER BY user_id ASC");
+
+         // Stream results back one row at a time
+         query.on('row', function(row) {
+             results.push(row);
+         });
+
+         // After all data is returned, close connection and return results
+         query.on('end', function() {
+             done();
+             return res.json(results);
+         });
+     });
+ });
+//------------------------ END Register page--------------------------------------------
+
+
+
+
+
+
 
 
 //######################TODO - CODE TO BE USED AS REFERENCE######################

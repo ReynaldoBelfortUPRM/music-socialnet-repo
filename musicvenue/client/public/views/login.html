@@ -10,9 +10,18 @@
 
         <script src="../res/lib/jquery.min.js"></script>>
         <script type="text/javascript"  src="../controllers/login-register-logic.js"></script>
+
+
+        <!--<script type="text/javascript" src="../res/lib/jquery.min.js"></script>-->
+        <script type="text/javascript" src="../res/lib/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../res/lib/angular.min.js"></script>
+
+        <script type="text/javascript" src="../controllers/app.js"></script>
+        <script type="text/javascript" src="../controllers/login.ctrl.js"></script>
+
         <!--<script type="text/javascript"  src="js/boostrap.min.js"></script>-->
 	</head>
-	<body>
+	<body ng-app="app" ng-controller="LoginControl as main">
 	<!--
     you can substitue the span of reauth email for a input with the email and
     include the remember me checkbox
@@ -22,36 +31,43 @@
 
     <div class="container">
         <div class="card card-container" id="logincontent">
-            <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
-           <!-- <img id="profile-img" class="profile-img-card" src="https://trello-attachments.s3.amazonaws.com/560f20a1f325ff50c8b90193/1920x1080/7dd06f25c183c7c6962a9155c2ed0d15/logo.png" />-->
             <p id="profile-name" class="profile-name-card"><h2 style="text-align:center">Welcome to MusicVenue!</h2></p>
             <form class="form-signin">
                 <span id="reauth-email" class="reauth-email"></span>
-                <input type="email" class="form-control" placeholder="Email address" required autofocus>
-                <input type="password" class="form-control" placeholder="Password" required>
+                <input ng-model="loginemail" type="email" class="form-control" placeholder="Email address" required autofocus >
+                <input  ng-model="loginpass" type="password" class="form-control" placeholder="Password" required>
+                <form> <input type="submit" value="Sign in" class="inputbtn btn-general" ng-click="main.signin()">
 
-				  <form> <input id="signin"type="submit" value="Sign in" class="inputbtn btn-general" >  <input type="submit" id="signup"value="Sign Up" class="inputbtn btn-general"></form>
+                    <input type="submit" id="signup" value="Sign Up" class="inputbtn btn-general" onclick=""window.location="register.html">
+
+                </form>
 
             </form><!-- /form -->
-			
-			
-			<td>
-</td>
+
+
             <a href="#" class="forgot-password" id='forgotpass'>
                 Forgot the password?
             </a>
         </div><!-- /card-container -->
     </div><!-- /container -->
 		
-	<script>		
-		
-		$( '#signin' ).click(function() {
-            //re-direct to the home page:
-            window.location.href = "homepage.html";
 
-		});
-
-	</script>
 	</body>
+    <!--<script>-->
 
+        <!--$( '#signin' ).click(function() {-->
+            <!--//re-direct to the home page:-->
+            <!--window.location.href = "homepage.html";-->
+
+        <!--});-->
+
+    <!--</script> <!--<script>-->
+
+        <!--$( '#signin' ).click(function() {-->
+            <!--//re-direct to the home page:-->
+            <!--window.location.href = "homepage.html";-->
+
+        <!--});-->
+
+    <!--</script>-->
 </html>

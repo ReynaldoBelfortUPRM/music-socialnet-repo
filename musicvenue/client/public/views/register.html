@@ -16,24 +16,26 @@
     <link href ="css/event-styles.css" rel ="stylesheet">
     <link href ="css/musicvenue-styles.css" rel ="stylesheet">
     <link href ="css/event-new-styles.css" rel ="stylesheet">
-
     <!-- Libraries -->
     <script type="text/javascript" src="../res/lib/jquery.min.js"></script>
     <script type="text/javascript" src="../res/lib/bootstrap.min.js"></script>
     <script type="text/javascript" src="../res/lib/angular.min.js"></script>
 
+     <!-- AngularJS related -->
+    <script type="text/javascript" src="../controllers/app.js"></script>
+
 </head>
-<body>
-
-
-
+<body  ng-app="app" ng-controller="RegisterControl as main">
 
 
 
 <div class="ne-container container-fluid cover inner" >
 
     <div class="container">
+        <!--<div ng-repeat="user in main.uusers">{{user.first_name}}</div>-->
+        <!--<div> <input ng-model="inputname" ng-keyup="main.add($event)"></div>-->
 
+        <!--ng-keyup cuando le des enter-->
 
         <div class="grid">
             <div class="col-md-6">
@@ -54,28 +56,28 @@
 
                         <form role="form">
                             <div class="form-group">
-                                <label for="inputdefault"> First Name</label>
-                                <input class="form-control" id="inputdefault" type="text">
+                                <label for="firstname"> First Name</label>
+                                <input class="form-control" id="firstname" type="text" ng-model="firstname">
                                 <hr/>
                             </div>
                             <div class="form-group">
-                                <label for="inputdefault">Last Name</label>
-                                <input class="form-control" id="inputdefault" type="text">
+                                <label for="lastname">Last Name</label>
+                                <input class="form-control" id="lastname" type="text"  ng-model="lastname">
                                 <hr/>
                             </div>
                             <div class="form-group">
-                                <label for="inputdefault">Email</label>
-                                <input class="form-control" id="inputdefault" type="text">
+                                <label for="email">Email</label>
+                                <input class="form-control" id="email" type="text" ng-model="email">
                                 <hr/>
                             </div>
                             <div class="form-group">
-                                <label for="inputdefault">Password</label>
-                                <input class="form-control" id="inputdefault" type="password">
+                                <label for="password">Password</label>
+                                <input class="form-control" id="password" type="password" ng-model="password">
                                 <hr/>
                             </div>
                             <div class="form-group">
-                                <label for="inputdefault">Re-enter Password</label>
-                                <input class="form-control" id="inputdefault" type="password">
+                                <label for="repassword">Re-enter Password</label>
+                                <input class="form-control" id="repassword" type="password" ng-model="repassword">
                                 <hr/>
                             </div>
 
@@ -87,7 +89,7 @@
                         <div class="row">
 
                             <div class="col-xs-3">
-                                <button type="button" class="btn btn-general">Create</button>
+                                <button type="button" class="btn btn-general"  ng-keyup="main.create($event)>Create</button>
 
 
                             </div>
@@ -121,13 +123,13 @@
             <!-- JavaScript Includes -->
             <script src="../res/lib/upload_form/jquery.knob.js"></script>
 
-            <!-- jQuery File Upload Dependencies -->
+            <!-- Upload Form plugin -->
             <script src="../res/lib/upload_form/jquery.ui.widget.js"></script>
             <script src="../res/lib/upload_form/jquery.iframe-transport.js"></script>
-            <script s<!-- Our main JS file -->
-            <!-- <script src="../res/lib/script.js"></script> -->rc="../res/lib/upload_form/jquery.fileupload.js"></script>
+            <script src="../res/lib/upload_form/jquery.fileupload.js"></script>
+            <script src="../res/lib/upload_form/upload-form.js"></script>
 
-            <!-- Our main JS file -->
-            <!-- <script src="../res/lib/script.js"></script> -->
+            <!--Register page js file-->
+            <script type="text/javascript" src="../controllers/register.ctrl.js"></script>
 </body>
 </html>
