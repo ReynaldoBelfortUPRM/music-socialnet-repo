@@ -109,11 +109,11 @@ body, html
 
 .group-members-box
 {
+    background-color: #f7f7f7;
     min-height: 100px;
     width: 260px;
     border-radius: 10px;
     padding-top: 5px;
-    background: white;
 }
 
 .tag-list

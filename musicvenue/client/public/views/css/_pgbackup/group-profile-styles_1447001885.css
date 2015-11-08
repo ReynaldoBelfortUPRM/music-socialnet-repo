@@ -34,17 +34,16 @@ body, html
     text-align: center;
     height: 100%;
     min-height: 600px;
-    background-color: #f7f7f7;
-    border: solid;
+    background-color: #f1f1f1;
+    background: white;
 }
 
 #rightPanel
 {
     height: 100%;
     text-align: center;
+    background: white;
     min-height: 600px;
-    background-color: #f7f7f7;
-    border: solid;
 }
 
 .top-buffer
@@ -95,7 +94,7 @@ body, html
     min-height: 75px;
     min-width: 240px;
     width: auto;
-    left: 38%;
+    left: 37%;
     margin-top: -5%;
 }
 
@@ -109,34 +108,9 @@ body, html
 
 .group-members-box
 {
+    background-color: #f7f7f7;
     min-height: 100px;
     width: 260px;
     border-radius: 10px;
-    padding-top: 5px;
-    background: white;
-}
-
-.tag-list
-{
-    margin-left: 5%;
-    width: auto;
-    max-width: 90%;
-}
-
-.tag-style
-{
-    min-width: 40px;
-    background-color: #b7b7b7;
-    border-radius: 2px;
-    float: left;
-    margin: 4px 3px;
-    padding: 2px 4px;
-}
-
-.group-members-events-title
-{
-    font-family: Aller Light;
-    font-weight: normal;
-    font-size: 27px;
 }
 

@@ -35,7 +35,6 @@ body, html
     height: 100%;
     min-height: 600px;
     background-color: #f7f7f7;
-    border: solid;
 }
 
 #rightPanel
@@ -44,7 +43,7 @@ body, html
     text-align: center;
     min-height: 600px;
     background-color: #f7f7f7;
-    border: solid;
+    border: #000000;
 }
 
 .top-buffer
@@ -109,11 +108,11 @@ body, html
 
 .group-members-box
 {
+    background-color: #f7f7f7;
     min-height: 100px;
     width: 260px;
     border-radius: 10px;
     padding-top: 5px;
-    background: white;
 }
 
 .tag-list
