@@ -26,12 +26,10 @@ angular.module('app').controller("LoginControl", function($http, $location){
     // };
 
     vmodel.signin = function (event){
-            $http.post('/mvenue-database/login/?email='+vmodel.loginemail+"&password="vmodel.loginpassword).success(function(dbData){
-               console.log(dbData);
-    });
-
-
-
-    };
+            console.log("cliqueaste el signin");
+    //         $http.post('/mvenue-database/login/', {email: vmodel.loginemail, password: vmodel.loginpassword}).success(function(dbData){
+    //            console.log(dbData);
+    //         });
+    // };
 
 });
