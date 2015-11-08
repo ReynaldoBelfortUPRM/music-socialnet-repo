@@ -121,14 +121,19 @@ router.get('/mvenue-database/tradespace/', function(req, res) {
 //------------------------ START login page------------------------------------------
 
 router.post('/mvenue-database/login/', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: Login server entry.");
 
     var results = [];
 
     // Grab data from http request
     var logintry = {email: req.body.email, password: req.body.password };
+    //TODO DEBUG
+    //console.log("DEBUG: Request data:" + logintry.email + " " + logintry.password);
 
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, function(err, client, done) {
+
         // Handle connection errors
         if(err) {
             done();
@@ -151,12 +156,17 @@ router.post('/mvenue-database/login/', function(req, res) {
             results.push(row);
         });
 
+        //TODO DEBUG
+          console.log("DEBUG: Results" + results.toString());
+
         // After all data is returned, close connection and return results
         query.on('end', function() {
             done();
             console.log(JSON.stringify(results));
             return res.json(results);
         });
+
+        
     });
 });
 //------------------------ END login page--------------------------------------------
