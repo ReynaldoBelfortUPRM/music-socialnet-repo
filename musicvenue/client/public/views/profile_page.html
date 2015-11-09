@@ -7,74 +7,75 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <title>MusicVenue - Profile Page</title>
+        <!-- CSS Libraries -->
+        <link rel="stylesheet" href="../res/lib/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../res/lib/css/video-js.css">
         <!-- CSS files -->
         <link rel="stylesheet" type="text/css" href="css/musicvenue-styles.css" />
-        <link rel="stylesheet" type="text/css" href="css/profile-styles.css" >
         <link rel="stylesheet" type="text/css" href="css/general.css" />
-        <link href="../res/lib/css/bootstrap.min.css" rel="stylesheet">         
-        <!-- Custom styles for this template -->
-        <!-- <link href="style.css" rel="stylesheet"> -->
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-        
+        <link rel="stylesheet" type="text/css" href="css/profile-styles.css" >
+        <!-- Plug-ins -->         
+        <script type="text/javascript" src="../res/lib/masonry.pkgd.min.js"></script>         
+        <script type="text/javascript" src="../res/lib/audio.min.js"></script>  
+        <script type="text/javascript" src="../res/lib/video.js"></script>
+        <!-- Libraries -->
+        <script src="../res/lib/jquery.min.js"></script>
+        <script src="../res/lib/bootstrap.min.js"></script> 
+        <!-- AngularJS related -->         
+        <script type="text/javascript" src="../controllers/app.js"></script>     
+
     </head>
     <body>
 	
-<!--NavBar Start...........................................................................................................-->
-
-	
-           <div class="navbar-wrapper">
+<!-- NavBar start....................................................................................................-->
+        <!-- Fixed navbar -->
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
-                <div class="navbar navbar-inverse navbar-static-top" role="navigation">
-                    <ul class="nav navbar-nav inline-div-fix">
- 
-						<li ><!--<class="active">-->
-                            <a class ="active" href="profile_page.html">Profile</a>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="tradespace.html">Tradespace</a>
                         </li>
-						<li >
-                            <a href="tradespace.html">Trade Space</a>
+                        <li>
+                            <a href="#">
+                                <input type="email" placeholder="Search">
+                            </a>
                         </li>
-						<li >
+                        <li>
+                            <a href="#">
+                                <button type="button" class="btn btn-sm btn-general">Search</button>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="homepage.html"><span class="app-name-style">MusicVenue</span></a>
+                        </li>
+                        <li>
                             <a href="event.html">Events</a>
                         </li>
-						
-						<!--<li >
-                            <a href="#gohome">Business Page</a>
-                        </li>-->
-						<!--<li >
-                            <a href="#gohome">Settings</a>
-                        </li>-->
-						
-                    </ul>
-                    <div class="navbar-header inline-div-fix">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="homepage.html"><span class="app-name-style"> MusicVenue</span></a>
-                    </div>
-                    <ul class="nav navbar-nav inline-div-fix">
-                        <li class="active">
-							<form class="form-signin">
-									<input type="submit" class="btn"  value="Find" style="float: right" />
-									<div style="overflow: hidden; padding-right: .5em;">
-									
-									   <input class="form-control"type="text" style="width: 100% ; height:100%;" value="Search" ></input>
-									</div>​
-							</form> 
+                        <li>
+                            <a href="group_page.html">Groups</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Nina Belafonte<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="profile_page.html">Profile</a>
+                                </li>
+                                <li>
+                                    <a href="settings.html">Settings</a>
+                                </li>
+                                <li>
+                                    <a href="#">Log Out</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
+                <!--/.nav-collapse -->
             </div>
         </div>
-		
-		
-<!--NavBar End...........................................................................................................-->
+        <!-- End of Nav Bar -->
+        <!-- NavBar end.....................................................................................................-->
 
         <div class="container-fluid">
             <div class="row">
@@ -181,18 +182,137 @@
                     <div class="row pg-empty-placeholder"></div>                     
                 </div>
                 <div class="col-md-6" id="rightPanel">
-                    <div id="freewall" class="free-wall"></div>
+                    <div class="row">
+                        <div id="masonry">
+                            <div ng-repeat="uPost in profilemain.posts" ng-switch="uPost.post_type">
+                                <div class="post post-fix" id="post-video" ng-switch-when="0">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-7">
+                                                <div class="row post-video-row">
+                                                    <!-- Video.js  plug-in -->
+                                                    <video id="my-video" class="video-js" controls preload="none" width="300" height="150" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+                                                        <source src="MY_VIDEO.mp4" type='video/mp4'>
+                                                        <source src="MY_VIDEO.webm" type='video/webm'>
+                                                        <p class="vjs-no-js">
+                                                  To view this video please enable JavaScript, and consider upgrading to a web browser that<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+                                                    </video>
+                                                </div>
+                                                <div class="row">
+                                                    <ul class="count-like list-unstyled list-inline">
+                                                        <li>
+                                                            <p class="like-count">82</p>
+                                                        </li>
+                                                        <li>
+                                                            <button type="button" class="btn btn-default post-button-like">
+</button>
+                                                        </li>
+                                                    </ul>
+                                                </div>                                                 
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="row">
+                                                    <h3 class="post-image-video-title">Juan Rivera</h3>
+                                                    <div style="background: #000000; width:90%; height:1px;margin-bottom:8px"></div>
+                                                </div>
+                                                <div class="row">
+                                                    <p>Paragraph Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar faucibus neque, nec rhoncus nunc ultrices sit amet. Curabitur ac sagittis neque, vel egestas est.</p>
+                                                </div>                                                 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="post post-fix" id="post-image" ng-switch-when="1">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-7">
+                                                <div class="row">
+                                                    <img src="../res/img/photo/1.jpg" class="img-rounded post-image" width="200" />
+                                                </div>
+                                                <div class="row">
+                                                    <ul class="list-unstyled count-like list-inline">
+                                                        <li>
+                                                            <p class="like-count">15</p>
+                                                        </li>
+                                                        <li>
+                                                            <button type="button" class="btn btn-default post-button-like">
+</button>
+                                                        </li>
+                                                    </ul>
+                                                </div>                                                 
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="row">
+                                                    <h3 class="post-image-video-title">Juan Rivera</h3>
+                                                    <div style="background: #000000; width:90%; height:1px;margin-bottom:8px"></div>
+                                                </div>
+                                                <div class="row">
+                                                    <p>Paragraph Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar faucibus neque, nec rhoncus nunc ultrices sit amet. Curabitur ac sagittis neque, vel egestas est.</p>
+                                                </div>                                                 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="post post-fix" id="post-text" ng-switch-when="2">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <h3 class="post-title-text">Juan Rivera</h3>
+                                        </div>
+                                        <div class="row">
+                                            <div class="post-line-break-text"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="well post-description-text">Paragraph Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar faucibus neque, nec rhoncus nunc ultrices sit amet. Curabitur ac sagittis neque, vel egestas est.</div>
+                                        </div>
+                                        <div class="row">
+                                            <ul class="list-unstyled count-like list-inline">
+                                                <li>
+                                                    <p class="like-count">25</p>
+                                                </li>
+                                                <li>
+                                                    <button type="button" class="btn btn-default post-button-like">
+</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="post post-fix" id="post-audio" ng-switch-when="3">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="well post-description-audio">Paragraph Lorem ipsum dolor sit amet, consectetur adipiscing elit. CConsectetur adipiscing elit.. </div>                                                 
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h3 class="post-image-video-title">Juan Rivera</h3> 
+                                            </div>
+                                        </div>
+                                        <div class="row post-audio-row">
+                                            <!-- audio.js  plug-in -->
+                                            <audio src="http://kolber.github.io/audiojs/demos/mp3/juicy.mp3" preload="none">
+</audio>
+                                        </div>
+                                        <div class="row">
+                                            <ul class="list-unstyled count-like list-inline">
+                                                <li>
+                                                    <p class="like-count">8</p>
+                                                </li>
+                                                <li>
+                                                    <button type="button" class="btn btn-default post-button-like">
+</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Javascript Files
-    ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="../res/lib/jquery.min.js"></script>
-        <script src="../res/lib/bootstrap.min.js"></script>
-        <script src="../res/lib/freewall.min.js"></script>
-        <script src="../controllers/profilepage-logic.js"></script>
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-        <script src="../res/lib/ie10-viewport-bug-workaround.js"></script>
+
+        <!-- Profile page logic -->
+        <script src="../controllers/profilepage.ctrl.js"></script>
     </body>
 </html>
