@@ -23,32 +23,6 @@
     src: url(../../res/fonts/Aller_LtIt.ttf) format('truetype');
 }
 
-
-/*----Tradespace Wall related----*/
-
-.free-wall
-{
-    margin: 80px 15px 15px;
-}
-
-.brick
-{
-    width: 221.2px;
-}
-
-.info
-{
-    padding: 15px;
-    color: #333;
-}
-
-.brick img
-{
-    margin: 0px;
-    padding: 0px;
-    display: block;
-}
-
 /*----General style for pages containing posts----*/
 
 .post-bar-button
