@@ -26,9 +26,23 @@ angular.module('app').controller("LoginControl", function($http, $location){
     // };
 
     vmodel.signin = function (event){
-            console.log("cliqueaste el signin");
-            $http.post('/mvenue-database/login/', {email: vmodel.loginemail, password: vmodel.loginpassword}).success(function(dbData){
-               console.log(JSON.stringify(dbData));
+        //TODO $http documentation: https://docs.angularjs.org/api/ng/service/$http#jsonp
+        //TODO Log-in detail encryption should be done here
+
+            //Send log-in data for verification
+            $http.post('/mvenue-database/login/', {email: vmodel.loginemail, password: vmodel.loginpassword}
+                ).then(function successCallback(response){
+                    //Direct user to the homepage
+                    window.location.href = "homepage.html";
+
+            }, function errorCallback(response){
+                    if(response.status == 400){
+                        alert("Invalid username or password. Please try again.");
+                    }
+                    else{
+                        alert("There was an internal error. Please try again soon.");
+                    }
+
             });
     }
 

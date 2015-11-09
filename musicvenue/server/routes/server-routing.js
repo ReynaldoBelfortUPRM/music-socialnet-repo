@@ -149,24 +149,48 @@ router.post('/mvenue-database/login/', function(req, res) {
         //TODO Aquí se debería enviar de vuelta al usuario sobre si pasó el registro o no:
         //Si email existe, etc.
 
-        var query = client.query("SELECT * FROM uuser WHERE email = $1", logintry.email);
+        //TODO Both the email and password must be matched on the query in order to validate the log-in.
+        var query = client.query("SELECT * FROM uuser WHERE email = $1", [logintry.email]);
+
+        //----------TODO Query event handlers---------------
 
         // Stream results back one row at a time
         query.on('row', function(row) {
             results.push(row);
         });
-
-        //TODO DEBUG
-          console.log("DEBUG: Results" + results.toString());
-
-        // After all data is returned, close connection and return results
-        query.on('end', function() {
-            done();
-            console.log(JSON.stringify(results));
-            return res.json(results);
+        //Capture any database error
+        query.on('error', function(error){
+          //TODO DEBUG
+          console.log("DEBUG: Query error!");
+          //Return an server error status code:
+          return res.status(500).json({ success: false, data: err});
         });
 
-        
+        //TODO Account Block State (ABS) will be implemented here
+
+         // After all data is returned, close connection
+        query.on('end', function() {
+            done();
+            //TODO DEBUG
+            console.log("DEBUG: Query done. Data from query: " + JSON.stringify(results) + " Result obj length: " + results.length.toString()); 
+
+            //User account validation
+            if(results.length > 0)
+            {
+              //TODO DEBUG
+              console.log("DEBUG: Succesful log-in!");
+              //Meaning that the account exists and password matched with database.
+              //Return a succesful status response (success code):
+              return res.status(200).json({success: true, data: ''});
+            }
+            else
+            {
+              //Meaning that there is an error in the email or password
+              //Return a failure status response (failure code):
+              return res.status(400).json({success: false, data: ''});
+            }           
+        });
+
     });
 });
 //------------------------ END login page--------------------------------------------
