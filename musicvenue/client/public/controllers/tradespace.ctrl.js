@@ -97,11 +97,11 @@ angular.module('app').controller("TradespaceController", function($http){
     // });
 
 	//Retrieving JSON Data from database:
-	// $http.get('/mvenue-database/tradespace/').success(function(response)
-	// {
-	// 	//Load data on the view
-	// 	vmodel.announcements = response.announcements;
-	// });
+	$http.get('/mvenue-database/tradespace/').success(function(response)
+	{
+		//Load data on the view
+		vmodel.announcements = response.announcements;
+	});
 
 
 });
