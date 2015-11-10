@@ -25,7 +25,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, './client', 'public')));
 //TODO The  folder containing the /html files must be added as well
 app.use(express.static(path.join(__dirname, './client', 'public', 'views')));
-
+//TODO Apply all the routes described in the server-routing.js file to this app on
+//the '/' url
 app.use('/', routes);
 
 // catch 404 and forward to error handler

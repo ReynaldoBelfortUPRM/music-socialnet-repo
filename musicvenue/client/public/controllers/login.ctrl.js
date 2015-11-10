@@ -33,6 +33,7 @@ angular.module('app').controller("LoginControl", function($http, $location){
             $http.post('/mvenue-database/login/', {email: vmodel.loginemail, password: vmodel.loginpassword}
                 ).then(function successCallback(response){
                     //Direct user to the homepage
+                    //TODO Warning, maybe $location.path() should be used instead.
                     window.location.href = "homepage.html";
 
             }, function errorCallback(response){
