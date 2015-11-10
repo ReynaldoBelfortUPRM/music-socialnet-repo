@@ -1,8 +1,13 @@
+//TODO Add general documentation
+
+//Loading required packages:
 var express = require('express');
 var router = express.Router();
 var path = require('path');
 var pg = require('pg');
-//var connectionString = require(path.join(__dirname, '../', '../', 'config'));
+var jwt = require('jsonwebtoken');
+//For JWT implementation
+var config = require('../../config');
 
 var connectionString={
   user: "nhtxclclofbeab",
@@ -54,11 +59,307 @@ function initialize_id() {
 //--------------TODO Area where the database queries will be handled---------------------
 //--------------TODO Check section for info on router methods: Response methods    http://expressjs.com/guide/routing.html 
 
+//------------------------ START REGISTER page------------------------------------------
 
-//------------------------Tradespace page------------------------------------------
+ router.post('/mvenue-database/register/', function(req, res) {
 
-router.get('/mvenue-database/tradespace/', function(req, res) {
+     var results = [];
+
+     // Grab data from http request
+     //var data = {text: req.body.text, complete: false};
+      var user = {first_name: req.body.text, last_name:"del valle", email:"asdsasa", password:"pass", photo_path:"photo", about:"about" };
+
+     // Get a Postgres client from the connection pool
+     pg.connect(connectionString, function(err, client, done) {
+         // Handle connection errors
+         if(err) {
+           done();
+           console.log(err);
+           return res.status(500).json({ success: false, data: err});
+         }
+
     
+        // client.query("INSERT INTO items(text, complete) values($1, $2)", [data.text, data.complete]);
+        client.query("INSERT INTO uuser(user_id, first_name, last_name,email, password, photo_path, about) values($1, $2,$3, $4,$5, $6,$7)", [id, user.first_name, user.last_name, user.email, user.password, user.photo_path, user.about]);
+
+         
+         //TODO Aquí se debería enviar de vuelta al usuario sobre si pasó el registro o no: 
+            //Si email existe, etc.
+            
+         var query = client.query("SELECT * FROM uuser ORDER BY user_id ASC");
+
+         // Stream results back one row at a time
+         query.on('row', function(row) {
+             results.push(row);
+         });
+
+         // After all data is returned, close connection and return results
+         query.on('end', function() {
+             done();
+             return res.json(results);
+         });
+     });
+ });
+//------------------------ END REGISTER page--------------------------------------------
+
+//------------------------ START LOGIN page------------------------------------------
+
+router.post('/mvenue-database/login/', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: Login server entry.");
+
+    var results = [];
+
+    // Grab data from http request
+    var logintry = {email: req.body.email, password: req.body.password };
+    //TODO DEBUG
+    //console.log("DEBUG: Request data:" + logintry.email + " " + logintry.password);
+
+    // Get a Postgres client from the connection pool
+    pg.connect(connectionString, function(err, client, done) {
+
+        // Handle connection errors
+        if(err) {
+            done();
+            console.log(err);
+            return res.status(500).json({ success: false, data: err});
+        }
+
+
+        // client.query("INSERT INTO items(text, complete) values($1, $2)", [data.text, data.complete]);
+        //client.query("INSERT INTO uuser(user_id, first_name, last_name,email, password, photo_path, about) values($1, $2,$3, $4,$5, $6,$7)", [id, user.first_name, user.last_name, user.email, user.password, user.photo_path, user.about]);
+
+
+        //TODO Aquí se debería enviar de vuelta al usuario sobre si pasó el registro o no:
+        //Si email existe, etc.
+        //TODO Password must be encrypted here!
+
+        //TODO Both the email and password must be matched on the query in order to validate the log-in.
+        var query = client.query("SELECT * FROM uuser WHERE email = $1 and password = $2 ", [logintry.email, logintry.password]);
+
+        //----------TODO Query event handlers---------------
+
+        // Stream results back one row at a time
+        query.on('row', function(row) {
+            results.push(row);
+        });
+        //Capture any database error
+        query.on('error', function(error){
+          //TODO DEBUG
+          console.log("DEBUG: Query error!");
+          //Return an server error status code:
+          return res.status(500).json({ success: false, data: err});
+        });
+
+        //TODO Account Block State (ABS) will be implemented here
+
+         // After all data is returned, close connection
+        query.on('end', function() {
+            done();
+            
+            //User account validation
+            if(results.length > 0)
+            {
+              //TODO DEBUG
+              console.log("DEBUG: Query done. Data from query: " + JSON.stringify(results) + " Result obj length: " + results.length.toString()); 
+
+              //Meaning that the account exists and password matched with database.
+              try{
+                  //Create token for user:
+                  var newToken = jwt.sign({user_id: results[0].user_id, email: results[0].email}, config.secret, {
+                    expiresIn: 3600 //token expires in 1hr
+                  });
+
+                  //Return a succesful status response (success code) alogn with token:
+                  return res.status(200).json({token: newToken});
+              }catch(err){
+                //TODO DEBUG
+                console.log("DEBUG: ERROR: " + err.toString());
+                //Return a failure status response (failure code):
+                return res.status(500).json({success: false, data: err});
+              }
+              
+            }
+            else
+            {
+              //Meaning that there is an error in the email or password
+              //Return a failure status response (failure code):
+              return res.status(400).json({success: false, data: ''});
+            }           
+        });
+
+    });
+});
+//------------------------ END LOGIN page--------------------------------------------
+
+
+//-------#######--------From this point below, these routes REQUIRE AUTHENTICATION ----------#######------------
+
+//Express.js route middlepoint: Verify tokens before allowing requests to pass through
+
+router.use(function(req, res, next){
+
+  //Of all URLs, the server has to be aware of these ones:
+  var homePageURL = '/mvenue-database/homepage/';
+  var tradespaceURL = '/mvenue-database/tradespace/';
+
+  //If the URL starts with /mvenue-database/homepage/
+  if( req.originalUrl.slice(0, homePageURL.length) == homePageURL){
+    //Retrieve token from url
+    var token = req.originalUrl.slice(homePageURL.length, req.originalUrl.length);
+
+    //TODO DEBUG
+    console.log("DEBUG: TOKEN FROM REQUEST: " + token);
+
+    //Verify if a token was sent along with the request:
+    if(token.length <= 0){
+        //TODO DEBUG
+      // console.log("DEBUG: Middleware reached! REQUEST URL: " + req.protocol + '://' + req.get('host') + req.originalUrl);
+      console.log("DEBUG: Middleware error reached! Null token");
+
+      //Token was not sent. Respond with error code
+      return res.status(401).json({success: false, data: 'Null token'});
+    }
+
+    //Validate token
+    jwt.verify(token, config.secret, function(err,decoded) {      
+      if (err) {
+        return res.status(401).json({ success: false, data: 'Server authentication failure.' });    
+      } else {        
+        //TODO DEBUG
+        console.log("DEBUG: TOKEN VERIFIED FOR: " + homePageURL);
+        console.log("DEBUG: DECODED PAYLOAD: " + JSON.stringify(decoded));
+        // Store decoded token along with the request and let it continue
+        req.tokenPayload = decoded;    
+        next();
+      }
+    });
+
+
+  } else if( req.originalUrl.slice(0, tradespaceURL.length) == tradespaceURL){
+      //Retrieve token from url
+      var token = req.originalUrl.slice(tradespaceURL.length, req.originalUrl.length);
+
+      //TODO DEBUG
+      console.log("DEBUG: TOKEN FROM REQUEST: " + token);
+
+      //Verify if a token was sent along with the request:
+      if(token.length <= 0){
+          //TODO DEBUG
+        // console.log("DEBUG: Middleware reached! REQUEST URL: " + req.protocol + '://' + req.get('host') + req.originalUrl);
+        console.log("DEBUG: Middleware error reached! Null token");
+
+        //Token was not sent. Respond with error code
+        return res.status(401).json({success: false, data: 'Null token'});
+      }
+
+      //Validate token
+      jwt.verify(token, config.secret, function(err,decoded) {      
+        if (err) {
+          return res.status(401).json({ success: false, data: 'Server authentication failure.' });    
+        } else {        
+          //TODO DEBUG
+          console.log("DEBUG: TOKEN VERIFIED FOR: " + tradespaceURL);
+          console.log("DEBUG: DECODED PAYLOAD: " + JSON.stringify(decoded));
+          // Store decoded token along with the request and let it continue
+          req.tokenPayload = decoded;    
+          next();
+        }
+      });
+  }
+
+}); //End route.use();
+
+
+//------------------------ START HOMEPAGE------------------------------------------
+
+router.get('/mvenue-database/homepage/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: Homepage server entry. Token payload: " + JSON.stringify(req.tokenPayload));
+
+    var results = [];
+    //Get info from the user that is logged in:
+    var userData = req.tokenPayload;
+  
+
+  return res.send({"posts": [{
+      "post_id": "2",
+        "post_user": "Pepe Olivera",
+        "post_data": {"post_user": "Ramon Martinez", 
+              "description": "Esto es un post para que se vea como tilizo los instrumentos que tengo!", 
+              "media": ["","",""], 
+              "likes": {}},
+        "data_time": {}, 
+        "post_type": 1,
+    },
+    {
+      "post_id": "2",
+        "post_user": "Pepe Olivera",
+        "post_data": {"post_user": "Ramon Martinez", 
+              "description": "Esto es un post para que se vea como tilizo los instrumentos que tengo!", 
+              "media": ["","",""], 
+              "likes": {}},
+        "data_time": {}, 
+        "post_type": 3,
+    },
+    {
+      "post_id": "2",
+        "post_user": "Pepe Olivera",
+        "post_data": {"post_user": "Ramon Martinez", 
+              "description": "Esto es un post para que se vea como tilizo los instrumentos que tengo!", 
+              "media": ["","",""], 
+              "likes": {}},
+        "data_time": {}, 
+        "post_type": 0,
+    },
+    {
+      "post_id": "2",
+        "post_user": "Pepe Olivera",
+        "post_data": {"post_user": "Ramon Martinez", 
+              "description": "Esto es un post para que se vea como tilizo los instrumentos que tengo!", 
+              "media": ["","",""], 
+              "likes": {}},
+        "data_time": {}, 
+        "post_type": 1,
+    },
+    {
+      "post_id": "2",
+        "post_user": "Pepe Olivera",
+        "post_data": {"post_user": "Ramon Martinez", 
+              "description": "Esto es un post para que se vea como tilizo los instrumentos que tengo!", 
+              "media": ["","",""], 
+              "likes": {}},
+        "data_time": {}, 
+        "post_type": 3,
+    },
+    {
+      "post_id": "2",
+        "post_user": "Pepe Olivera",
+        "post_data": {"post_user": "Ramon Martinez", 
+              "description": "Esto es un post para que se vea como tilizo los instrumentos que tengo!", 
+              "media": ["","",""], 
+              "likes": {}},
+        "data_time": {}, 
+        "post_type": 2,
+    }
+    ]});
+
+
+});
+//------------------------ END HOMEPAGE--------------------------------------------|
+
+
+//------------------------START TRADESPACE------------------------------------------
+
+router.get('/mvenue-database/tradespace/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: Tradespace server entry. Token payload: " + JSON.stringify(req.tokenPayload));
+
+    var results = [];
+    //Get info from the user that is logged in:
+    var userData = req.tokenPayload;
+
+
     //----------TODO Database query code HERE
 
     //----------TODO Code just for testing. DELETE THIS CODE LINE
@@ -115,283 +416,8 @@ router.get('/mvenue-database/tradespace/', function(req, res) {
                     ]});
 });
 
-//------------------------ END Tradespace page------------------------------------------
+//------------------------ END TRADESPACE------------------------------------------
 
-
-//------------------------ START login page------------------------------------------
-
-router.post('/mvenue-database/login/', function(req, res) {
-    //TODO DEBUG
-    console.log("DEBUG: Login server entry.");
-
-    var results = [];
-
-    // Grab data from http request
-    var logintry = {email: req.body.email, password: req.body.password };
-    //TODO DEBUG
-    //console.log("DEBUG: Request data:" + logintry.email + " " + logintry.password);
-
-    // Get a Postgres client from the connection pool
-    pg.connect(connectionString, function(err, client, done) {
-
-        // Handle connection errors
-        if(err) {
-            done();
-            console.log(err);
-            return res.status(500).json({ success: false, data: err});
-        }
-
-
-        // client.query("INSERT INTO items(text, complete) values($1, $2)", [data.text, data.complete]);
-        //client.query("INSERT INTO uuser(user_id, first_name, last_name,email, password, photo_path, about) values($1, $2,$3, $4,$5, $6,$7)", [id, user.first_name, user.last_name, user.email, user.password, user.photo_path, user.about]);
-
-
-        //TODO Aquí se debería enviar de vuelta al usuario sobre si pasó el registro o no:
-        //Si email existe, etc.
-
-        //TODO Both the email and password must be matched on the query in order to validate the log-in.
-        var query = client.query("SELECT * FROM uuser WHERE email = $1", [logintry.email]);
-
-        //----------TODO Query event handlers---------------
-
-        // Stream results back one row at a time
-        query.on('row', function(row) {
-            results.push(row);
-        });
-        //Capture any database error
-        query.on('error', function(error){
-          //TODO DEBUG
-          console.log("DEBUG: Query error!");
-          //Return an server error status code:
-          return res.status(500).json({ success: false, data: err});
-        });
-
-        //TODO Account Block State (ABS) will be implemented here
-
-         // After all data is returned, close connection
-        query.on('end', function() {
-            done();
-            //TODO DEBUG
-            console.log("DEBUG: Query done. Data from query: " + JSON.stringify(results) + " Result obj length: " + results.length.toString()); 
-
-            //User account validation
-            if(results.length > 0)
-            {
-              //TODO DEBUG
-              console.log("DEBUG: Succesful log-in!");
-              //Meaning that the account exists and password matched with database.
-              //Return a succesful status response (success code):
-              return res.status(200).json({success: true, data: ''});
-            }
-            else
-            {
-              //Meaning that there is an error in the email or password
-              //Return a failure status response (failure code):
-              return res.status(400).json({success: false, data: ''});
-            }           
-        });
-
-    });
-});
-//------------------------ END login page--------------------------------------------
-
-//------------------------ START Register page------------------------------------------
-
- router.post('/mvenue-database/register/', function(req, res) {
-
-     var results = [];
-
-     // Grab data from http request
-     //var data = {text: req.body.text, complete: false};
-      var user = {first_name: req.body.text, last_name:"del valle", email:"asdsasa", password:"pass", photo_path:"photo", about:"about" };
-
-     // Get a Postgres client from the connection pool
-     pg.connect(connectionString, function(err, client, done) {
-         // Handle connection errors
-         if(err) {
-           done();
-           console.log(err);
-           return res.status(500).json({ success: false, data: err});
-         }
-
-    
-        // client.query("INSERT INTO items(text, complete) values($1, $2)", [data.text, data.complete]);
-        client.query("INSERT INTO uuser(user_id, first_name, last_name,email, password, photo_path, about) values($1, $2,$3, $4,$5, $6,$7)", [id, user.first_name, user.last_name, user.email, user.password, user.photo_path, user.about]);
-
-         
-         //TODO Aquí se debería enviar de vuelta al usuario sobre si pasó el registro o no: 
-            //Si email existe, etc.
-            
-         var query = client.query("SELECT * FROM uuser ORDER BY user_id ASC");
-
-         // Stream results back one row at a time
-         query.on('row', function(row) {
-             results.push(row);
-         });
-
-         // After all data is returned, close connection and return results
-         query.on('end', function() {
-             done();
-             return res.json(results);
-         });
-     });
- });
-//------------------------ END Register page--------------------------------------------
-
-
-
-
-
-
-
-
-//######################TODO - CODE TO BE USED AS REFERENCE######################
-
-// router.post('/api/v1/todos', function(req, res) {
-
-//     var results = [];
-
-//     // Grab data from http request
-//     var data = {text: req.body.text, complete: false};
-
-//     // Get a Postgres client from the connection pool
-//     pg.connect(connectionString, function(err, client, done) {
-//         // Handle connection errors
-//         if(err) {
-//           done();
-//           console.log(err);
-//           return res.status(500).json({ success: false, data: err});
-//         }
-
-//         // SQL Query > Insert Data
-//         client.query("INSERT INTO items(text, complete) values($1, $2)", [data.text, data.complete]);
-
-//         // SQL Query > Select Data
-//         var query = client.query("SELECT * FROM items ORDER BY id ASC");
-
-//         // Stream results back one row at a time
-//         query.on('row', function(row) {
-//             results.push(row);
-//         });
-
-//         // After all data is returned, close connection and return results
-//         query.on('end', function() {
-//             done();
-//             return res.json(results);
-//         });
-
-
-//     });
-// });
-
-// router.get('/api/v1/todos', function(req, res) {
-
-//     var results = [];
-
-//     // Get a Postgres client from the connection pool
-//     pg.connect(connectionString, function(err, client, done) {
-//         // Handle connection errors
-//         if(err) {
-//           done();
-//           console.log(err);
-//           return res.status(500).json({ success: false, data: err});
-//         }
-
-//         // SQL Query > Select Data
-//         var query = client.query("SELECT * FROM items ORDER BY id ASC;");
-
-//         // Stream results back one row at a time
-//         query.on('row', function(row) {
-//             results.push(row);
-//         });
-
-//         // After all data is returned, close connection and return results
-//         query.on('end', function() {
-//             done();
-//             return res.json(results);
-//         });
-
-//     });
-
-// });
-
-// router.put('/api/v1/todos/:todo_id', function(req, res) {
-
-//     var results = [];
-
-//     // Grab data from the URL parameters
-//     var id = req.params.todo_id;
-
-//     // Grab data from http request
-//     var data = {text: req.body.text, complete: req.body.complete};
-
-//     // Get a Postgres client from the connection pool
-//     pg.connect(connectionString, function(err, client, done) {
-//         // Handle connection errors
-//         if(err) {
-//           done();
-//           console.log(err);
-//           return res.status(500).send(json({ success: false, data: err}));
-//         }
-
-//         // SQL Query > Update Data
-//         client.query("UPDATE items SET text=($1), complete=($2) WHERE id=($3)", [data.text, data.complete, id]);
-
-//         // SQL Query > Select Data
-//         var query = client.query("SELECT * FROM items ORDER BY id ASC");
-
-//         // Stream results back one row at a time
-//         query.on('row', function(row) {
-//             results.push(row);
-//         });
-
-//         // After all data is returned, close connection and return results
-//         query.on('end', function() {
-//             done();
-//             return res.json(results);
-//         });
-//     });
-
-// });
-
-// router.delete('/api/v1/todos/:todo_id', function(req, res) {
-
-//     var results = [];
-
-//     // Grab data from the URL parameters
-//     var id = req.params.todo_id;
-
-
-//     // Get a Postgres client from the connection pool
-//     pg.connect(connectionString, function(err, client, done) {
-//         // Handle connection errors
-//         if(err) {
-//           done();
-//           console.log(err);
-//           return res.status(500).json({ success: false, data: err});
-//         }
-
-//         // SQL Query > Delete Data
-//         client.query("DELETE FROM items WHERE id=($1)", [id]);
-
-//         // SQL Query > Select Data
-//         var query = client.query("SELECT * FROM items ORDER BY id ASC");
-
-//         // Stream results back one row at a time
-//         query.on('row', function(row) {
-//             results.push(row);
-//         });
-
-//         // After all data is returned, close connection and return results
-//         query.on('end', function() {
-//             done();
-//             return res.json(results);
-//         });
-//     });
-
-// });
-
-//######################TODO - ABOVE CODE TO BE USED AS REFERENCE######################
 
 
 module.exports = router;

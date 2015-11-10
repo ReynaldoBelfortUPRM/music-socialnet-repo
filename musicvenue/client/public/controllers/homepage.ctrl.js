@@ -23,7 +23,7 @@ audiojs.events.ready(function() {
 
 
 //AngularJS controller
-angular.module('app').controller("HomepageController", function(){
+angular.module('app', ['ngCookies']).controller("HomepageController", function($http, $cookies){
 	//Obtaining the scope obj. of the controller
 	var vmodel = this;
 
@@ -53,69 +53,31 @@ angular.module('app').controller("HomepageController", function(){
 
 	};
 
-	//-----------Dummy operations: for design purposes-----------------
+	//TODO-----------Dummy operations: for design purposes-----------------
 	// vmodel.showUpload = true;
 	//vmodel.post_type = 1;
 
-	vmodel.posts = [{
-    	"post_id": "2",
-        "post_user": "Pepe Olivera",
-        "post_data": {"post_user": "Ramon Martinez", 
-        			"description": "Esto es un post para que se vea como tilizo los instrumentos que tengo!", 
-        			"media": ["","",""], 
-        			"likes": {}},
-        "data_time": {}, 
-        "post_type": 1,
-  	},
-  	{
-    	"post_id": "2",
-        "post_user": "Pepe Olivera",
-        "post_data": {"post_user": "Ramon Martinez", 
-        			"description": "Esto es un post para que se vea como tilizo los instrumentos que tengo!", 
-        			"media": ["","",""], 
-        			"likes": {}},
-        "data_time": {}, 
-        "post_type": 3,
-  	},
-  	{
-    	"post_id": "2",
-        "post_user": "Pepe Olivera",
-        "post_data": {"post_user": "Ramon Martinez", 
-        			"description": "Esto es un post para que se vea como tilizo los instrumentos que tengo!", 
-        			"media": ["","",""], 
-        			"likes": {}},
-        "data_time": {}, 
-        "post_type": 0,
-  	},
-  	{
-    	"post_id": "2",
-        "post_user": "Pepe Olivera",
-        "post_data": {"post_user": "Ramon Martinez", 
-        			"description": "Esto es un post para que se vea como tilizo los instrumentos que tengo!", 
-        			"media": ["","",""], 
-        			"likes": {}},
-        "data_time": {}, 
-        "post_type": 1,
-  	},
-  	{
-    	"post_id": "2",
-        "post_user": "Pepe Olivera",
-        "post_data": {"post_user": "Ramon Martinez", 
-        			"description": "Esto es un post para que se vea como tilizo los instrumentos que tengo!", 
-        			"media": ["","",""], 
-        			"likes": {}},
-        "data_time": {}, 
-        "post_type": 3,
-  	},
-  	{
-    	"post_id": "2",
-        "post_user": "Pepe Olivera",
-        "post_data": {"post_user": "Ramon Martinez", 
-        			"description": "Esto es un post para que se vea como tilizo los instrumentos que tengo!", 
-        			"media": ["","",""], 
-        			"likes": {}},
-        "data_time": {}, 
-        "post_type": 2,
-  	}];
+    //Retrieving JSON Data from database:
+    //TODO Verify if the user is logged in first!
+    //TODO The below code must exist on every other page that requires a logged user
+
+    $http.get('/mvenue-database/homepage/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+        ).then(function successCallback(response){
+            //Load data from server
+            vmodel.posts = response.data.posts;
+
+        }, function errorCallback(response){
+                if(response.status == 401){
+                    alert("Authentication error! Your session may have been expired. Please log-in!");
+                    //Erase current token
+                    sessionStorage.removeItem('clientAuthentication');
+                    //Re-direct user to the log-in page
+                    window.location.href = "login.html";
+                }
+                else{
+                    alert("Server Internal Error: " + response.data);
+                }
+
+        });
 
 });

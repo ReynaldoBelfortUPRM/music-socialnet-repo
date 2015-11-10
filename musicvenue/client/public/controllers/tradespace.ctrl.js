@@ -91,17 +91,37 @@ angular.module('app').controller("TradespaceController", function($http){
 	};
 
 
-    //----------------Loading Dummy data for testing-----------------------
+    //TODO----------------Loading Dummy data for testing-----------------------
     // $http.get('../data/tradespace.json').success(function(response){
     //          vmodel.announcements = response.announcements;
     // });
 
 	//Retrieving JSON Data from database:
-	$http.get('/mvenue-database/tradespace/').success(function(response)
-	{
-		//Load data on the view
-		vmodel.announcements = response.announcements;
-	});
+	$http.get('/mvenue-database/tradespace/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+        ).then(function successCallback(response){
+            //Load data from server
+            vmodel.announcements = response.announcements;
+
+        }, function errorCallback(response){
+                if(response.status == 401){
+                    alert("Authentication error! Your session may have been expired. Please log-in!");
+                    //Erase current token
+                    sessionStorage.removeItem('clientAuthentication');
+                    //Re-direct user to the log-in page
+                    window.location.href = "login.html";
+                }
+                else{
+                    alert("Server Internal Error: " + response.data);
+                }
+
+        });
+
+    //TODO If everything works fine, dele this code below
+	// $http.get('/mvenue-database/tradespace/').success(function(response)
+	// {
+	// 	//Load data on the view
+	// 	vmodel.announcements = response.announcements;
+	// });
 
 
 });

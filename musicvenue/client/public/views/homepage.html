@@ -19,6 +19,7 @@
         <script type="text/javascript" src="../res/lib/jquery.min.js"></script>
         <script type="text/javascript" src="../res/lib/bootstrap.min.js"></script>
         <script type="text/javascript" src="../res/lib/angular.min.js"></script>
+        <script type="text/javascript" src="../res/lib/angular-cookies.min.js"></script>
         <!-- Plug-ins -->
         <script type="text/javascript" src="../res/lib/masonry.pkgd.min.js"></script>
         <script type="text/javascript" src="../res/lib/audio.min.js"></script>
@@ -209,7 +210,7 @@
                                     </div>
                                     <div class="col-md-5">
                                         <div class="row">
-                                            <h3 class="post-image-video-title">Juan Rivera</h3>
+                                            <h3 class="post-image-video-title">{{uPost.post_user}}</h3>
                                             <div class="" style="background: #000000; width:90%; height:1px;margin-bottom:8px"></div>
                                         </div>
                                         <div class="row">
@@ -240,7 +241,7 @@
                                     </div>
                                     <div class="col-md-5">
                                         <div class="row">
-                                            <h3 class="post-image-video-title">Juan Rivera</h3>
+                                            <h3 class="post-image-video-title">{{uPost.post_user}}</h3>
                                             <div class="" style="background: #000000; width:90%; height:1px;margin-bottom:8px"></div>
                                         </div>
                                         <div class="row">
@@ -253,7 +254,7 @@
                         <div class="post" id="post-text" ng-switch-when="2">
                             <div class="container-fluid">
                                 <div class="row">
-                                    <h3 class="post-title-text">Juan Rivera</h3>
+                                    <h3 class="post-title-text">{{uPost.post_user}}</h3>
                                 </div>
                                 <div class="row">
                                     <div class="post-line-break-text"></div>
@@ -281,7 +282,7 @@
                                         <div class="well post-description-audio">Paragraph Lorem ipsum dolor sit amet, consectetur adipiscing elit. CConsectetur adipiscing elit.. </div>                                         
                                     </div>
                                     <div class="col-md-4">
-                                        <h3 class="post-image-video-title">Juan Rivera</h3> 
+                                        <h3 class="post-image-video-title">{{uPost.post_user}}</h3> 
                                     </div>
                                 </div>
                                 <div class="row post-audio-row">
