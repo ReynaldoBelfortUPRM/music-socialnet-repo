@@ -25,6 +25,43 @@ Heroku MusicVenue Main Page: https://musicvenue.herokuapp.com/welcome_page.html
 
 -----------
 
+# Sprint 4: Retrospective Analysis
+
+___What Worked Well?___
+
+1. Communication amongst group members has been significantly improved
+2. Better planification and overall adjustments of sprints
+3. Use of branches greatly improved where we are now able to change code without corrupting the master code
+4. Verifying code before a merge was approved
+
+___What Did Not Work Well?___
+
+1. Visualization of queries
+2. Uploading a Heroku App from a branch that is not a master branch
+
+___What We Learned?___
+
+1. How to better manage branches
+2. Create and collect back-ups before any mayor changes to the repository, guaranteeing code safety
+
+
+### Planification for Sprint 5:
+
+**Sprint IV: Open**
+
+*Due Date: ​November 24, 2015*
+
+1. Complete all database code
+2. Complete project testing
+3. Complete front-end details
+4. Complete all back-end code
+5. Full integration between front, back-end, and server code
+6. Finalize web application and all details pertaining to its development
+
+
+
+-----------
+
 # Sprint 3: Retrospective Analysis
 
 ___What Worked Well?___
