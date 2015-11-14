@@ -91,18 +91,54 @@ angular.module('app').controller("TradespaceController", function($http){
 	};
 
 
-    //----------------Loading Dummy data for testing-----------------------
+	//Navbar logout
+	vmodel.logout = function(){
+		//Erase current token and re-direct to the welcome page:
+		sessionStorage.removeItem('clientAuthentication');
+        window.location.href = "index.html";
+	}
+
+
+    //TODO----------------Loading Dummy data for testing-----------------------
     // $http.get('../data/tradespace.json').success(function(response){
     //          vmodel.announcements = response.announcements;
     // });
 
-	//Retrieving JSON Data from database:
-	$http.get('/mvenue-database/tradespace/').success(function(response)
-	{
-		//Load data on the view
-		vmodel.announcements = response.announcements;
-	});
+	//-----------Client-Server interaction--------------
 
+	//Verify the existace ofa token. In other words, if a user is logged in.
+    if(sessionStorage.getItem('clientAuthentication') === undefined || sessionStorage.getItem('clientAuthentication') === null){
+    	window.location.href = "index.html";
+    }
+
+	//Retrieving JSON Data from database:
+	$http.get('/mvenue-database/tradespace/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+        ).then(function successCallback(response){
+        	//------Recieve and manage response data-------
+
+            //Load data from server
+            vmodel.announcements = response.announcements;
+
+        }, function errorCallback(response){
+                if(response.status == 401){
+                    alert("Authentication error! Your session may have been expired. Please log-in!");
+                    //Erase current token
+                    sessionStorage.removeItem('clientAuthentication');
+                    //Re-direct user to the log-in page
+                    window.location.href = "login.html";
+                }
+                else{
+                    alert("Server Internal Error: " + response.data + "\nTry refreshing the page.");
+                }
+
+        });
+
+    //TODO If everything works fine, dele this code below
+	// $http.get('/mvenue-database/tradespace/').success(function(response)
+	// {
+	// 	//Load data on the view
+	// 	vmodel.announcements = response.announcements;
+	// });
 
 });
 
