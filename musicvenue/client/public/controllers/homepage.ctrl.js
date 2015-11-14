@@ -53,16 +53,30 @@ angular.module('app').controller("HomepageController", function($http){
 
 	};
 
+	//Navbar logout
+	vmodel.logout = function(){
+		//Erase current token and re-direct to the welcome page:
+		sessionStorage.removeItem('clientAuthentication');
+        window.location.href = "index.html";
+	}
+
 	//TODO-----------Dummy operations: for design purposes-----------------
 	// vmodel.showUpload = true;
 	//vmodel.post_type = 1;
 
-    //Retrieving JSON Data from database:
+    //-----------Client-Server interaction--------------
     //TODO Verify if the user is logged in first!
     //TODO The below code must exist on every other page that requires a logged user
 
+    //Verify the existace ofa token. In other words, if a user is logged in.
+    if(sessionStorage.getItem('clientAuthentication') === undefined || sessionStorage.getItem('clientAuthentication') === null){
+    	window.location.href = "index.html";
+    }
+
     $http.get('/mvenue-database/homepage/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
         ).then(function successCallback(response){
+        	//------Recieve and manage response data-------
+
             //Load data from server
             vmodel.posts = response.data.posts;
 

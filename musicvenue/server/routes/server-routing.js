@@ -362,7 +362,7 @@ function verifyToken(token){
   console.log("DEBUG: TOKEN: " + token);
 
   //Verify if a token was sent along with the request:
-  if(token.length <= 0){
+  if(token.length <= 0 || token === undefined){
     //TODO DEBUG
     console.log("DEBUG: Token verification failed! Null token");
 

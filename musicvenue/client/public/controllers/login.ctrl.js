@@ -1,4 +1,4 @@
-angular.module('app', ['ngCookies']).controller("LoginControl", function($http, $location, $cookies){
+angular.module('app').controller("LoginControl", function($http, $location){
 
     var vmodel = this; //Scope of this controller.
     //var emaiil=vmodel.loginemail;
