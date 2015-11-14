@@ -25,7 +25,7 @@ angular.module('app').controller("LoginControl", function($http, $location){
 
     // };
 
-    vmodel.signin = function (event){
+    vmodel.signin = function (){
         //TODO $http documentation: https://docs.angularjs.org/api/ng/service/$http#jsonp
 
         //Note: Normally, SSL certificates are required for sending credentials over http securely

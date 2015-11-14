@@ -135,20 +135,23 @@ router.post('/mvenue-database/login/', function(req, res) {
         //TODO Password must be encrypted here!
 
         //TODO Both the email and password must be matched on the query in order to validate the log-in.
+        //TODO Be aware of query security
         var query = client.query("SELECT * FROM uuser WHERE email = $1 and password = $2 ", [logintry.email, logintry.password]);
 
         //----------TODO Query event handlers---------------
 
-        // Stream results back one row at a time
-        query.on('row', function(row) {
-            results.push(row);
-        });
+        
         //Capture any database error
         query.on('error', function(error){
           //TODO DEBUG
           console.log("DEBUG: Query error!");
           //Return an server error status code:
           return res.status(500).json({ success: false, data: err});
+        });
+
+        // Stream results back one row at a time
+        query.on('row', function(row) {
+            results.push(row);
         });
 
         //TODO Account Block State (ABS) will be implemented here
@@ -166,6 +169,7 @@ router.post('/mvenue-database/login/', function(req, res) {
               //Meaning that the account exists and password matched with database.
               try{
                   //Create token for user:
+                  //TODO Email is necessary on the token payload?
                   var newToken = jwt.sign({user_id: results[0].user_id, email: results[0].email}, config.secret, {
                     expiresIn: 3600 //token expires in 1hr
                   });
