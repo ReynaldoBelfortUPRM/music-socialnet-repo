@@ -23,7 +23,7 @@ audiojs.events.ready(function() {
 
 
 //AngularJS controller
-angular.module('app', ['ngCookies']).controller("HomepageController", function($http, $cookies){
+angular.module('app').controller("HomepageController", function($http){
 	//Obtaining the scope obj. of the controller
 	var vmodel = this;
 

@@ -193,94 +193,23 @@ router.post('/mvenue-database/login/', function(req, res) {
 //------------------------ END LOGIN page--------------------------------------------
 
 
-//-------#######--------From this point below, these routes REQUIRE AUTHENTICATION ----------#######------------
-
-//Express.js route middlepoint: Verify tokens before allowing requests to pass through
-
-router.use(function(req, res, next){
-
-  //Of all URLs, the server has to be aware of these ones:
-  var homePageURL = '/mvenue-database/homepage/';
-  var tradespaceURL = '/mvenue-database/tradespace/';
-
-  //If the URL starts with /mvenue-database/homepage/
-  if( req.originalUrl.slice(0, homePageURL.length) == homePageURL){
-    //Retrieve token from url
-    var token = req.originalUrl.slice(homePageURL.length, req.originalUrl.length);
-
-    //TODO DEBUG
-    console.log("DEBUG: TOKEN FROM REQUEST: " + token);
-
-    //Verify if a token was sent along with the request:
-    if(token.length <= 0){
-        //TODO DEBUG
-      // console.log("DEBUG: Middleware reached! REQUEST URL: " + req.protocol + '://' + req.get('host') + req.originalUrl);
-      console.log("DEBUG: Middleware error reached! Null token");
-
-      //Token was not sent. Respond with error code
-      return res.status(401).json({success: false, data: 'Null token'});
-    }
-
-    //Validate token
-    jwt.verify(token, config.secret, function(err,decoded) {      
-      if (err) {
-        return res.status(401).json({ success: false, data: 'Server authentication failure.' });    
-      } else {        
-        //TODO DEBUG
-        console.log("DEBUG: TOKEN VERIFIED FOR: " + homePageURL);
-        console.log("DEBUG: DECODED PAYLOAD: " + JSON.stringify(decoded));
-        // Store decoded token along with the request and let it continue
-        req.tokenPayload = decoded;    
-        next();
-      }
-    });
-
-
-  } else if( req.originalUrl.slice(0, tradespaceURL.length) == tradespaceURL){
-      //Retrieve token from url
-      var token = req.originalUrl.slice(tradespaceURL.length, req.originalUrl.length);
-
-      //TODO DEBUG
-      console.log("DEBUG: TOKEN FROM REQUEST: " + token);
-
-      //Verify if a token was sent along with the request:
-      if(token.length <= 0){
-          //TODO DEBUG
-        // console.log("DEBUG: Middleware reached! REQUEST URL: " + req.protocol + '://' + req.get('host') + req.originalUrl);
-        console.log("DEBUG: Middleware error reached! Null token");
-
-        //Token was not sent. Respond with error code
-        return res.status(401).json({success: false, data: 'Null token'});
-      }
-
-      //Validate token
-      jwt.verify(token, config.secret, function(err,decoded) {      
-        if (err) {
-          return res.status(401).json({ success: false, data: 'Server authentication failure.' });    
-        } else {        
-          //TODO DEBUG
-          console.log("DEBUG: TOKEN VERIFIED FOR: " + tradespaceURL);
-          console.log("DEBUG: DECODED PAYLOAD: " + JSON.stringify(decoded));
-          // Store decoded token along with the request and let it continue
-          req.tokenPayload = decoded;    
-          next();
-        }
-      });
-  }
-
-}); //End route.use();
-
 
 //------------------------ START HOMEPAGE------------------------------------------
 
 router.get('/mvenue-database/homepage/:token', function(req, res) {
     //TODO DEBUG
-    console.log("DEBUG: Homepage server entry. Token payload: " + JSON.stringify(req.tokenPayload));
-
+    console.log("DEBUG: Homepage server entry.");
+    var userData;
     var results = [];
-    //Get info from the user that is logged in:
-    var userData = req.tokenPayload;
-  
+
+    //Token validation
+    try{
+      //Get info from the user that is logged in
+      userData = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
 
   return res.send({"posts": [{
       "post_id": "2",
@@ -353,11 +282,17 @@ router.get('/mvenue-database/homepage/:token', function(req, res) {
 
 router.get('/mvenue-database/tradespace/:token', function(req, res) {
     //TODO DEBUG
-    console.log("DEBUG: Tradespace server entry. Token payload: " + JSON.stringify(req.tokenPayload));
-
+    console.log("DEBUG: Tradespace server entry.");
+    var userData;
     var results = [];
-    //Get info from the user that is logged in:
-    var userData = req.tokenPayload;
+
+    //Token validation
+    try{
+      //Get info from the user that is logged in
+      userData = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
 
 
     //----------TODO Database query code HERE
@@ -419,5 +354,92 @@ router.get('/mvenue-database/tradespace/:token', function(req, res) {
 //------------------------ END TRADESPACE------------------------------------------
 
 
+//Extra functionality for JWT authentication
+//This  funciton verifies and validates any token that is used 
+//  throughout the social network. Note: token is an encrypted string
+function verifyToken(token){
+  //TODO DEBUG
+  console.log("DEBUG: TOKEN: " + token);
+
+  //Verify if a token was sent along with the request:
+  if(token.length <= 0){
+    //TODO DEBUG
+    console.log("DEBUG: Token verification failed! Null token");
+
+    //Token was not sent. Let the function caller handle the error
+    throw ({ success: false, data: 'Null token'});
+  }
+
+  //Validate token
+  jwt.verify(token, config.secret, function(err,decoded) {      
+    if (err) {
+      //Token is invalid. Let the function caller handle the situation
+      throw ({ success: false, data: 'Server authentication failure.'});    
+    } else {        
+      //TODO DEBUG
+      console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD:" + JSON.stringify(decoded));
+      //Return the decoded payload of the token
+      return decoded;    
+    }
+  });
+
+}
+
 
 module.exports = router;
+
+
+
+
+//-----------------OLD CODE----------------------
+
+
+
+//-------#######--------From this point below, these routes REQUIRE AUTHENTICATION ----------#######------------
+
+//Express.js route middlepoint: Verify tokens before allowing requests to pass through
+
+// router.use(function(req, res, next){
+
+//   //Of all URLs, the server has to be aware of these ones:
+//   var homePageURL = '/mvenue-database/homepage/';
+//   var tradespaceURL = '/mvenue-database/tradespace/';
+
+//   //If the URL starts with /mvenue-database/homepage/
+//   if( req.originalUrl.slice(0, homePageURL.length) == homePageURL){
+    
+
+
+//   } else if( req.originalUrl.slice(0, tradespaceURL.length) == tradespaceURL){
+//       //Retrieve token from url
+//       var token = req.originalUrl.slice(tradespaceURL.length, req.originalUrl.length);
+
+//       //TODO DEBUG
+//       console.log("DEBUG: TOKEN FROM REQUEST: " + token);
+
+//       //Verify if a token was sent along with the request:
+//       if(token.length <= 0){
+//           //TODO DEBUG
+//         // console.log("DEBUG: Middleware reached! REQUEST URL: " + req.protocol + '://' + req.get('host') + req.originalUrl);
+//         console.log("DEBUG: Middleware error reached! Null token");
+
+//         //Token was not sent. Respond with error code
+//         return res.status(401).json({success: false, data: 'Null token'});
+//       }
+
+//       //Validate token
+//       jwt.verify(token, config.secret, function(err,decoded) {      
+//         if (err) {
+//           return res.status(401).json({ success: false, data: 'Server authentication failure.' });    
+//         } else {        
+//           //TODO DEBUG
+//           console.log("DEBUG: TOKEN VERIFIED FOR: " + tradespaceURL);
+//           console.log("DEBUG: DECODED PAYLOAD: " + JSON.stringify(decoded));
+//           // Store decoded token along with the request and let it continue
+//           req.tokenPayload = decoded;    
+//           next();
+//         }
+//       });
+//   }
+
+// }); //End route.use();
