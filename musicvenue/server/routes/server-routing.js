@@ -67,7 +67,7 @@ function initialize_id() {
 
      // Grab data from http request
      //var data = {text: req.body.text, complete: false};
-      var user = {first_name: req.body.text, last_name:"del valle", email:"asdsasa", password:"pass", photo_path:"photo", about:"about" };
+      var user = {first_name: req.body.first_name, last_name:req.body.last_name, email:req.body.email, password:req.body.password, photo_path:"photo", about:"about..." };
 
      // Get a Postgres client from the connection pool
      pg.connect(connectionString, function(err, client, done) {
@@ -75,17 +75,18 @@ function initialize_id() {
          if(err) {
            done();
            console.log(err);
+             console.log(':(');
            return res.status(500).json({ success: false, data: err});
          }
 
-    
+
         // client.query("INSERT INTO items(text, complete) values($1, $2)", [data.text, data.complete]);
         client.query("INSERT INTO uuser(user_id, first_name, last_name,email, password, photo_path, about) values($1, $2,$3, $4,$5, $6,$7)", [id, user.first_name, user.last_name, user.email, user.password, user.photo_path, user.about]);
 
-         
-         //TODO Aquí se debería enviar de vuelta al usuario sobre si pasó el registro o no: 
+
+         //TODO Aquí se debería enviar de vuelta al usuario sobre si pasó el registro o no:
             //Si email existe, etc.
-            
+
          var query = client.query("SELECT * FROM uuser ORDER BY user_id ASC");
 
          // Stream results back one row at a time
@@ -98,7 +99,7 @@ function initialize_id() {
              done();
              return res.json(results);
          });
-     });
+       });
  });
 //------------------------ END REGISTER page--------------------------------------------
 

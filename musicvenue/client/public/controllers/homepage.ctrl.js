@@ -69,9 +69,9 @@ angular.module('app').controller("HomepageController", function($http){
     //TODO The below code must exist on every other page that requires a logged user
 
     //Verify the existace ofa token. In other words, if a user is logged in.
-    if(sessionStorage.getItem('clientAuthentication') === undefined || sessionStorage.getItem('clientAuthentication') === null){
-    	window.location.href = "index.html";
-    }
+	if(sessionStorage.getItem('clientAuthentication') === undefined || sessionStorage.getItem('clientAuthentication') === null){
+		window.location.href = "index.html";
+	}
 
     $http.get('/mvenue-database/homepage/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
         ).then(function successCallback(response){

@@ -17,22 +17,23 @@
     <link href ="css/musicvenue-styles.css" rel ="stylesheet">
     <link href ="css/event-new-styles.css" rel ="stylesheet">
     <!-- Libraries -->
+
+    <script type="text/javascript" src="../res/lib/angular.min.js"></script>
+
     <script type="text/javascript" src="../res/lib/jquery.min.js"></script>
     <script type="text/javascript" src="../res/lib/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../res/lib/angular.min.js"></script>
 
      <!-- AngularJS related -->
     <script type="text/javascript" src="../controllers/app.js"></script>
+    <script type="text/javascript" src="../controllers/register.ctrl.js"></script>
 
 </head>
 <body  ng-app="app" ng-controller="RegisterControl as main">
 
-
-
 <div class="ne-container container-fluid cover inner" >
 
     <div class="container">
-        <!--<div ng-repeat="user in main.uusers">{{user.first_name}}</div>-->
+      <!--<div ng-repeat="user in main.uusers">{{user.first_name}}</div>-->
         <!--<div> <input ng-model="inputname" ng-keyup="main.add($event)"></div>-->
 
         <!--ng-keyup cuando le des enter-->
@@ -57,27 +58,27 @@
                         <form role="form">
                             <div class="form-group">
                                 <label for="firstname"> First Name</label>
-                                <input class="form-control" id="firstname" type="text" ng-model="firstname">
+                                <input ng-model="main.first_name" class="form-control" id="firstname" type="text">
                                 <hr/>
                             </div>
                             <div class="form-group">
                                 <label for="lastname">Last Name</label>
-                                <input class="form-control" id="lastname" type="text"  ng-model="lastname">
+                                <input ng-model="main.last_name" class="form-control" id="lastname" type="text"  >
                                 <hr/>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input class="form-control" id="email" type="text" ng-model="email">
+                                <input ng-model="main.email"class="form-control" id="email" type="text" >
                                 <hr/>
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input class="form-control" id="password" type="password" ng-model="password">
+                                <input ng-model="main.password" class="form-control" id="password" type="password">
                                 <hr/>
                             </div>
                             <div class="form-group">
                                 <label for="repassword">Re-enter Password</label>
-                                <input class="form-control" id="repassword" type="password" ng-model="repassword">
+                                <input ng-model="main.repassword"class="form-control" id="repassword" type="password" >
                                 <hr/>
                             </div>
 
@@ -89,14 +90,14 @@
                         <div class="row">
 
                             <div class="col-xs-3">
-                                <button type="button" class="btn btn-general" ng-keyup="main.create($event)>Create an account</button>
+                                <button type="button" class="btn btn-general" ng-click="main.register()">Register </button>
 
 
                             </div>
 
 
                             <div class="col-xs-3">
-                                <button type="button" class="btn btn-general">Cancel</button>
+                                <button type="button" class="btn btn-general" ng-click="main.cancel()">Cancel</button>
                             </div>
                         </div>
                     </div>
@@ -118,6 +119,10 @@
 
                 </form>
             </div>
+        </div>
+
+        </div>
+</div>
 
 
             <!-- JavaScript Includes -->
@@ -131,5 +136,7 @@
 
             <!--Register page js file-->
             <script type="text/javascript" src="../controllers/register.ctrl.js"></script>
+
+
 </body>
 </html>
