@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Music Venue</title>
+    <meta name="viewport" content="width-device-width, initial-scale=.3">
+    <!-- CSS Files -->
+    <link href ="../res/lib/css/bootstrap.min.css" rel ="stylesheet">
+    <link href ="css/styles.css" rel ="stylesheet">
+    <link href ="css/musicvenue-styles.css" rel ="stylesheet">
+    <link href ="css/general.css" rel ="stylesheet">
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../res/lib/jquery.min.js"></script>
+    <script type="text/javascript" src="../res/lib/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../res/lib/angular.min.js"></script>
+    <!-- Page logic -->
+    <script type="text/javascript"  src="../controllers/login-register-logic.js"></script>
+    
+</head>
+<body>
+<!--
+you can substitue the span of reauth email for a input with the email and
+include the remember me checkbox
+-->
+
+
+
+<div class="container">
+    <div class="card card-container" id="logincontent">
+        <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+        <!-- <img id="profile-img" class="profile-img-card" src="https://trello-attachments.s3.amazonaws.com/560f20a1f325ff50c8b90193/1920x1080/7dd06f25c183c7c6962a9155c2ed0d15/logo.png" />-->
+        <p id="profile-name" class="profile-name-card"><h2 style="text-align:center">Enter your email to reset your password</h2></p>
+        <form class="form-signin">
+            <span id="reauth-email" class="reauth-email"></span>
+            <input type="email" class="form-control" placeholder="Email address" required autofocus>
+
+
+            <form> <input id="signin"type="submit" value="Send Notification" class="inputbtn btn-general" > </form>
+
+        </form><!-- /form -->
+
+
+        <td>
+        </td>
+        <a href="#" class="forgot-password" id='forgotpass'>
+            Forgot the password?
+        </a>
+    </div><!-- /card-container -->
+</div><!-- /container -->
+
+<script>
+
+    $( '#signin' ).click(function() {
+        //re-direct to the home page:
+        window.location.href = "login.html";
+
+    });
+
+</script>
+</body>
+
+</html>
