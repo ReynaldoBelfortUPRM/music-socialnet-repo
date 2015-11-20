@@ -1,0 +1,151 @@
+
+
+body
+{
+    background: #e8e8e8;
+    font-family: 'Helvetica Neue', Helvetica, Arial;
+    padding-top:50px;
+
+}
+
+/*Masonry layout plugin*/
+
+*
+{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*Masonry Wall*/
+
+.masonryWall
+{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+/*Tradespace announcement styling*/
+
+.announcement
+{
+    float: left;
+    background: #2296DD;
+    border: 2px solid #333;
+    margin-left: 12px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
+.announcement.semi
+{
+    width: 288px;
+    min-height: 200x;
+    height: auto;
+    background-color: #f7f5f5;
+}
+
+.announcement.full
+{
+    width: 330px;
+    min-height: 200x;
+    height: auto;
+    background-color: #f7f5f5;
+}
+
+.sellerName
+{
+    font-family: Open Sans;
+    font-size: 20px;
+}
+
+/*
+ font-family: Open Sans;
+    font-size: 40px;
+    padding-left: 0px;
+    font-weight: normal;*/
+
+.annPrice
+{
+    font-family: Open Sans;
+    font-size: 27px;
+    text-align: center;
+    margin-top: 38px;
+    font-weight: 600;
+}
+
+.annTitle
+{
+    font-size: 18px;
+    text-align: center;
+    font-family: Open Sans;
+    font-weight: 600;
+}
+
+.customWell
+{
+    min-height: 20px;
+    padding: 19px;
+    background-color: #efefef;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    margin-left: -17px;
+    margin-right: -17px;
+    font-family: Open Sans;
+    font-size: 15px;
+}
+
+.carouselStyle
+{
+    margin-bottom: 18px;
+    width: 288px;
+    margin-left: 6px;
+}
+
+.modalCustom
+{
+    max-width: 500px;
+}
+
+.tag-style
+{
+    min-width: 40px;
+    background-color: #b7b7b7;
+    border-radius: 2px;
+    float: left;
+    margin: 4px 3px;
+    padding: 2px 4px;
+}
+
+.tag-button-style
+{
+    margin-top: 10px;
+    margin-left: -12px;
+    width: 75px;
+}
+
+.footer-navbar-custom
+{
+    float: right;
+}
+
+.btnAddAnn-style
+{
+    display: inline-block;
+    position: fixed;
+    right: 3%;
+    top: 87%;
+    z-index: 1;
+    border-radius: 30px;
+    width: 60px;
+    height: 60px;
+    font-size: 33px;
+    background-color: #4edaed;
+    color: #fdfdfd;
+}
+

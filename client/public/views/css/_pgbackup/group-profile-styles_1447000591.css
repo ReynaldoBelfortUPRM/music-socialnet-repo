@@ -1,0 +1,96 @@
+
+
+body, html
+{
+    margin: 0;
+    overflow: hidden;
+    height: 100%;
+}
+
+@media (min-width: 768px)
+{
+    #leftPanel
+    {
+        position: relative;
+        top: 0px;
+        bottom: 0;
+        left: 0;
+        width: 30%;
+        overflow-y: scroll;
+    }
+    #rightPanel
+    {
+        position: relative;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        overflow-y: scroll;
+        width: 70%;
+    }
+}
+
+#leftPanel
+{
+    text-align: center;
+    height: 100%;
+    background: red;
+    min-height: 600px;
+}
+
+#rightPanel
+{
+    height: 100%;
+    text-align: center;
+    background: blue;
+    min-height: 600px;
+}
+
+.top-buffer
+{
+    margin-top: 9px;
+}
+
+/*Content board related*/
+
+.free-wall
+{
+    margin: 80px 15px 15px;
+}
+
+.brick
+{
+    width: auto;
+    height: 200px;
+    max-width: 900px;
+}
+
+.info
+{
+    padding: 15px;
+    color: #333;
+}
+
+.cover-img-fit
+{
+    width: 100%;
+    max-height: 500px;
+}
+
+.no-col-padding
+{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.group-name
+{
+    background-color: #d37171;
+    width: 240px;
+    height: 100px;
+    margin-left: 45%;
+    position: absolute;
+    z-index: 10;
+    margin-top: -5%;
+    border-radius: 14px;
+}
+

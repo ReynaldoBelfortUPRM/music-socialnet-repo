@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <title>Music Venue</title>
+		<meta name="viewport" content="width-device-width, initial-scale=.3">
+		<link href ="../res/lib/css/bootstrap.min.css" rel ="stylesheet">
+        <link href ="css/styles.css" rel ="stylesheet">
+        <link href ="css/musicvenue-styles.css" rel ="stylesheet">
+        <link href ="css/general.css" rel ="stylesheet">
+
+        <!-- Libraries -->
+        <script type="text/javascript" src="../res/lib/jquery.min.js"></script>
+        <script type="text/javascript" src="../res/lib/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../res/lib/angular.min.js"></script>
+
+        <script type="text/javascript" src="../controllers/app.js"></script>
+        <script type="text/javascript" src="../controllers/login.ctrl.js"></script>
+	</head>
+	<body ng-app="app" ng-controller="LoginControl as main">
+	<!--
+    you can substitue the span of reauth email for a input with the email and
+    include the remember me checkbox
+    -->
+
+         
+
+    <div class="container">
+        <div class="card card-container" id="logincontent">
+            <p id="profile-name" class="profile-name-card"><h2 style="text-align:center">Welcome to MusicVenue!</h2></p>
+            <form class="form-signin">
+                <span id="reauth-email" class="reauth-email"></span>
+                <input ng-model="main.loginemail" type="email" class="form-control" placeholder="Email address" required autofocus >
+                <input  ng-model="main.loginpassword" type="password" class="form-control" placeholder="Password" required>
+                <form> <input type="submit" value="Sign in" class="inputbtn btn-general" ng-click="main.signin()">
+
+                    <input type="submit" id="signup" value="Sign Up" class="inputbtn btn-general" onclick=""window.location="register.html">
+
+                </form>
+
+            </form><!-- /form -->
+
+
+            <a href="#" class="forgot-password" id='forgotpass'>
+                Forgot Password?
+            </a>
+        </div><!-- /card-container -->
+    </div><!-- /container -->
+		
+
+	</body>
+</html>
