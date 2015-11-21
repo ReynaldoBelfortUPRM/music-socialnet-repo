@@ -53,13 +53,6 @@ angular.module('app').controller("HomepageController", function($http){
 
 	};
 
-	//Navbar logout
-	vmodel.logout = function(){
-		//Erase current token and re-direct to the welcome page:
-		sessionStorage.removeItem('clientAuthentication');
-        window.location.href = "index.html";
-	}
-
 	//TODO-----------Dummy operations: for design purposes-----------------
 	// vmodel.showUpload = true;
 	//vmodel.post_type = 1;

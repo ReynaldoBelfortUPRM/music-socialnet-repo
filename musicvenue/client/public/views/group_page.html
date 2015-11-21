@@ -34,7 +34,7 @@
     <body ng-app="app" ng-controller="GroupController as groupmain"> 
         <!-- NavBar start....................................................................................................-->
         <!-- Fixed navbar -->
-        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div ng-controller="NavBarController as navmain" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -73,7 +73,7 @@
                                     <a href="settings.html">Settings</a>
                                 </li>
                                 <li>
-                                    <a href="#">Log Out</a>
+                                    <a href="navmain.logout()">Log Out</a>
                                 </li>
                             </ul>
                         </li>
@@ -267,6 +267,7 @@
             </div>             
         </div>         
     </div>       
-    <!-- Placed at the end of the document so the pages load faster -->     
-    <script src="../controllers/grouppage.ctrl.js"></script>     
+    <!-- Controller -->     
+    <script type="text/javascript" src="../controllers/grouppage.ctrl.js"></script>    
+    <script type="text/javascript" src="../controllers/navbar.ctrl.js"></script> 
 </body>
