@@ -21,59 +21,62 @@
     <script type="text/javascript" src="../res/lib/jquery.min.js"></script>
     <script type="text/javascript" src="../res/lib/bootstrap.min.js"></script>
     <script type="text/javascript" src="../res/lib/angular.min.js"></script>
+    <!-- Controllers -->
+    <script type="text/javascript" src="../controllers/navbar.ctrl.js"></script>
 
 </head>
-<body>
+<body ng-app="app">
 
 <!-- NavBar start....................................................................................................-->
 
 
-<!-- Fixed navbar -->
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="tradespace.html">Tradespace</a>
-                </li>
-                <li>
-                    <a href="businesspage.html">Business</a>
-                </li>
-                <li>
-                    <a href="#">
-                        <input type="text" placeholder="Search">
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <button type="button" class="btn btn-sm btn-general">Search</button>
-                    </a>
-                </li>
-                <li><a href="homepage.html"><span class="app-name-style">MusicVenue</span></a>
-                </li>
-                <li><a href="event.html">Events</a>
-                </li>
-                <li><a href="group_page.html">Groups</a>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Nina Belafonte<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="profile_page.html">Profile</a>
-                        </li>
-                        <li><a href="settings.html">Settings</a>
-                        </li>
-                        <li><a href="#">Log Out</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+    <!-- Fixed navbar -->
+    <div ng-controller="NavBarController as navmain" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="tradespace.html">Tradespace</a>
+                    </li>
+                    <li>
+                        <a href="businesspage.html">Business</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <input type="text" placeholder="Search">
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="#">
+                            <button type="button" class="btn btn-sm btn-general">Search</button>
+                        </a>
+                    </li>
+                    <li><a href="homepage.html"><span class="app-name-style">MusicVenue</span></a>
+                    </li>
+                    <li><a href="event.html">Events</a>
+                    </li>
+                    <li><a href="group_page.html">Groups</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Nina Belafonte<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="profile_page.html">Profile</a>
+                            </li>
+                            <li><a href="settings.html">Settings</a>
+                            </li>
+                            <li><a ng-click="navmain.logout()">Log Out</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
         </div>
-        <!--/.nav-collapse -->
     </div>
-</div>
-<!-- End of Nav Bar -->
+    <!-- End of Nav Bar -->
 
-<!-- NavBar end......................................................................................-->
-
+    <!-- NavBar end.....................................................................................................-->
 
 
 
@@ -172,17 +175,5 @@
                 </form>
             </div>
 
-
-            <!-- JavaScript Includes -->
-            <script src="../res/lib/upload_form/jquery.knob.js"></script>
-
-            <!-- jQuery File Upload Dependencies -->
-            <script src="../res/lib/upload_form/jquery.ui.widget.js"></script>
-            <script src="../res/lib/upload_form/jquery.iframe-transport.js"></script>
-            <script s<!-- Our main JS file -->
-            <!-- <script src="../res/lib/script.js"></script> -->rc="../res/lib/upload_form/jquery.fileupload.js"></script>
-
-            <!-- Our main JS file -->
-            <!-- <script src="../res/lib/script.js"></script> -->
 </body>
 </html>

@@ -3,22 +3,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>MusicVenue - Settings</title>
-    
     <link rel="stylesheet" href="../res/lib/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/general.css"/>
     <!--Custom Style-->
     <link rel="stylesheet" type="text/css" href="css/settings.css"/>
+    <!-- Libraries -->
+    <script src="../res/lib/jquery.min.js"></script>
+    <script src="../res/lib/bootstrap.min.js"></script>
 </head>
 
 <body>
+   <!-- NavBar start....................................................................................................-->
+
     <!-- Fixed navbar -->
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div ng-controller="NavBarController as navmain" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="tradespace.html">Tradespace</a>
+                    <li>
+                        <a href="tradespace.html">Tradespace</a>
                     </li>
-                    <li><a href="businesspage.html">Business</a>
+                    <li>
+                        <a href="businesspage.html">Business</a>
                     </li>
                     <li>
                         <a href="#">
@@ -44,7 +50,7 @@
                             </li>
                             <li><a href="settings.html">Settings</a>
                             </li>
-                            <li><a href="#">Log Out</a>
+                            <li><a ng-click="navmain.logout()">Log Out</a>
                             </li>
                         </ul>
                     </li>
@@ -54,6 +60,8 @@
         </div>
     </div>
     <!-- End of Nav Bar -->
+
+    <!-- NavBar end.....................................................................................................-->
 
     <div class="container theme-showcase">
         <div class="jumbotron">
@@ -233,10 +241,8 @@
         <!-- /container -->
 
 
-        <!-- Bootstrap core JavaScript
-    ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="../res/lib/jquery.min.js"></script>
-        <script src="../res/lib/bootstrap.min.js"></script>
+        <!-- Controllers -->
+        <script type="text/javascript" src="../controllers/homepage.ctrl.js"></script>
+        <script type="text/javascript" src="../controllers/navbar.ctrl.js"></script>
     </div>
 </body>

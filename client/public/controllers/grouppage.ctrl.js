@@ -29,13 +29,6 @@ angular.module('app').controller("GroupController", function($http){
 
 	//-------Event Handling----------
 
-	//Navbar logout
-	vmodel.logout = function(){
-		//Erase current token and re-direct to the welcome page:
-		sessionStorage.removeItem('clientAuthentication');
-        window.location.href = "index.html";
-	}
-
 
 	//----------------Loading Dummy data for testing-----------------------
     $http.get('../data/group.json').success(function(response){

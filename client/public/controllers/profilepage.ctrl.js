@@ -1,6 +1,6 @@
 
 
-angular.module('app').controller("GroupController", function($http){
+angular.module('app').controller("ProfileController", function($http){
     //Object initializations
     var vmodel = this; //The scope of this controller.
     vmodel.groupData = [];
@@ -8,13 +8,6 @@ angular.module('app').controller("GroupController", function($http){
 
     //-------Event Handling----------
     
-    //Navbar logout
-    vmodel.logout = function(){
-        //Erase current token and re-direct to the welcome page:
-        sessionStorage.removeItem('clientAuthentication');
-        window.location.href = "index.html";
-    }
-
     //----------------Loading Dummy data for testing-----------------------
     $http.get('../data/group.json').success(function(response){
              vmodel.groupData = response.groupData;

@@ -39,15 +39,16 @@
     </head>
     <body ng-app="app" ng-controller="TradespaceController as trademain">
 
-    <!-- NavBar start....................................................................................................-->
+   <!-- NavBar start....................................................................................................-->
 
 
     <!-- Fixed navbar -->
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div ng-controller="NavBarController as navmain" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="tradespace.html">Tradespace</a>
+                    <li>
+                        <a href="tradespace.html">Tradespace</a>
                     </li>
                     <li>
                         <a href="businesspage.html">Business</a>
@@ -56,6 +57,7 @@
                         <a href="#">
                             <input type="text" placeholder="Search">
                         </a>
+
                     </li>
                     <li>
                         <a href="#">
@@ -75,7 +77,7 @@
                             </li>
                             <li><a href="settings.html">Settings</a>
                             </li>
-                            <li><a href="#">Log Out</a>
+                            <li><a ng-click="navmain.logout()">Log Out</a>
                             </li>
                         </ul>
                     </li>
@@ -87,7 +89,6 @@
     <!-- End of Nav Bar -->
 
     <!-- NavBar end.....................................................................................................-->
-
 
 
 <!--DONT DELETE is for the space between navbar and tradeposts -->
@@ -222,6 +223,7 @@
                 </div>
             </div>
         </div>
-        <!-- Page functionality -->
+        <!-- Controllers -->
         <script type="text/javascript" src="../controllers/tradespace.ctrl.js"></script>
+        <script type="text/javascript" src="../controllers/navbar.ctrl.js"></script>
     </body>
