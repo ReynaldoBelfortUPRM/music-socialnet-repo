@@ -1,4 +1,6 @@
-//TODO Add general documentation
+/* Server Router
+  Every http requiest comming from the views are captured here.
+*/
 
 //Loading required packages:
 var express = require('express');
@@ -18,11 +20,7 @@ var connectionString={
   ssl: true
 };
 
-//Sending the MusicVenue welcome page to the client
-router.get('/', function(req, res, next) {
-  res.sendFile(path.join(__dirname, '../', '../', 'client', 'public', 'views', 'index.html'));
-});
-
+//Database initialization
 var id =[];
 initialize_id();
 function initialize_id() {
@@ -54,6 +52,11 @@ function initialize_id() {
 
   });
 }
+
+//Sending the MusicVenue welcome page to the client
+router.get('/', function(req, res, next) {
+  res.sendFile(path.join(__dirname, '../', '../', 'client', 'public', 'views', 'index.html'));
+});
 
 
 //--------------TODO Area where the database queries will be handled---------------------
@@ -113,8 +116,6 @@ router.post('/mvenue-database/login/', function(req, res) {
 
     // Grab data from http request
     var logintry = {email: req.body.email, password: req.body.password };
-    //TODO DEBUG
-    //console.log("DEBUG: Request data:" + logintry.email + " " + logintry.password);
 
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, function(err, client, done) {
@@ -126,11 +127,6 @@ router.post('/mvenue-database/login/', function(req, res) {
             return res.status(500).json({ success: false, data: err});
         }
 
-
-        // client.query("INSERT INTO items(text, complete) values($1, $2)", [data.text, data.complete]);
-        //client.query("INSERT INTO uuser(user_id, first_name, last_name,email, password, photo_path, about) values($1, $2,$3, $4,$5, $6,$7)", [id, user.first_name, user.last_name, user.email, user.password, user.photo_path, user.about]);
-
-
         //TODO Aquí se debería enviar de vuelta al usuario sobre si pasó el registro o no:
         //Si email existe, etc.
         //TODO Password must be encrypted here!
@@ -141,7 +137,6 @@ router.post('/mvenue-database/login/', function(req, res) {
 
         //----------TODO Query event handlers---------------
 
-        
         //Capture any database error
         query.on('error', function(error){
           //TODO DEBUG
@@ -170,13 +165,15 @@ router.post('/mvenue-database/login/', function(req, res) {
               //Meaning that the account exists and password matched with database.
               try{
                   //Create token for user:
-                  //TODO Email is necessary on the token payload?
-                  var newToken = jwt.sign({user_id: results[0].user_id, email: results[0].email}, config.secret, {
+                  var newToken = jwt.sign({user_id: results[0].user_id, business_id: null, isBusinessMode: false}, config.secret, {
                     expiresIn: 3600 //token expires in 1hr
                   });
 
-                  //Return a succesful status response (success code) alogn with token:
-                  return res.status(200).json({token: newToken});
+              //Creating clientAuthentication object:
+              var clientAu = {token: newToken, userName: results[0].first_name + " " + results[0].last_name};
+
+              //Return a succesful status response (success code) alogn with token:
+              return res.status(200).json(clientAu);
               }catch(err){
                 //TODO DEBUG
                 console.log("DEBUG: ERROR: " + err.toString());
@@ -358,6 +355,75 @@ router.get('/mvenue-database/tradespace/:token', function(req, res) {
 
 //------------------------ END TRADESPACE------------------------------------------
 
+//------------------------ START SETTINGS page------------------------------------------
+
+router.get('/mvenue-database/changeUserMode/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: Change User Mode Request entry.");    
+    var uPayload;
+    var results = [];
+
+    //Token validation
+    try{
+      //Get payload data from the client that is logged in
+      uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    if(req.body.isBusiness){
+        //----Change to a business mode----
+
+        //Generate new token based on request date from client
+        try{
+          var newToken = jwt.sign({user_id: uPayload.user_id, business_id: req.body.targetID, isBusinessMode: true}, config.secret, {
+            expiresIn: 3600 //token expires in 1hr
+          });
+
+          //Creating clientAuthentication object:
+          var clientAu = {token: newToken, userName: req.body.userName};
+
+          //Return a succesful status response (success code) alogn with token:
+          return res.status(200).json(clientAu);
+
+        }catch(err){
+          //TODO DEBUG
+          console.log("DEBUG: ERROR: " + err.toString());
+          //Return a failure status response (failure code):
+          return res.status(500).json({success: false, data: err});
+        }
+
+    }else{
+      //----Change to regular user mode----
+
+      //Generate new token based on request date from client
+        try{
+          var newToken = jwt.sign({user_id: uPayload.user_id, business_id: null, isBusinessMode: false}, config.secret, {
+            expiresIn: 3600 //token expires in 1hr
+          });
+
+          //Creating clientAuthentication object:
+          var clientAu = {token: newToken, userName: req.body.userName};
+
+          //Return a succesful status response (success code) alogn with token:
+          return res.status(200).json(clientAu);
+
+        }catch(err){
+          //TODO DEBUG
+          console.log("DEBUG: ERROR in Change Mode: " + err.toString());
+          //Return a failure status response (failure code):
+          return res.status(500).json({success: false, data: err});
+        }
+
+    }
+
+
+    //Change the user mode
+
+    //----------TODO Database query code HERE
+});
+
+//------------------------ END SETTINGS page--------------------------------------------
 
 //Extra functionality for JWT authentication
 //This  funciton verifies and validates any token that is used 

@@ -12,7 +12,7 @@
     <script src="../res/lib/bootstrap.min.js"></script>
 </head>
 
-<body>
+<body ng-app="app" ng-controller="SettingsController as smain">
    <!-- NavBar start....................................................................................................-->
 
     <!-- Fixed navbar -->
@@ -44,7 +44,7 @@
                     <li><a href="group_page.html">Groups</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Nina Belafonte<b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{navmain.userName}}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="profile_page.html">Profile</a>
                             </li>
@@ -240,9 +240,8 @@
         </div>
         <!-- /container -->
 
-
         <!-- Controllers -->
-        <script type="text/javascript" src="../controllers/homepage.ctrl.js"></script>
+        <script type="text/javascript" src="../controllers/settings.ctrl.js"></script>
         <script type="text/javascript" src="../controllers/navbar.ctrl.js"></script>
     </div>
 </body>
