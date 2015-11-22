@@ -66,6 +66,7 @@ angular.module('app').controller("HomepageController", function($http){
 		window.location.href = "index.html";
 	}
 
+	//Retrieve the corresponding posts from the server
     $http.get('/mvenue-database/homepage/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
         ).then(function successCallback(response){
         	//------Recieve and manage response data-------
