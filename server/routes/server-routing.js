@@ -90,18 +90,31 @@ router.get('/', function(req, res, next) {
          //TODO Aquí se debería enviar de vuelta al usuario sobre si pasó el registro o no:
             //Si email existe, etc.
 
-         var query = client.query("SELECT * FROM uuser ORDER BY user_id ASC");
+
+
+         var doneuser=false;
+         var donepost=false;
+
+         var queryuser = client.query("SELECT * FROM uuser ORDER BY user_id ASC");
+
 
          // Stream results back one row at a time
-         query.on('row', function(row) {
+         queryuser.on('row', function(row) {
              results.push(row);
          });
 
          // After all data is returned, close connection and return results
-         query.on('end', function() {
+         queryuser.on('end', function() {
              done();
-             return res.json(results);
+             //return res.json(results);
          });
+
+
+
+         if(doneuser&&donepost){
+
+           }
+
        });
  });
 //------------------------ END REGISTER page--------------------------------------------
@@ -197,86 +210,261 @@ router.post('/mvenue-database/login/', function(req, res) {
 
 
 //------------------------ START HOMEPAGE------------------------------------------
-
+//====GET====
 router.get('/mvenue-database/homepage/:token', function(req, res) {
     //TODO DEBUG
-    console.log("DEBUG: Homepage server entry.");
-    var userData;
-    var results = [];
+    console.log("DEBUG: Homepage server entry. GET Posts");
+
+    var uPayload;
+    var posts = [];
 
     //Token validation
     try{
-      //Get info from the user that is logged in
-      userData = verifyToken(req.params.token);
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
     }catch(err){
         return res.status(401).json(err); //End request by returning a failure response.
     }
 
+   console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GETPOSTS:" + JSON.stringify(uPayload));
 
-  return res.send({"posts": [{
-      "post_id": "2",
-        "post_user": "Pepe Olivera",
-        "post_data": {"post_user": "Ramon Martinez", 
-              "description": "Esto es un post para que se vea como tilizo los instrumentos que tengo!", 
-              "media": ["","",""], 
-              "likes": {}},
-        "data_time": {}, 
-        "post_type": 1,
-    },
-    {
-      "post_id": "2",
-        "post_user": "Pepe Olivera",
-        "post_data": {"post_user": "Ramon Martinez", 
-              "description": "Esto es un post para que se vea como tilizo los instrumentos que tengo!", 
-              "media": ["","",""], 
-              "likes": {}},
-        "data_time": {}, 
-        "post_type": 3,
-    },
-    {
-      "post_id": "2",
-        "post_user": "Pepe Olivera",
-        "post_data": {"post_user": "Ramon Martinez", 
-              "description": "Esto es un post para que se vea como tilizo los instrumentos que tengo!", 
-              "media": ["","",""], 
-              "likes": {}},
-        "data_time": {}, 
-        "post_type": 0,
-    },
-    {
-      "post_id": "2",
-        "post_user": "Pepe Olivera",
-        "post_data": {"post_user": "Ramon Martinez", 
-              "description": "Esto es un post para que se vea como tilizo los instrumentos que tengo!", 
-              "media": ["","",""], 
-              "likes": {}},
-        "data_time": {}, 
-        "post_type": 1,
-    },
-    {
-      "post_id": "2",
-        "post_user": "Pepe Olivera",
-        "post_data": {"post_user": "Ramon Martinez", 
-              "description": "Esto es un post para que se vea como tilizo los instrumentos que tengo!", 
-              "media": ["","",""], 
-              "likes": {}},
-        "data_time": {}, 
-        "post_type": 3,
-    },
-    {
-      "post_id": "2",
-        "post_user": "Pepe Olivera",
-        "post_data": {"post_user": "Ramon Martinez", 
-              "description": "Esto es un post para que se vea como tilizo los instrumentos que tengo!", 
-              "media": ["","",""], 
-              "likes": {}},
-        "data_time": {}, 
-        "post_type": 2,
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        if (uPayload.isBusinessMode){
+
+          console.log("DEBUG: DB QUERY BUSINESS MODE");
+          //----Get all post related to the user----
+          var getQuery="(SELECT post_id, user_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", first_name as name FROM post_user NATURAL JOIN uuser NATURAL FULL JOIN(SELECT post_id, count(liked_by_id) as likes FROM post_user_like GROUP BY post_id) as postoffollowedusers)  UNION (SELECT post_id, business_id as id, data, media_path, media_type, date_time, \"isBusinessPost\", name FROM post_business NATURAL JOIN businesspage ) ORDER BY date_time DESC ;";
+
+          // SQL Query > Select Data
+          var query = client.query(getQuery);
+
+
+          // Stream results back one row at a time
+          query.on('row', function (row) {
+              posts.push(row);
+          });
+
+          // After all data is returned, close connection and return results
+          query.on('end', function () {
+              done();
+
+              console.log("DEBUG: RESULTS GET POSTS BusinessMode ");
+
+              return res.json([posts, uPayload.business_id]);
+          });
+
+          }
+          else{
+              //IN USER MODE
+                  //----Get all post related to the user----
+                  var squery="(WITH followintposts AS (SELECT *  FROM post_user WHERE user_id IN (SELECT followed_id FROM follow WHERE follower_id= $1) )SELECT post_id, user_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", first_name as name  FROM followintposts NATURAL JOIN uuser NATURAL FULL JOIN(SELECT post_id, count(liked_by_id) as likes FROM post_user_like GROUP BY post_id) as postoffollowedusers)  UNION (SELECT post_id, business_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", name FROM (SELECT post_id, business_id, data, media_path, media_type, date_time, \"isBusinessPost\", name FROM post_business NATURAL JOIN businesspage  ) as bpostwithnames WHERE business_id IN (SELECT business_id FROM follow_business WHERE user_id = $2)) ORDER BY date_time DESC ;" ;
+
+                  // SQL Query > Select Data
+                  var query = client.query(squery, [uPayload.user_id, uPayload.user_id]);
+
+                  // Stream results back one row at a time
+                  query.on('row', function (row) {
+                      posts.push(row);
+                  });
+
+                  // After all data is returned, close connection and return results
+                  query.on('end', function () {
+                      done();
+                      console.log("DEBUG: RESULTS GET POSTS RegularMode");
+                      return res.json([posts, uPayload.user_id]);
+                  });
+
+       }// end else isBusinessMode
+
+    });
+
+});
+
+//====POST====
+router.post('/mvenue-database/homepage/:token', function(req, res) {
+    console.log("DEBUG: Homepage POST------.");
+
+    var post_input={
+        data: req.body.data,
+        media_path: req.body.media_path,
+        media_type: req.body.media_type
+    };
+    var uPayload;
+    var updatedPosts = [];
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
     }
-    ]});
+
+    // Get a Postgres client from the connection pool
+    console.log("DEBUG: DB CONNECT");
+    pg.connect(connectionString, function(err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        if (uPayload.isBusinessMode){
+            //This is a BUSINESS POST
+            // SQL Query > Insert Data
+            client.query("INSERT INTO post_business( business_id, data, media_path, media_type, date_time, \"isBusinessPost\")" +
+                "VALUES ( $1 , $2, $3, $4, CURRENT_TIMESTAMP, true)"
+                , [uPayload.business_id, post_input.data, post_input.media_path,post_input.media_type ]);
+            
+            //----Get all post related to the user----
+            var getQuery="(SELECT post_id, user_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", first_name as name FROM post_user NATURAL JOIN uuser NATURAL FULL JOIN(SELECT post_id, count(liked_by_id) as likes FROM post_user_like GROUP BY post_id) as postoffollowedusers)  UNION (SELECT post_id, business_id as id, data, media_path, media_type, date_time, \"isBusinessPost\", name FROM post_business NATURAL JOIN businesspage ) ORDER BY date_time DESC ;";
+
+            // SQL Query > Select Data
+            var query = client.query(getQuery);
+
+
+            // Stream results back one row at a time
+            query.on('row', function (row) {
+                updatedPosts.push(row);
+            });
+
+            // After all data is returned, close connection and return results
+            query.on('end', function () {
+                done();
+
+                console.log("DEBUG: RESULTS GET POSTS AFTER ADD POST BusinessMode");
+
+                return res.json([updatedPosts, uPayload.business_id]);
+            });
+        }
+        else{
+            //THIS IS A USER POST
+
+            // SQL Query > Insert Data
+            client.query("INSERT INTO post_user( user_id, data, media_path, media_type, date_time, \"isBusinessPost\")" +
+                "VALUES ( $1 , $2, $3, $4, CURRENT_TIMESTAMP, false)"
+                , [uPayload.user_id, post_input.data, post_input.media_path,post_input.media_type ]);
+            
+            //----Get all post related to the user----
+            var getQuery ="(WITH followintposts AS (SELECT *  FROM post_user WHERE user_id IN (SELECT followed_id FROM follow WHERE follower_id= $1) )SELECT post_id, user_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", first_name as name  FROM followintposts NATURAL JOIN uuser NATURAL FULL JOIN(SELECT post_id, count(liked_by_id) as likes FROM post_user_like GROUP BY post_id) as postoffollowedusers)  UNION (SELECT post_id, business_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", name FROM (SELECT post_id, business_id, data, media_path, media_type, date_time, \"isBusinessPost\", name FROM post_business NATURAL JOIN businesspage  ) as bpostwithnames WHERE business_id IN (SELECT business_id FROM follow_business WHERE user_id = $2)) ORDER BY date_time DESC ;" ;
+
+            // SQL Query > Select Data
+            var query = client.query(getQuery, [uPayload.user_id, uPayload.user_id]);
+
+            // Stream results back one row at a time
+            query.on('row', function (row) {
+                updatedPosts.push(row);
+            });
+
+            // After all data is returned, close connection and return results
+            query.on('end', function () {
+                done();
+                console.log("DEBUG: RESULTS GET POSTS AFTER ADD POST RegularMode");
+                return res.json([updatedPosts, uPayload.user_id]);
+            });
+
+        }
+    });
 
 
 });
+
+
+//====DELETE====
+router.delete('/mvenue-database/homepage/', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: Homepage server entry. DELETE Post: TOKEN:" + req.query.tk + " , POST_ID: " + req.query.postID)
+    var uPayload;
+    var postID = req.query.postID;
+    var posts = [];
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.query.tk);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+   console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD DELETEPOST:" + JSON.stringify(uPayload));
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        if (uPayload.isBusinessMode){
+
+          console.log("DEBUG: DB DELETE QUERY BUSINESS MODE");
+          //=============TODO Aqui va query para DELETE POST=================
+          //Execte delete query
+          client.query("DELETE FROM post_business WHERE post_id=$1;", [postID]);
+
+          //----Get all post related to the user----
+          var getQuery= "NATURAL FULL JOIN(SELECT post_id, count(liked_by_id) as likes FROM post_user_like GROUP BY post_id) as postoffollowedusers)  UNION (SELECT post_id, business_id as id, data, media_path, media_type, date_time, \"isBusinessPost\", name FROM post_business NATURAL JOIN businesspage ) ORDER BY date_time DESC ;";
+
+          // SQL Query > Select Data
+          var query = client.query(getQuery);
+
+
+          // Stream results back one row at a time
+          query.on('row', function (row) {
+              posts.push(row);
+          });
+
+          // After all data is returned, close connection and return results
+          query.on('end', function () {
+              done();
+
+              console.log("DEBUG: RESULTS GET POSTS BusinessMode ");
+
+              return res.json([posts, uPayload.business_id]);
+          });
+
+          }
+          else{
+              //IN USER MODE
+
+              console.log("DEBUG: DB DELETE QUERY USER MODE");
+              //=============TODO Aqui va query para DELETE POST=================
+              //Execte delete query
+              client.query("DELETE FROM post_user WHERE post_id=$1;", [postID]);
+
+              //----Get all post related to the user----
+              var getQuery="(WITH followintposts AS (SELECT *  FROM post_user WHERE user_id IN (SELECT followed_id FROM follow WHERE follower_id= $1) )SELECT post_id, user_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", first_name as name  FROM followintposts NATURAL JOIN uuser NATURAL FULL JOIN(SELECT post_id, count(liked_by_id) as likes FROM post_user_like GROUP BY post_id) as postoffollowedusers)  UNION (SELECT post_id, business_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", name FROM (SELECT post_id, business_id, data, media_path, media_type, date_time, \"isBusinessPost\", name FROM post_business NATURAL JOIN businesspage  ) as bpostwithnames WHERE business_id IN (SELECT business_id FROM follow_business WHERE user_id = $2)) ORDER BY date_time DESC ;" ;
+
+              // SQL Query > Select Data
+              var query = client.query(getQuery, [uPayload.user_id, uPayload.user_id]);
+
+              // Stream results back one row at a time
+              query.on('row', function (row) {
+                  posts.push(row);
+              });
+
+              // After all data is returned, close connection and return results
+              query.on('end', function () {
+                  done();
+                  console.log("DEBUG: RESULTS GET POSTS RegularMode after DELETE");
+                  return res.json([posts, uPayload.user_id]);
+              });
+
+       }// end else isBusinessMode
+
+    });
+
+});
+
 //------------------------ END HOMEPAGE--------------------------------------------|
 
 
@@ -441,76 +629,19 @@ function verifyToken(token){
     throw ({ success: false, data: 'Null token'});
   }
 
-  //Validate token
-  jwt.verify(token, config.secret, function(err,decoded) {      
-    if (err) {
-      //Token is invalid. Let the function caller handle the situation
-      throw ({ success: false, data: 'Server authentication failure.'});    
-    } else {        
-      //TODO DEBUG
-      console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD:" + JSON.stringify(decoded));
-      //Return the decoded payload of the token
-      return decoded;    
-    }
-  });
+  var decoded;
 
+  try{
+    //Validate token
+    decoded = jwt.verify(token, config.secret);
+  }catch(err){
+    //Token is invalid. Let the function caller handle the situation
+    throw ({ success: false, data: err});
+  }
+  
+  console.log("DEBUG: PAYLOAD TO RETURN: " + JSON.stringify(decoded));
+  return decoded;
 }
 
 
 module.exports = router;
-
-
-
-
-//-----------------OLD CODE----------------------
-
-
-
-//-------#######--------From this point below, these routes REQUIRE AUTHENTICATION ----------#######------------
-
-//Express.js route middlepoint: Verify tokens before allowing requests to pass through
-
-// router.use(function(req, res, next){
-
-//   //Of all URLs, the server has to be aware of these ones:
-//   var homePageURL = '/mvenue-database/homepage/';
-//   var tradespaceURL = '/mvenue-database/tradespace/';
-
-//   //If the URL starts with /mvenue-database/homepage/
-//   if( req.originalUrl.slice(0, homePageURL.length) == homePageURL){
-    
-
-
-//   } else if( req.originalUrl.slice(0, tradespaceURL.length) == tradespaceURL){
-//       //Retrieve token from url
-//       var token = req.originalUrl.slice(tradespaceURL.length, req.originalUrl.length);
-
-//       //TODO DEBUG
-//       console.log("DEBUG: TOKEN FROM REQUEST: " + token);
-
-//       //Verify if a token was sent along with the request:
-//       if(token.length <= 0){
-//           //TODO DEBUG
-//         // console.log("DEBUG: Middleware reached! REQUEST URL: " + req.protocol + '://' + req.get('host') + req.originalUrl);
-//         console.log("DEBUG: Middleware error reached! Null token");
-
-//         //Token was not sent. Respond with error code
-//         return res.status(401).json({success: false, data: 'Null token'});
-//       }
-
-//       //Validate token
-//       jwt.verify(token, config.secret, function(err,decoded) {      
-//         if (err) {
-//           return res.status(401).json({ success: false, data: 'Server authentication failure.' });    
-//         } else {        
-//           //TODO DEBUG
-//           console.log("DEBUG: TOKEN VERIFIED FOR: " + tradespaceURL);
-//           console.log("DEBUG: DECODED PAYLOAD: " + JSON.stringify(decoded));
-//           // Store decoded token along with the request and let it continue
-//           req.tokenPayload = decoded;    
-//           next();
-//         }
-//       });
-//   }
-
-// }); //End route.use();

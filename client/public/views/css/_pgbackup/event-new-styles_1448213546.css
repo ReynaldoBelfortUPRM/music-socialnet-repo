@@ -1,0 +1,25 @@
+body, html {
+
+    background:#61243C;
+    background-repeat: no-repeat;
+    padding-top:50px;
+
+}
+
+
+.ne-container{
+
+    background:#DDDDDD;
+    text-align-all: center;
+
+    border-radius: 10px;
+    max-width: inherit;
+;
+
+}
+
+.inner {
+    display: table;
+    margin: 0 auto;
+}
+

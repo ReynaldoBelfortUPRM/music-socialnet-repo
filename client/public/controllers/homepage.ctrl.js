@@ -53,6 +53,59 @@ angular.module('app').controller("HomepageController", function($http){
 
 	};
 
+	vmodel.addPost = function(){
+
+		//TODO Complete a validation 
+		if(vmodel.postDescription.length > 0){
+
+			//TODO Anadir comentario a esto
+			$http.post('/mvenue-database/homepage/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token, {data: vmodel.postDescription, media_path: '', media_type: 2}).then(
+				function successCallback(response){
+					//Clear description from post bar
+					vmodel.postDescription = "";
+
+					//Load data from server
+					vmodel.userID = response.data[1];
+            		vmodel.posts = response.data[0];
+				},
+				function errorCallback(response){
+					if(response.status == 400){
+						alert("Invalid username or password. Please try again.");
+					}
+					else{
+						alert("There was an internal error. Please try again soon.");
+					}
+
+				}
+			);
+	  }
+	};
+
+	vmodel.deletePost = function(postID){
+		//Send a DELETE request to erase the chosen post
+		//Http data would be sent within a query string.
+		$http.delete('/mvenue-database/homepage/?tk=' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+        + "&postID="+postID.toString()).then(function successCallback(response){
+        	//Refresh post data with info data from server
+        	vmodel.userID = response.data[1];
+            vmodel.posts = response.data[0];
+
+        }, function errorCallback(response){
+                if(response.status == 401){
+                    alert("Authentication error! Your session may have been expired. Please log-in!");
+                    //Erase current token
+                    sessionStorage.removeItem('clientAuthentication');
+                    //Re-direct user to the log-in page
+                    window.location.href = "login.html";
+                }
+                else{
+                    alert("Server Internal Error: " + response.data);
+                }
+
+        });
+
+	};
+
 	//TODO-----------Dummy operations: for design purposes-----------------
 	// vmodel.showUpload = true;
 	//vmodel.post_type = 1;
@@ -66,12 +119,13 @@ angular.module('app').controller("HomepageController", function($http){
 		window.location.href = "index.html";
 	}
 
-    $http.get('/mvenue-database/homepage/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+	$http.get('/mvenue-database/homepage/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
         ).then(function successCallback(response){
         	//------Recieve and manage response data-------
 
             //Load data from server
-            vmodel.posts = response.data.posts;
+            vmodel.userID = response.data[1];
+            vmodel.posts = response.data[0];
 
         }, function errorCallback(response){
                 if(response.status == 401){

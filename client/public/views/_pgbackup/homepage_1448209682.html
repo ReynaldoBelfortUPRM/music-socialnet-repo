@@ -34,7 +34,7 @@
         <!-- Fixed navbar -->         
         <div ng-controller="NavBarController as navmain" class="navbar navbar-inverse navbar-fixed-top" role="navigation"> 
             <div class="container"> 
-                <div class="navbar-collapse collapse">
+                <div class="navbar-collapse collapse"> 
                     <ul class="nav navbar-nav"> 
                         <li> 
                             <a href="tradespace.html">Tradespace</a> 
@@ -200,7 +200,7 @@
                                         </div>                                         
                                     </div>                                     
                                     <div class="col-md-5">
-                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelVideo" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>                                         
+                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelVideo" ng-click="homemain.deletePost(uPost.post_id)">&times;</button>                                         
                                         <div class="row"> 
                                             <h3 class="post-image-video-title">{{uPost.name}}</h3> 
                                             <div class="" style="background: #000000; width:90%; height:1px;margin-bottom:8px"></div>                                             
@@ -232,7 +232,7 @@
                                         </div>                                         
                                     </div>                                     
                                     <div class="col-md-5">
-                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelImage" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>                                         
+                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelImage" ng-click="homemain.deletePost(uPost.post_id)">&times;</button>                                         
                                         <div class="row"> 
                                             <h3 class="post-image-video-title">{{uPost.name}}</h3> 
                                             <div class="" style="background: #000000; width:90%; height:1px;margin-bottom:8px"></div>                                             
@@ -246,7 +246,7 @@
                         </div>                         
                         <div class="post" id="post-text" ng-switch-when="2"> 
                             <div class="container-fluid">
-                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelText" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>                                 
+                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelText" ng-click="homemain.deletePost(uPost.post_id)">&times;</button>                                 
                                 <div class="row"> 
                                     <h3 class="post-title-text">{{uPost.name}}</h3> 
                                 </div>                                 
@@ -271,7 +271,7 @@
                         </div>                         
                         <div class="post" id="post-audio" ng-switch-when="3"> 
                             <div class="container-fluid">
-                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelAudio" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>                                 
+                                <button type="button" class="close post-close-button" aria-hidden="true">&times;</button>                                 
                                 <div class="row"> 
                                     <div class="col-md-8"> 
                                         <div class="well post-description-audio">{{uPost.data}}</div>                                         

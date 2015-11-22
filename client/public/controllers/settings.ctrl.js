@@ -19,7 +19,7 @@ angular.module('app').controller("SettingsController", function($http){
 	vmodel.changeUserMode = function(){
 
 		$http.get('/mvenue-database/changeUserMode/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
-        , {isBusiness: "TODO", targetID: 0, userName: "TODO"}).then(function successCallback(response){
+        , {targetID: 0, userName: "TODO"}).then(function successCallback(response){
         	//------Successful change of user mode-------
 
             //Replace current clientAuthentication object with a new one

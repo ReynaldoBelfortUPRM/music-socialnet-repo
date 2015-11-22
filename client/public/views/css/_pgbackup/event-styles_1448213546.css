@@ -1,0 +1,114 @@
+body, html {
+
+    background:#61243C;
+    background-repeat: no-repeat;
+    padding-top:50px;
+
+}
+
+
+
+.card-container.card {
+    width: 350px;
+    padding: 40px 40px;
+    /**   background-color: #DDDDDD;**/
+}
+.container{
+    border-top: 4pt ;
+    padding: 10pt;
+    border-collapse: separate;
+    text-align: left;
+    border-radius: 8px;
+
+
+}
+
+.event-container{
+    border-top: 4pt ;
+    padding: 10pt;
+    border-collapse: separate;
+    text-align: left;
+    border-radius: 8px;
+    background-color: #DDDDDD;
+    margin-bottom: 17px;
+
+
+}
+
+.editEventBtn
+
+.card {
+    background-color: #F7F7F7;
+    /* just in case there no content*/
+    padding: 20px 25px 30px;
+    margin: 0 auto 25px;
+    margin-top: 50px;
+    /* shadows and rounded borders */
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+.profile-img-card {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+
+
+/* Tab Navigation */
+.nav-tabs {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+.nav-tabs > li > a {
+    background: #DADADA;
+    border-radius: 0;
+    box-shadow: inset 0 -8px 7px -9px rgba(0,0,0,.4),-2px -2px 5px -2px rgba(0,0,0,.4);
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover {
+    background: #F5F5F5;
+    box-shadow: inset 0 0 0 0 rgba(0,0,0,.4),-2px -3px 5px -2px rgba(0,0,0,.4);
+}
+
+/* Tab Content */
+.tab-pane {
+    background: #F5F5F5;
+    box-shadow: 0 0 4px rgba(0,0,0,.4);
+    border-radius: 0;
+    text-align: left;
+    padding: 10px;
+}
+
+.list-div{
+    background:#DDDDDD;
+}
+
+
+.col-xs-12{
+
+
+    height: 100px;/**em**/
+    background: blue;
+}
+
+.col-xs-6{
+    height: 100px;
+    /**border:2px solid;**/
+}
+
+.col-xs-4{
+    height: 100px;
+    background: red;
+    border:2px solid;
+    height:10em;
+}
