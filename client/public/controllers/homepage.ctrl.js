@@ -66,7 +66,38 @@ angular.module('app').controller("HomepageController", function($http){
 		window.location.href = "index.html";
 	}
 
-    $http.get('/mvenue-database/homepage/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+
+	//TODO debug
+	$http.post('/mvenue-database/homepage-post/', {}).then(
+		function successCallback(response){
+			//TODO When user is logged out, the token must be erased.
+			//Retrieve token and store in browser's session cookie:
+			//sessionStorage.setItem('clientAuthentication', JSON.stringify({loggedIn: true, token: response.data.token}));
+
+			//Direct user to the homepage
+			//window.location.href = "homepage.html";
+
+			console.log("Salio todo bien");
+
+		},
+		function errorCallback(response){
+			if(response.status == 400){
+				alert("Invalid username or password. Please try again.");
+			}
+			else{
+				alert("There was an internal error. Please try again soon.");
+			}
+
+		}
+	);
+
+
+
+
+
+
+
+	$http.get('/mvenue-database/homepage/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
         ).then(function successCallback(response){
         	//------Recieve and manage response data-------
 
