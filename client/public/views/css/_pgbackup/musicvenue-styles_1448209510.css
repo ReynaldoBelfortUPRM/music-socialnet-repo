@@ -1,5 +1,4 @@
 
-
 /*TODO should the body tag style below be used?*/
 
 /*body
@@ -55,6 +54,7 @@
     font-weight: bold;
     margin-left: 3%;
 }
+
 
 /*----Navigation bar customization----*/
 
@@ -136,8 +136,9 @@
     background-color: rgba(255, 255, 255, 0.95);
 }
 
-.btn-general
-{
+
+
+.btn-general {
     color: #fff;
     background-color: #61243c;
     -webkit-box-shadow: 0px 1px 3px #666666;
@@ -145,25 +146,20 @@
     box-shadow: 0px 1px 3px #666666;
     border-color: #75273e;
 }
-
 .btn-general:hover,
 .btn-general:focus,
 .btn-general:active,
 .btn-general.active,
-.open .dropdown-toggle.btn-general
-{
+.open .dropdown-toggle.btn-general {
     color: #fff;
     background-color: #c11313;
     border-color: #b8110f;
 }
-
 .btn-general:active,
 .btn-general.active,
-.open .dropdown-toggle.btn-general
-{
+.open .dropdown-toggle.btn-general {
     background-image: none;
 }
-
 .btn-general.disabled,
 .btn-general[disabled],
 fieldset[disabled] .btn-general,
@@ -178,15 +174,11 @@ fieldset[disabled] .btn-general:focus,
 fieldset[disabled] .btn-general:active,
 .btn-general.disabled.active,
 .btn-general[disabled].active,
-fieldset[disabled] .btn-general.active
-{
+fieldset[disabled] .btn-general.active {
     background-color: #c11313;
     border-color: #b8110f;
 }
-
-.btn-general .badge
-{
+.btn-general .badge {
     color: #c11313;
     background-color: #fff;
 }
-

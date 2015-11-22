@@ -8,6 +8,7 @@ ul > li
     zoom: 1;
 }
 
+
 .post
 {
     width: 580px;
@@ -97,6 +98,7 @@ ul > li
     width: 113%;
 }
 
+
 .post-bar
 {
     background-color: #DDDDDD;
@@ -129,11 +131,5 @@ ul > li
     display: inline-block;
     text-align: center;
     height: 55px;
-}
-
-.post-close-button
-{
-    margin-top: 5px;
-    margin-bottom: -5px;
 }
 

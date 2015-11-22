@@ -55,11 +55,11 @@ angular.module('app').controller("HomepageController", function($http){
 
 	vmodel.addPost = function(){
 
-		//TODO Complete a validation
+		//TODO Complete a validation 
 		if(vmodel.postDescription.length > 0){
 
 			//TODO Anadir comentario a esto
-			$http.post('/mvenue-database/homepage-post/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token, {data: vmodel.postDescription, media_path: '', media_type: 2}).then(
+			$http.post('/mvenue-database/homepage/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token, {data: vmodel.postDescription, media_path: '', media_type: 2}).then(
 				function successCallback(response){
 					//Clear description from post bar
 					vmodel.postDescription = "";
@@ -78,6 +78,30 @@ angular.module('app').controller("HomepageController", function($http){
 				}
 			);
 	  }
+	};
+
+	vmodel.deletePost = function(postID){
+		//Send a DELETE request to erase the chosen post
+		//Http data would be sent within a query string.
+		$http.delete('/mvenue-database/homepage/?tk=' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+        + "&postID="+postID.toString()).then(function successCallback(response){
+        	//Refresh post data with info data from server
+            vmodel.posts = response.data;
+
+        }, function errorCallback(response){
+                if(response.status == 401){
+                    alert("Authentication error! Your session may have been expired. Please log-in!");
+                    //Erase current token
+                    sessionStorage.removeItem('clientAuthentication');
+                    //Re-direct user to the log-in page
+                    window.location.href = "login.html";
+                }
+                else{
+                    alert("Server Internal Error: " + response.data);
+                }
+
+        });
+
 	};
 
 	//TODO-----------Dummy operations: for design purposes-----------------
