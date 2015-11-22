@@ -61,7 +61,6 @@ ul > li
     font-weight: bold;
     text-align: right;
     width: 90%;
-    margin-top: 11%;
 }
 
 .post-title-text
@@ -135,15 +134,14 @@ ul > li
 .post-close-button
 {
     font-size: 19px;
+    margin: 5px -5px -5px 7px;
     font-weight: bold;
     color: #61243c;
-    margin: 3px -5px -5px 10px;
 }
 
 .edit-icon
 {
     color: green;
     font-weight: bolder;
-    top: 1px;
 }
 

@@ -61,7 +61,6 @@ ul > li
     font-weight: bold;
     text-align: right;
     width: 90%;
-    margin-top: 11%;
 }
 
 .post-title-text
@@ -144,6 +143,6 @@ ul > li
 {
     color: green;
     font-weight: bolder;
-    top: 1px;
+    top: -4px;
 }
 
