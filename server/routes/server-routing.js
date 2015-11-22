@@ -90,18 +90,31 @@ router.get('/', function(req, res, next) {
          //TODO Aquí se debería enviar de vuelta al usuario sobre si pasó el registro o no:
             //Si email existe, etc.
 
-         var query = client.query("SELECT * FROM uuser ORDER BY user_id ASC");
+
+
+         var doneuser=false;
+         var donepost=false;
+
+         var queryuser = client.query("SELECT * FROM uuser ORDER BY user_id ASC");
+
 
          // Stream results back one row at a time
-         query.on('row', function(row) {
+         queryuser.on('row', function(row) {
              results.push(row);
          });
 
          // After all data is returned, close connection and return results
-         query.on('end', function() {
+         queryuser.on('end', function() {
              done();
-             return res.json(results);
+             //return res.json(results);
          });
+
+
+
+         if(doneuser&&donepost){
+
+           }
+
        });
  });
 //------------------------ END REGISTER page--------------------------------------------
@@ -197,6 +210,208 @@ router.post('/mvenue-database/login/', function(req, res) {
 
 
 //------------------------ START HOMEPAGE------------------------------------------
+router.post('/mvenue-database/homepage-post/:token', function(req, res) {
+    console.log("DEBUG: Homepage POST------.");
+    var uPayload;
+    var results = [];
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    //var post_input=null;
+    var  post_input={
+        data: req.body.data,
+        media_path: req.body.media_path,
+        media_type:req.body.media_type
+    };
+
+
+
+    // Get a Postgres client from the connection pool
+    console.log("DEBUG: DB CONNECT");
+    pg.connect(connectionString, function(err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        if (uPayload.isBusinessMode){
+            //This is a BUSINESS POST
+            // SQL Query > Insert Data
+            client.query("INSERT INTO post_business( business_id, data, media_path, media_type, date_time)" +
+                "VALUES ( $1 , $2, $3, $4, CURRENT_TIMESTAMP)"
+                , [uPayload.business_id, post_input.data, post_input.media_path,post_input.media_type ]);
+            // SQL Query > Select Data
+            var query = client.query("SELECT * FROM post_business");
+
+            // Stream results back one row at a time
+            query.on('row', function (row) {
+                results.push(row);
+            });
+
+            // After all data is returned, close connection and return results
+            query.on('end', function () {
+                done();
+                return res.json(results);
+
+            });
+        }
+        else{
+            //THIS IS A USER POST
+
+
+
+            // SQL Query > Insert Data
+            client.query("INSERT INTO post_user( user_id, data, media_path, media_type, date_time)" +
+                "VALUES ( $1 , $2, $3, $4, CURRENT_TIMESTAMP)"
+                , [uPayload.user_id, post_input.data, post_input.media_path,post_input.media_type ]);
+            // SQL Query > Select Data
+            var query = client.query("SELECT * FROM post_user");
+
+            // Stream results back one row at a time
+            query.on('row', function (row) {
+                results.push(row);
+            });
+
+            // After all data is returned, close connection and return results
+            query.on('end', function () {
+                done();
+
+
+
+
+                return res.json(results);
+
+            });
+
+
+        }
+    });
+
+
+});
+
+
+router.get('/mvenue-database/homepage/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: Homepage server entry.");
+    var uPayload={
+        user_id:1,
+        business_id:3,
+        isBusinessMode: false
+    };
+    var posts = [];
+
+    ////Token validation
+    //try{
+    //   request by returning a failure response.
+    //}
+
+    // Get a Postgres client from the connection pool  //Get info from the user that is logged in
+    //    uPayload = verifyToken(req.params.token);
+    //}catch(err){
+    //    return res.status(401).json(err); //End
+
+    if (uPayload.isBusinessMode){
+        console.log("DEBUG: DB BEFORE");
+        pg.connect(connectionString, function (err, client, done) {
+            // Handle connection errors
+            if (err) {
+                done();
+                console.log(err);
+                return res.status(500).json({success: false, data: err});
+            }
+
+            var squery="";
+            squery += "(SELECT post_id, user_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", first_name as name ";
+            squery += "FROM post_user NATURAL JOIN uuser NATURAL FULL JOIN(SELECT post_id, count(liked_by_id) as likes";
+            squery += "							FROM post_user_like";
+            squery += "							GROUP BY post_id) as postoffollowedusers) ";
+            squery += "UNION";
+            squery += "(SELECT post_id, business_id as id, data, media_path, media_type, date_time, \"isBusinessPost\", name";
+            squery += "FROM post_business NATURAL JOIN businesspage ) ;";
+
+            // SQL Query > Select Data
+            var query = client.query(squery);
+
+
+            // Stream results back one row at a time
+            query.on('row', function (row) {
+                posts.push(row);
+            });
+
+            // After all data is returned, close connection and return results
+            query.on('end', function () {
+                done();
+
+                console.log("DEBUG: DB ONEND");
+
+                return res.json(posts);
+            });
+
+
+        });
+
+        console.log("DEBUG: DB CONNECT");
+
+    }
+    else{
+        //IN USER MODE
+        console.log("DEBUG: DB CONNECT");
+        pg.connect(connectionString, function (err, client, done) {
+            // Handle connection errors
+            if (err) {
+                done();
+                console.log(err);
+                return res.status(500).json({success: false, data: err});
+            }
+
+            var squery="";
+            squery += "(WITH followintposts AS";
+            squery += "(SELECT * ";
+            squery += "FROM post_user";
+            squery += "WHERE user_id IN (SELECT followed_id";
+            squery += "FROM follow";
+            squery += "WHERE follower_id=$1) )";
+            squery += "SELECT post_id, user_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", first_name as name ";
+            squery += "FROM followintposts NATURAL JOIN uuser NATURAL FULL JOIN(SELECT post_id, count(liked_by_id) as likes";
+            squery += "FROM post_user_like GROUP BY post_id) as postoffollowedusers) ";
+            squery += "UNION";
+            squery += "(SELECT post_id, business_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", name";
+            squery += "FROM (SELECT post_id, business_id, data, media_path, media_type, date_time, \"isBusinessPost\", name FROM post_business NATURAL JOIN businesspage  ) as bpostwithnames";
+            squery += "WHERE business_id IN (";
+            squery += "SELECT business_id";
+            squery += "FROM follow_business";
+            squery += "WHERE user_id = $2))";
+
+            // SQL Query > Select Data
+            var query = client.query(squery, [uPayload.user_id, uPayload.user_id]);
+
+            // Stream results back one row at a time
+            query.on('row', function (row) {
+                posts.push(row);
+            });
+
+            // After all data is returned, close connection and return results
+            query.on('end', function () {
+                done();
+                return res.json(posts);
+            });
+
+
+        });
+
+
+    }
+});
+
 
 router.get('/mvenue-database/homepage/:token', function(req, res) {
     //TODO DEBUG
