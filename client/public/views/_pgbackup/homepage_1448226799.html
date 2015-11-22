@@ -133,7 +133,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group"> 
                                             <label class="control-label" for="frmInput_PostEdit" style="font-family:Aller Light;">Post description:</label>                                             
-                                            <textarea class="form-control" rows="3" id="frmInputDescription" ng-model="homemain.editData.data"></textarea>
+                                            <textarea class="form-control" rows="3" id="frmInputDescription"></textarea>
                                         </div>                                         
                                     </div>
                                     <div class="col-md-12">
@@ -153,7 +153,7 @@
                                 </div>                                 
                             </div>                             
                             <div class="modal-footer"> 
-                                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="homemain.clearModal()">Close</button>                                 
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                                 
                                 <button type="button" class="btn btn-primary" style="background-color: #61243c;" ng-click="homemain.editPost()">Save changes</button>                                 
                             </div>                             
                         </div>                         
@@ -239,8 +239,8 @@
                                     </div>                                     
                                     <div class="col-md-5">
                                         <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelVideo" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>
-                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnEditVideo" ng-click="homemain.supplyEditModal(uPost)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">
-                                            <span class="glyphicon glyphicon-pencil edit-icon"></span>
+                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnEditVideo" ng-click="" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">
+                                            <span class="glyphicon glyphicon-pencil"></span>
                                         </button>                                         
                                         <div class="row"> 
                                             <h3 class="post-image-video-title">{{uPost.name}}</h3> 
@@ -273,10 +273,7 @@
                                         </div>                                         
                                     </div>                                     
                                     <div class="col-md-5">
-                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelImage" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>
-                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnEditVideo" ng-click="homemain.supplyEditModal(uPost)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">
-                                            <span class="glyphicon glyphicon-pencil edit-icon"></span>
-                                        </button>                                         
+                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelImage" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>                                         
                                         <div class="row"> 
                                             <h3 class="post-image-video-title">{{uPost.name}}</h3> 
                                             <div class="" style="background: #000000; width:90%; height:1px;margin-bottom:8px"></div>                                             
@@ -290,10 +287,7 @@
                         </div>                         
                         <div class="post" id="post-text" ng-switch-when="2"> 
                             <div class="container-fluid">
-                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelText" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>
-                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnEditVideo" ng-click="homemain.supplyEditModal(uPost)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">
-                                    <span class="glyphicon glyphicon-pencil edit-icon"></span>
-                                </button>                                 
+                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelText" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>                                 
                                 <div class="row"> 
                                     <h3 class="post-title-text">{{uPost.name}}</h3> 
                                 </div>                                 
@@ -318,148 +312,7 @@
                         </div>                         
                         <div class="post" id="post-audio" ng-switch-when="3"> 
                             <div class="container-fluid">
-                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelAudio" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>
-                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnEditVideo" ng-click="homemain.supplyEditModal(uPost)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">
-                                    <span class="glyphicon glyphicon-pencil edit-icon"></span>
-                                </button>                                 
-                                <div class="row"> 
-                                    <div class="col-md-8"> 
-                                        <div class="well post-description-audio">{{uPost.data}}</div>                                         
-                                    </div>                                     
-                                    <div class="col-md-4"> 
-                                        <h3 class="post-image-video-title">{{uPost.name}}</h3> 
-                                    </div>                                     
-                                </div>                                 
-                                <div class="row post-audio-row"> 
-                                    <!-- audio.js  plug-in -->                                     
-                                    <audio ng-src="{{uPost.media_path}}" preload="none"> 
-</audio>                                     
-                                </div>                                 
-                                <div class="row"> 
-                                    <ul class="list-unstyled count-like"> 
-                                        <li> 
-                                            <p class="like-count">8</p> 
-                                        </li>                                         
-                                        <li> 
-                                            <button type="button" class="btn btn-default post-button-like"> 
-</button>                                             
-                                        </li>                                         
-                                    </ul>                                     
-                                </div>                                 
-                            </div>                             
-                        </div>                         
-                    </div>
-                    <div ng-repeat="uPost in homemain.posts" ng-switch="uPost.media_type"> 
-                        <div class="post" id="post-video" ng-switch-when="0"> 
-                            <div class="container-fluid"> 
-                                <div class="row"> 
-                                    <div class="col-md-7"> 
-                                        <div class="row post-video-row"> 
-                                            <!-- Video.js  plug-in -->                                             
-                                            <video id="my-video" class="video-js" controls preload="none" width="300" height="150" poster="MY_VIDEO_POSTER.jpg" data-setup="{}"> 
-                                                <source src="MY_VIDEO.mp4" type='video/mp4'> 
-                                                <source src="MY_VIDEO.webm" type='video/webm'> 
-                                                <p class="vjs-no-js"> 
-                                                  To view this video please enable JavaScript, and consider upgrading to a web browser that<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p> 
-                                            </video>                                             
-                                        </div>                                         
-                                        <div class="row"> 
-                                            <ul class="list-unstyled count-like"> 
-                                                <li> 
-                                                    <p class="like-count">82</p> 
-                                                </li>                                                 
-                                                <li> 
-                                                    <button type="button" class="btn btn-default post-button-like"> 
-</button>                                                     
-                                                </li>                                                 
-                                            </ul>                                             
-                                        </div>                                         
-                                    </div>                                     
-                                    <div class="col-md-5">
-                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelVideo" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>
-                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnEditVideo" ng-click="homemain.supplyEditModal(uPost)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">
-                                            <span class="glyphicon glyphicon-pencil edit-icon"></span>
-                                        </button>                                         
-                                        <div class="row"> 
-                                            <h3 class="post-image-video-title">{{uPost.name}}</h3> 
-                                            <div class="" style="background: #000000; width:90%; height:1px;margin-bottom:8px"></div>                                             
-                                        </div>                                         
-                                        <div class="row"> 
-                                            <p>{{uPost.data}}</p> 
-                                        </div>                                         
-                                    </div>                                     
-                                </div>                                 
-                            </div>                             
-                        </div>                         
-                        <div class="post" id="post-image" ng-switch-when="1"> 
-                            <div class="container-fluid"> 
-                                <div class="row"> 
-                                    <div class="col-md-7"> 
-                                        <div class="row"> 
-                                            <img ng-src="{{uPost.media_path}}" class="img-rounded post-image" width="200" /> 
-                                        </div>                                         
-                                        <div class="row"> 
-                                            <ul class="list-unstyled count-like"> 
-                                                <li> 
-                                                    <p class="like-count">15</p> 
-                                                </li>                                                 
-                                                <li> 
-                                                    <button type="button" class="btn btn-default post-button-like"> 
-</button>                                                     
-                                                </li>                                                 
-                                            </ul>                                             
-                                        </div>                                         
-                                    </div>                                     
-                                    <div class="col-md-5">
-                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelImage" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>
-                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnEditVideo" ng-click="homemain.supplyEditModal(uPost)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">
-                                            <span class="glyphicon glyphicon-pencil edit-icon"></span>
-                                        </button>                                         
-                                        <div class="row"> 
-                                            <h3 class="post-image-video-title">{{uPost.name}}</h3> 
-                                            <div class="" style="background: #000000; width:90%; height:1px;margin-bottom:8px"></div>                                             
-                                        </div>                                         
-                                        <div class="row"> 
-                                            <p>{{uPost.data}}</p> 
-                                        </div>                                         
-                                    </div>                                     
-                                </div>                                 
-                            </div>                             
-                        </div>                         
-                        <div class="post" id="post-text" ng-switch-when="2"> 
-                            <div class="container-fluid">
-                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelText" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>
-                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnEditVideo" ng-click="homemain.supplyEditModal(uPost)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">
-                                    <span class="glyphicon glyphicon-pencil edit-icon"></span>
-                                </button>                                 
-                                <div class="row"> 
-                                    <h3 class="post-title-text">{{uPost.name}}</h3> 
-                                </div>                                 
-                                <div class="row"> 
-                                    <div class="post-line-break-text"></div>                                     
-                                </div>                                 
-                                <div class="row"> 
-                                    <div class="well post-description-text">{{uPost.data}}</div>                                     
-                                </div>                                 
-                                <div class="row"> 
-                                    <ul class="list-unstyled count-like"> 
-                                        <li> 
-                                            <p class="like-count">25</p> 
-                                        </li>                                         
-                                        <li> 
-                                            <button type="button" class="btn btn-default post-button-like"> 
-</button>                                             
-                                        </li>                                         
-                                    </ul>                                     
-                                </div>                                 
-                            </div>                             
-                        </div>                         
-                        <div class="post" id="post-audio" ng-switch-when="3"> 
-                            <div class="container-fluid">
-                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelAudio" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>
-                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnEditVideo" ng-click="homemain.supplyEditModal(uPost)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">
-                                    <span class="glyphicon glyphicon-pencil edit-icon"></span>
-                                </button>                                 
+                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelAudio" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>                                 
                                 <div class="row"> 
                                     <div class="col-md-8"> 
                                         <div class="well post-description-audio">{{uPost.data}}</div>                                         

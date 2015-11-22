@@ -81,6 +81,55 @@ angular.module('app').controller("HomepageController", function($http){
 	  }
 	};
 
+	vmodel.supplyEditModal = function(uPost){
+		//Bind the data from the selected post into the edit modal
+		vmodel.editData = uPost;
+		//Show modal
+		$('#modalEditPost').modal('show');
+	};
+
+	//Function needed in case the user closes the modal without saving any changes.
+	vmodel.clearModal = function(){
+		vmodel.editData = null;
+	};
+
+	vmodel.editPost = function(){
+		//TODO Here the edited post should be verified first. If media was added, update the media_type property.
+		//Verification must also be made whether there was a modification or not.
+
+		//TODO Complete a validation 
+		if(vmodel.editData.data.length > 0){
+			//Send a UPDATE request to save the edited data of the chosen post
+			$http.put('/mvenue-database/homepage/?tk=' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+	        + "&postID="+ vmodel.editData.post_id.toString(), {data: vmodel.editData.data, media_path: vmodel.editData.media_path, media_type: vmodel.editData.media_type}).then(function successCallback(response){
+	        	//Refresh post data with info data from server
+	        	vmodel.userID = response.data[1];
+	            vmodel.posts = response.data[0];
+	            //Erase edit data and hide modal.
+	            vmodel.clearModal();
+	            $('#modalEditPost').modal('hide');
+
+	        }, function errorCallback(response){
+	                if(response.status == 401){
+	                    alert("Authentication error! Your session may have been expired. Please log-in!");
+	                    //Erase current token
+	                    sessionStorage.removeItem('clientAuthentication');
+	                    //Re-direct user to the log-in page
+	                    window.location.href = "login.html";
+	                }
+	                else{
+	                	//Erase edit data. User can choose to close  modal or keep trying.
+	                	vmodel.clearModal();
+
+	                    alert("Server Internal Error: " + response.data);
+	                }
+
+	        });
+		} else {
+			alert ("You must have some text in a post!");
+		}
+	};//End editPost.
+
 	vmodel.deletePost = function(postID){
 		//Send a DELETE request to erase the chosen post
 		//Http data would be sent within a query string.

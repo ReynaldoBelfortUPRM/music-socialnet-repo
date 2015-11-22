@@ -465,6 +465,98 @@ router.delete('/mvenue-database/homepage/', function(req, res) {
 
 });
 
+//====EDIT/UPDATE====
+router.put('/mvenue-database/homepage/', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: Homepage server entry. UPDATE Post: TOKEN:" + req.query.tk + " , POST_ID: " + req.query.postID)
+    var uPayload;
+    var postID = req.query.postID;
+    var posts = [];
+    var post_input={
+        data: req.body.data,
+        media_path: req.body.media_path,
+        media_type: req.body.media_type
+    };
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.query.tk);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+   console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD DELETEPOST:" + JSON.stringify(uPayload));
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        if (uPayload.isBusinessMode){
+
+          console.log("DEBUG: DB UPDATE QUERY BUSINESS MODE");
+          //=============TODO Aqui va query para UPDATE POST=================
+          //Execte UPDATE query
+          client.query("UPDATE post_business SET data=$1, media_path=$2, media_type=$3 WHERE post_id=$4;", [post_input.data, post_input.media_path, post_input.media_type, postID]);
+
+          //----Get all post related to the user----
+          var getQuery= "NATURAL FULL JOIN(SELECT post_id, count(liked_by_id) as likes FROM post_user_like GROUP BY post_id) as postoffollowedusers)  UNION (SELECT post_id, business_id as id, data, media_path, media_type, date_time, \"isBusinessPost\", name FROM post_business NATURAL JOIN businesspage ) ORDER BY date_time DESC ;";
+
+          // SQL Query > Select Data
+          var query = client.query(getQuery);
+
+
+          // Stream results back one row at a time
+          query.on('row', function (row) {
+              posts.push(row);
+          });
+
+          // After all data is returned, close connection and return results
+          query.on('end', function () {
+              done();
+
+              console.log("DEBUG: RESULTS GET POSTS BusinessMode ");
+
+              return res.json([posts, uPayload.business_id]);
+          });
+
+          }
+          else{
+              //IN USER MODE
+
+              console.log("DEBUG: DB UPDATE QUERY USER MODE");
+              //=============TODO Aqui va query para UPDATE POST=================
+              //Execte UPDATE query
+              client.query("UPDATE post_user SET  data=$1, media_path=$2, media_type=$3 WHERE post_id=$4;", [post_input.data, post_input.media_path, post_input.media_type, postID]);
+
+              //----Get all post related to the user----
+              var getQuery="(WITH followintposts AS (SELECT *  FROM post_user WHERE user_id IN (SELECT followed_id FROM follow WHERE follower_id= $1) )SELECT post_id, user_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", first_name as name  FROM followintposts NATURAL JOIN uuser NATURAL FULL JOIN(SELECT post_id, count(liked_by_id) as likes FROM post_user_like GROUP BY post_id) as postoffollowedusers)  UNION (SELECT post_id, business_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", name FROM (SELECT post_id, business_id, data, media_path, media_type, date_time, \"isBusinessPost\", name FROM post_business NATURAL JOIN businesspage  ) as bpostwithnames WHERE business_id IN (SELECT business_id FROM follow_business WHERE user_id = $2)) ORDER BY date_time DESC ;" ;
+
+              // SQL Query > Select Data
+              var query = client.query(getQuery, [uPayload.user_id, uPayload.user_id]);
+
+              // Stream results back one row at a time
+              query.on('row', function (row) {
+                  posts.push(row);
+              });
+
+              // After all data is returned, close connection and return results
+              query.on('end', function () {
+                  done();
+                  console.log("DEBUG: RESULTS GET POSTS RegularMode after UPDATE");
+                  return res.json([posts, uPayload.user_id]);
+              });
+
+       }// end else isBusinessMode
+
+    });
+
+});
+
 //------------------------ END HOMEPAGE--------------------------------------------|
 
 
