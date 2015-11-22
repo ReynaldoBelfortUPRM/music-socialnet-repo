@@ -193,9 +193,8 @@ fieldset[disabled] .btn-general.active
 .navbar-round
 {
     border-radius: 10px;
-    top: -6px;
-    margin-left: 10%;
-    margin-right: 10%;
-    max-width: 79%;
+    margin-left: 15%;
+    margin-right: 20%;
+    top: -5px;
 }
 

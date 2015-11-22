@@ -210,6 +210,83 @@ router.post('/mvenue-database/login/', function(req, res) {
 
 
 //------------------------ START HOMEPAGE------------------------------------------
+//====GET====
+router.get('/mvenue-database/homepage/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: Homepage server entry. GET Posts");
+
+    var uPayload;
+    var posts = [];
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+   console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GETPOSTS:" + JSON.stringify(uPayload));
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        if (uPayload.isBusinessMode){
+
+          console.log("DEBUG: DB QUERY BUSINESS MODE");
+          //----Get all post related to the user----
+          var getQuery="(SELECT post_id, user_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", first_name as name FROM post_user NATURAL JOIN uuser NATURAL FULL JOIN(SELECT post_id, count(liked_by_id) as likes FROM post_user_like GROUP BY post_id) as postoffollowedusers)  UNION (SELECT post_id, business_id as id, data, media_path, media_type, date_time, \"isBusinessPost\", name FROM post_business NATURAL JOIN businesspage ) ORDER BY date_time DESC ;";
+
+          // SQL Query > Select Data
+          var query = client.query(getQuery);
+
+
+          // Stream results back one row at a time
+          query.on('row', function (row) {
+              posts.push(row);
+          });
+
+          // After all data is returned, close connection and return results
+          query.on('end', function () {
+              done();
+
+              console.log("DEBUG: RESULTS GET POSTS BusinessMode ");
+
+              return res.json([posts, uPayload.business_id]);
+          });
+
+          }
+          else{
+              //IN USER MODE
+                  //----Get all post related to the user----
+                  var squery="(WITH followintposts AS (SELECT *  FROM post_user WHERE user_id IN (SELECT followed_id FROM follow WHERE follower_id= $1) )SELECT post_id, user_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", first_name as name  FROM followintposts NATURAL JOIN uuser NATURAL FULL JOIN(SELECT post_id, count(liked_by_id) as likes FROM post_user_like GROUP BY post_id) as postoffollowedusers)  UNION (SELECT post_id, business_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", name FROM (SELECT post_id, business_id, data, media_path, media_type, date_time, \"isBusinessPost\", name FROM post_business NATURAL JOIN businesspage  ) as bpostwithnames WHERE business_id IN (SELECT business_id FROM follow_business WHERE user_id = $2)) ORDER BY date_time DESC ;" ;
+
+                  // SQL Query > Select Data
+                  var query = client.query(squery, [uPayload.user_id, uPayload.user_id]);
+
+                  // Stream results back one row at a time
+                  query.on('row', function (row) {
+                      posts.push(row);
+                  });
+
+                  // After all data is returned, close connection and return results
+                  query.on('end', function () {
+                      done();
+                      console.log("DEBUG: RESULTS GET POSTS RegularMode");
+                      return res.json([posts, uPayload.user_id]);
+                  });
+
+       }// end else isBusinessMode
+
+    });
+
+});
+
 //====POST====
 router.post('/mvenue-database/homepage/:token', function(req, res) {
     console.log("DEBUG: Homepage POST------.");
@@ -265,7 +342,7 @@ router.post('/mvenue-database/homepage/:token', function(req, res) {
 
                 console.log("DEBUG: RESULTS GET POSTS AFTER ADD POST BusinessMode");
 
-                return res.json(updatedPosts);
+                return res.json([updatedPosts, uPayload.business_id]);
             });
         }
         else{
@@ -291,7 +368,7 @@ router.post('/mvenue-database/homepage/:token', function(req, res) {
             query.on('end', function () {
                 done();
                 console.log("DEBUG: RESULTS GET POSTS AFTER ADD POST RegularMode");
-                return res.json(updatedPosts);
+                return res.json([updatedPosts, uPayload.user_id]);
             });
 
         }
@@ -300,82 +377,6 @@ router.post('/mvenue-database/homepage/:token', function(req, res) {
 
 });
 
-//====GET====
-router.get('/mvenue-database/homepage/:token', function(req, res) {
-    //TODO DEBUG
-    console.log("DEBUG: Homepage server entry. GET Posts");
-
-    var uPayload;
-    var posts = [];
-
-    //Token validation
-    try{
-        //Get payload data from the client that is logged in
-        uPayload = verifyToken(req.params.token);
-    }catch(err){
-        return res.status(401).json(err); //End request by returning a failure response.
-    }
-
-   console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GETPOSTS:" + JSON.stringify(uPayload));
-
-    pg.connect(connectionString, function (err, client, done) {
-        // Handle connection errors
-        if (err) {
-            done();
-            console.log(err);
-            return res.status(500).json({success: false, data: err});
-        }
-
-        if (uPayload.isBusinessMode){
-
-          console.log("DEBUG: DB QUERY BUSINESS MODE");
-          //----Get all post related to the user----
-          var getQuery="(SELECT post_id, user_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", first_name as name FROM post_user NATURAL JOIN uuser NATURAL FULL JOIN(SELECT post_id, count(liked_by_id) as likes FROM post_user_like GROUP BY post_id) as postoffollowedusers)  UNION (SELECT post_id, business_id as id, data, media_path, media_type, date_time, \"isBusinessPost\", name FROM post_business NATURAL JOIN businesspage ) ORDER BY date_time DESC ;";
-
-          // SQL Query > Select Data
-          var query = client.query(getQuery);
-
-
-          // Stream results back one row at a time
-          query.on('row', function (row) {
-              posts.push(row);
-          });
-
-          // After all data is returned, close connection and return results
-          query.on('end', function () {
-              done();
-
-              console.log("DEBUG: RESULTS GET POSTS BusinessMode ");
-
-              return res.json(posts);
-          });
-
-          }
-          else{
-              //IN USER MODE
-                  //----Get all post related to the user----
-                  var squery="(WITH followintposts AS (SELECT *  FROM post_user WHERE user_id IN (SELECT followed_id FROM follow WHERE follower_id= $1) )SELECT post_id, user_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", first_name as name  FROM followintposts NATURAL JOIN uuser NATURAL FULL JOIN(SELECT post_id, count(liked_by_id) as likes FROM post_user_like GROUP BY post_id) as postoffollowedusers)  UNION (SELECT post_id, business_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", name FROM (SELECT post_id, business_id, data, media_path, media_type, date_time, \"isBusinessPost\", name FROM post_business NATURAL JOIN businesspage  ) as bpostwithnames WHERE business_id IN (SELECT business_id FROM follow_business WHERE user_id = $2)) ORDER BY date_time DESC ;" ;
-
-                  // SQL Query > Select Data
-                  var query = client.query(squery, [uPayload.user_id, uPayload.user_id]);
-
-                  // Stream results back one row at a time
-                  query.on('row', function (row) {
-                      posts.push(row);
-                  });
-
-                  // After all data is returned, close connection and return results
-                  query.on('end', function () {
-                      done();
-                      console.log("DEBUG: RESULTS GET POSTS RegularMode");
-                      return res.json(posts);
-                  });
-
-       }// end else isBusinessMode
-
-    });
-
-});
 
 //====DELETE====
 router.delete('/mvenue-database/homepage/', function(req, res) {
@@ -407,8 +408,8 @@ router.delete('/mvenue-database/homepage/', function(req, res) {
 
           console.log("DEBUG: DB DELETE QUERY BUSINESS MODE");
           //=============TODO Aqui va query para DELETE POST=================
-
-
+          //Execte delete query
+          client.query("DELETE FROM post_business WHERE post_id=$1;", [postID]);
 
           //----Get all post related to the user----
           var getQuery= "NATURAL FULL JOIN(SELECT post_id, count(liked_by_id) as likes FROM post_user_like GROUP BY post_id) as postoffollowedusers)  UNION (SELECT post_id, business_id as id, data, media_path, media_type, date_time, \"isBusinessPost\", name FROM post_business NATURAL JOIN businesspage ) ORDER BY date_time DESC ;";
@@ -428,15 +429,17 @@ router.delete('/mvenue-database/homepage/', function(req, res) {
 
               console.log("DEBUG: RESULTS GET POSTS BusinessMode ");
 
-              return res.json(posts);
+              return res.json([posts, uPayload.business_id]);
           });
 
           }
           else{
               //IN USER MODE
-              
+
               console.log("DEBUG: DB DELETE QUERY USER MODE");
               //=============TODO Aqui va query para DELETE POST=================
+              //Execte delete query
+              client.query("DELETE FROM post_user WHERE post_id=$1;", [postID]);
 
               //----Get all post related to the user----
               var getQuery="(WITH followintposts AS (SELECT *  FROM post_user WHERE user_id IN (SELECT followed_id FROM follow WHERE follower_id= $1) )SELECT post_id, user_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", first_name as name  FROM followintposts NATURAL JOIN uuser NATURAL FULL JOIN(SELECT post_id, count(liked_by_id) as likes FROM post_user_like GROUP BY post_id) as postoffollowedusers)  UNION (SELECT post_id, business_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", name FROM (SELECT post_id, business_id, data, media_path, media_type, date_time, \"isBusinessPost\", name FROM post_business NATURAL JOIN businesspage  ) as bpostwithnames WHERE business_id IN (SELECT business_id FROM follow_business WHERE user_id = $2)) ORDER BY date_time DESC ;" ;
@@ -453,7 +456,7 @@ router.delete('/mvenue-database/homepage/', function(req, res) {
               query.on('end', function () {
                   done();
                   console.log("DEBUG: RESULTS GET POSTS RegularMode after DELETE");
-                  return res.json(posts);
+                  return res.json([posts, uPayload.user_id]);
               });
 
        }// end else isBusinessMode

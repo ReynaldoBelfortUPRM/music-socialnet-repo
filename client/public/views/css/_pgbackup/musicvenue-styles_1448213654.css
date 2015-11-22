@@ -196,6 +196,6 @@ fieldset[disabled] .btn-general.active
     top: -6px;
     margin-left: 10%;
     margin-right: 10%;
-    max-width: 79%;
+    min-width: 79%;
 }
 

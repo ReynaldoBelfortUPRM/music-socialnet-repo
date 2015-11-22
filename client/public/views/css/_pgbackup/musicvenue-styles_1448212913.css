@@ -190,12 +190,3 @@ fieldset[disabled] .btn-general.active
     background-color: #fff;
 }
 
-.navbar-round
-{
-    border-radius: 10px;
-    top: -6px;
-    margin-left: 10%;
-    margin-right: 10%;
-    max-width: 79%;
-}
-

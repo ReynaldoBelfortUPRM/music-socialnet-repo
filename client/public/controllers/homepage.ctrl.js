@@ -65,7 +65,8 @@ angular.module('app').controller("HomepageController", function($http){
 					vmodel.postDescription = "";
 
 					//Load data from server
-            		vmodel.posts = response.data;
+					vmodel.userID = response.data[1];
+            		vmodel.posts = response.data[0];
 				},
 				function errorCallback(response){
 					if(response.status == 400){
@@ -86,7 +87,8 @@ angular.module('app').controller("HomepageController", function($http){
 		$http.delete('/mvenue-database/homepage/?tk=' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
         + "&postID="+postID.toString()).then(function successCallback(response){
         	//Refresh post data with info data from server
-            vmodel.posts = response.data;
+        	vmodel.userID = response.data[1];
+            vmodel.posts = response.data[0];
 
         }, function errorCallback(response){
                 if(response.status == 401){
@@ -122,7 +124,8 @@ angular.module('app').controller("HomepageController", function($http){
         	//------Recieve and manage response data-------
 
             //Load data from server
-            vmodel.posts = response.data;
+            vmodel.userID = response.data[1];
+            vmodel.posts = response.data[0];
 
         }, function errorCallback(response){
                 if(response.status == 401){
