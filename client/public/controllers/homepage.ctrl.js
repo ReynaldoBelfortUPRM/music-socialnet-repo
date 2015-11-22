@@ -53,6 +53,33 @@ angular.module('app').controller("HomepageController", function($http){
 
 	};
 
+	vmodel.addPost = function(){
+
+		//TODO Complete a validation
+		if(vmodel.postDescription.length > 0){
+
+			//TODO Anadir comentario a esto
+			$http.post('/mvenue-database/homepage-post/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token, {data: vmodel.postDescription, media_path: '', media_type: 2}).then(
+				function successCallback(response){
+					//Clear description from post bar
+					vmodel.postDescription = "";
+
+					//Load data from server
+            		vmodel.posts = response.data;
+				},
+				function errorCallback(response){
+					if(response.status == 400){
+						alert("Invalid username or password. Please try again.");
+					}
+					else{
+						alert("There was an internal error. Please try again soon.");
+					}
+
+				}
+			);
+	  }
+	};
+
 	//TODO-----------Dummy operations: for design purposes-----------------
 	// vmodel.showUpload = true;
 	//vmodel.post_type = 1;
@@ -66,43 +93,12 @@ angular.module('app').controller("HomepageController", function($http){
 		window.location.href = "index.html";
 	}
 
-
-	//TODO debug
-	$http.post('/mvenue-database/homepage-post/', {}).then(
-		function successCallback(response){
-			//TODO When user is logged out, the token must be erased.
-			//Retrieve token and store in browser's session cookie:
-			//sessionStorage.setItem('clientAuthentication', JSON.stringify({loggedIn: true, token: response.data.token}));
-
-			//Direct user to the homepage
-			//window.location.href = "homepage.html";
-
-			console.log("Salio todo bien");
-
-		},
-		function errorCallback(response){
-			if(response.status == 400){
-				alert("Invalid username or password. Please try again.");
-			}
-			else{
-				alert("There was an internal error. Please try again soon.");
-			}
-
-		}
-	);
-
-
-
-
-
-
-
 	$http.get('/mvenue-database/homepage/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
         ).then(function successCallback(response){
         	//------Recieve and manage response data-------
 
             //Load data from server
-            vmodel.posts = response.data.posts;
+            vmodel.posts = response.data;
 
         }, function errorCallback(response){
                 if(response.status == 401){
