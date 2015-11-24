@@ -866,7 +866,8 @@ router.get('/mvenue-database/settings/tag-info/:token', function(req, res) {
         // After all data is returned, close connection and return results
         query.on('end', function () {
             done();
-            
+
+
             console.log("DEBUG: RESULTS SETTINGS Get MY TAGS" + JSON.stringify(results));
             return res.json(results);
         });
