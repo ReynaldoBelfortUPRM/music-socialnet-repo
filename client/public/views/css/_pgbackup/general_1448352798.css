@@ -87,19 +87,3 @@ fieldset[disabled] .btn-general.active
     margin-left: -6%;
 }
 
-.current-user-title
-{
-    float: left;
-    margin-left: 10px;
-    text-decoration: underline;
-    font-size: 21px;
-    font-weight: bold;
-    color: #037c18;
-}
-
-.default-user-title
-{
-    margin-left: 9px;
-    font-weight: 600;
-}
-

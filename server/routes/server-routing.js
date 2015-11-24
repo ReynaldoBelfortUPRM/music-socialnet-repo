@@ -720,6 +720,8 @@ router.post('/mvenue-database/settings/basic-info/:token', function(req, res) {
 
 });
 
+//TODO  DELETE ACCOUNT
+
 //====PASSWORD RESET====
 router.post('/mvenue-database/settings/password-reset/:token', function(req, res) {
     console.log("DEBUG: SETTINGS PASSWORD RESET------.")
@@ -1196,8 +1198,6 @@ router.get('/mvenue-database/settings/business-info/:token', function(req, res) 
     });
 
 });
-
-
 
 //====CHANGE USER====
 router.get('/mvenue-database/changeUserMode/:token', function(req, res) {

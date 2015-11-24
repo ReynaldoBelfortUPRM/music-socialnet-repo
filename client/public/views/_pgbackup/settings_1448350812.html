@@ -81,37 +81,32 @@
                     <h3 class="panel-title">Account</h3> 
                 </div>
                 <div class="panel-body">
-                    <div class="row">
+                    <div class="row"> 
                         <div class=".col-md-8 col-md-9"> 
                             <ul class="list-group"> 
                                 <li class="list-group-item">Full Name: 
-                                    <input type="text" value="" ng-model="smain.basicInfo.first_name" placeholder="First name"> 
-                                    <input type="text" value="" ng-model="smain.basicInfo.last_name" placeholder="Last name"> 
+                                    <input type="text" value="Nina"> 
+                                    <input type="text" value="Belafonte"> 
                                 </li>                                 
                                 <li class="list-group-item">Email Address: 
-                                    <input type="email" placeholder="nice@example.com" ng-model="smain.basicInfo.email"> 
+                                    <input type="email"> 
                                 </li>                                 
                                 <li class="list-group-item">
                                     <div class="container-fluid">
                                         <div class="col-md-12">
                                             <div class="form-group"> 
                                                 <label class="control-label" for="formInput8">About me</label>                                                 
-                                                <textarea class="form-control" rows="3" id="formInput8" placeholder="Describe yourself..." ng-model="smain.basicInfo.about"></textarea>
+                                                <textarea class="form-control" rows="3" id="formInput8"></textarea>
                                             </div>                                             
                                         </div>
                                     </div>
                                 </li>                                 
                             </ul>                             
-                        </div>                         
+                        </div>
                         <div class=".col-md-8 col-md-3">
                             <div class="row">
-                                <div class="col-md-12">
-                                    <button type="button" class="btn btn-default" style="float: right;">
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                    </button>
-                                    <h3 style="margin-top:0px;width:60%;">Profile Pic</h3>
-                                    <img src="file:///C:/Program%20Files%20(x86)/Pinegrow%20Web%20Designer/placeholders/img7.jpg" width="200" class="" /> 
-                                </div>
+                                <h3 style="margin-top:0px;">Profile Pic</h3>
+                                <img src="file:///C:/Program%20Files%20(x86)/Pinegrow%20Web%20Designer/placeholders/img7.jpg" width="200" class="" />
                             </div>                             
                         </div>                         
                     </div>
@@ -131,15 +126,15 @@
                             <ul class="list-group"> 
                                 <li class="list-group-item">
                                     <h4>Current password:</h4>
-                                    <input type="password" value=" " style="margin-left:12px;" ng-model="smain.passData.currentPass"> 
+                                    <input type="text" value=" " style="margin-left:12px;"> 
                                 </li>
                                 <li class="list-group-item">
                                     <h4>New password:</h4>
-                                    <input type="password" value=" " style="margin-left:12px;" ng-model="smain.passData.newPass"> 
+                                    <input type="text" value=" " style="margin-left:12px;"> 
                                 </li>
                                 <li class="list-group-item">
                                     <h4>Re-enter password:</h4>
-                                    <input type="password" value=" " style="margin-left:12px;" ng-model="smain.passData.confirmNewPass"> 
+                                    <input type="text" value=" " style="margin-left:12px;"> 
                                 </li>                                 
                             </ul>                             
                         </div>                         
@@ -148,7 +143,8 @@
                         <button type="button" class="btn btn-sm btn-general" style="float: right; margin-top:10px;  margin-right:14px;">Save new password</button>                         
                     </div>                     
                 </div>                 
-            </div>
+            </div>             
+            <!--MY TAGS-->             
             <div class="panel panel-general"> 
                 <div class="panel-heading"> 
                     <h3 class="panel-title">My Tags</h3> 
@@ -159,53 +155,14 @@
                             <ul class="list-group"> 
                                 <li class="list-group-item">Tags:
                                     <input type="email" placeholder="guitar, piano ..."> 
-                                    <button type="button" class="btn btn-sm btn-general">
-                                        <span class="glyphicon glyphicon-plus "></span>
-                                    </button>                                     
+                                    <button type="button" class="btn btn-sm btn-general">Add</button>                                     
                                 </li>
                                 <li class="list-group-item">
                                     <div class="container-fluid">
                                         <div class="col-md-6">
-                                            <input type="email" placeholder="guitar, piano ..." class="list-text-field">
-                                            <button type="button" class="btn btn-default">
-                                                <span class="glyphicon glyphicon-pencil"></span>
-                                            </button>
-                                            <button type="button" class="btn btn-default">
-                                                <span class="glyphicon glyphicon-remove "></span>
-                                            </button>                                             
-                                        </div>
-                                    </div>                                     
-                                </li>                                 
-                            </ul>                             
-                        </div>                         
-                    </div>                     
-                </div>                 
-            </div>             
-            <!--MY TAGS-->             
-            <div class="panel panel-general"> 
-                <div class="panel-heading"> 
-                    <h3 class="panel-title">Groups</h3> 
-                </div>                 
-                <div class="panel-body">
-                    <div class="row"> 
-                        <div class=".col-md-8"> 
-                            <ul class="list-group"> 
-                                <li class="list-group-item">Group:
-                                    <input type="email" placeholder="My group ..."> 
-                                    <button type="button" class="btn btn-sm btn-general">
-                                        <span class="glyphicon glyphicon-plus "></span>
-                                    </button>                                     
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="container-fluid">
-                                        <div class="col-md-6">
-                                            <input type="email" placeholder="The group..." class="list-text-field">
-                                            <button type="button" class="btn btn-default">
-                                                <span class="glyphicon glyphicon-pencil"></span>
-                                            </button>
-                                            <button type="button" class="btn btn-default">
-                                                <span class="glyphicon glyphicon-remove "></span>
-                                            </button>                                             
+                                            <input type="email" placeholder="guitar, piano ...">
+                                            <button type="button" class="btn btn-default">Label</button>
+                                            <button type="button" class="btn btn-default">Label</button>                                             
                                         </div>
                                     </div>                                     
                                 </li>                                 
@@ -220,45 +177,18 @@
                 <div class="panel-heading"> 
                     <h3 class="panel-title">Business</h3> 
                 </div>                 
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <h5 style="float: left;">Current user:</h5>
-                            <h4 class="current-user-title">Sample Business</h4> 
-                        </div>
-                        <div class="col-md-4">
-                            <button type="button" class="btn btn-default" style="margin-left: 10px; margin-top:6px;">
-                                <span class="glyphicon  glyphicon-ok"></span>
-                            </button>
-                            <h5 style="float: left;">Default user:</h5>
-                            <h4 style="float: left;" class="default-user-title">Nina Belafonte</h4> 
-                        </div>
-                    </div>
+                <div class="panel-body"> 
                     <div class="row"> 
-                        <div class=".col-md-8">
-                            <hr /> 
-                            <ul class="list-group" style="margin-top: 10px;"> 
-                                <li class="list-group-item">Business name:
-                                    <input type="email" placeholder="My company..."> 
-                                    <button type="button" class="btn btn-sm btn-general">
-                                        <span class="glyphicon glyphicon-plus "></span>
-                                    </button>                                     
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="container-fluid">
-                                        <div class="col-md-6">
-                                            <input type="email" placeholder="The Company..." class="list-text-field">
-                                            <button type="button" class="btn btn-default">
-                                                <span class="glyphicon glyphicon-pencil"></span>
-                                            </button>
-                                            <button type="button" class="btn btn-default">
-                                                <span class="glyphicon glyphicon-remove "></span>
-                                            </button>
-                                            <button type="button" class="btn btn-default" style="margin-left:3px;">
-                                                <span class="glyphicon  glyphicon-ok"></span>
-                                            </button>                                             
-                                        </div>
-                                    </div>                                     
+                        <div class=".col-md-8"> 
+                            <ul class="list-group"> 
+                                <li class="list-group-item">The Lonely Guitar Music Store
+                                    <button type="button" class="btn btn-sm btn-general">Remove</button>                                     
+                                </li>                                 
+                                <li class="list-group-item">Mecca Incorporated Label
+                                    <button type="button" class="btn btn-sm btn-general">Remove</button>                                     
+                                </li>                                 
+                                <li class="list-group-item"> 
+                                    <button type="button" class="btn btn-sm btn-general">Add New Business</button>                                     
                                 </li>                                 
                             </ul>                             
                         </div>                         
@@ -266,6 +196,28 @@
                 </div>                 
             </div>             
             <!--GROUPS-->             
+            <div class="panel panel-general"> 
+                <div class="panel-heading"> 
+                    <h3 class="panel-title">Groups</h3> 
+                </div>                 
+                <div class="panel-body"> 
+                    <div class="row"> 
+                        <div class=".col-md-8"> 
+                            <ul class="list-group"> 
+                                <li class="list-group-item">The CoffeeSquad
+                                    <button type="button" class="btn btn-sm btn-general">Remove</button>                                     
+                                </li>                                 
+                                <li class="list-group-item">Metalheads
+                                    <button type="button" class="btn btn-sm btn-general">Remove</button>                                     
+                                </li>                                 
+                                <li class="list-group-item"> 
+                                    <button type="button" class="btn btn-sm btn-general">Add New Group</button>                                     
+                                </li>                                 
+                            </ul>                             
+                        </div>                         
+                    </div>                     
+                </div>                 
+            </div>             
         </div>         
         <!-- /container -->         
         <!-- Controllers -->         
