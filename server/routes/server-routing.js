@@ -868,14 +868,14 @@ router.get('/mvenue-database/settings/tag-info/:token', function(req, res) {
         query.on('end', function () {
             done();
 
-            var tags = [];
+            //var tags = [];
             //Store tag results in the var to be sent as a response
-            for (res in results) {
-                tags.push({tag_id: res.tag_id, data: res.data});
-            }
+            // for (rs in results) {
+            //     tags.push({tag_id: rs.tag_id, data: rs.data});
+            // }
 
-            console.log("DEBUG: RESULTS SETTINGS Get MY TAGS");
-            return res.status(200).json(tags);
+            console.log("DEBUG: RESULTS SETTINGS Get MY TAGS" + JSON.stringify(results));
+            return res.json(results);
         });
    
     });

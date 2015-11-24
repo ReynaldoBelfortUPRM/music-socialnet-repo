@@ -7,11 +7,8 @@
     <!--Custom Style-->     
     <link rel="stylesheet" type="text/css" href="css/settings.css" /> 
     <!-- Libraries -->     
-    <script type="text/javascript" src="../res/lib/jquery.min.js"></script>     
-    <script type="text/javascript" src="../res/lib/bootstrap.min.js"></script> 
-    <script type="text/javascript" src="../res/lib/angular.min.js"></script>
-
-    <script type="text/javascript" src="../controllers/app.js"></script>    
+    <script src="../res/lib/jquery.min.js"></script>     
+    <script src="../res/lib/bootstrap.min.js"></script>     
 </head> 
 <body ng-app="app" ng-controller="SettingsController as smain"> 
     <!-- NavBar start....................................................................................................-->     
@@ -88,18 +85,18 @@
                         <div class=".col-md-8 col-md-9"> 
                             <ul class="list-group"> 
                                 <li class="list-group-item">Full Name: 
-                                    <input type="text" value="" ng-model="smain.basicInfo.first_name" placeholder="First name" ng-change="smain.textChanged()"> 
-                                    <input type="text" value="" ng-model="smain.basicInfo.last_name" placeholder="Last name" ng-change="smain.textChanged()"> 
+                                    <input type="text" value="" ng-model="smain.basicInfo.first_name" placeholder="First name"> 
+                                    <input type="text" value="" ng-model="smain.basicInfo.last_name" placeholder="Last name"> 
                                 </li>                                 
                                 <li class="list-group-item">Email Address: 
-                                    <input type="email" placeholder="nice@example.com" ng-model="smain.basicInfo.email" ng-change="smain.textChanged()"> 
+                                    <input type="email" placeholder="nice@example.com" ng-model="smain.basicInfo.email"> 
                                 </li>                                 
                                 <li class="list-group-item">
                                     <div class="container-fluid">
                                         <div class="col-md-12">
                                             <div class="form-group"> 
                                                 <label class="control-label" for="formInput8">About me</label>                                                 
-                                                <textarea class="form-control" rows="3" id="formInput8" placeholder="Describe yourself..." ng-model="smain.basicInfo.about" ng-change="smain.textChanged()"></textarea>
+                                                <textarea class="form-control" rows="3" id="formInput8" placeholder="Describe yourself..." ng-model="smain.basicInfo.about"></textarea>
                                             </div>                                             
                                         </div>
                                     </div>
@@ -113,13 +110,13 @@
                                         <span class="glyphicon glyphicon-plus"></span>
                                     </button>
                                     <h3 style="margin-top:0px;width:60%;">Profile Pic</h3>
-                                    <img ng-src="{{smain.basicInfo.photo_path}}" width="200" class="" /> 
+                                    <img src="file:///C:/Program%20Files%20(x86)/Pinegrow%20Web%20Designer/placeholders/img7.jpg" width="200" class="" /> 
                                 </div>
                             </div>                             
                         </div>                         
                     </div>
                     <div class="row">
-                        <button type="button" class="btn btn-sm btn-general" style="float: right; margin-top:10px;  margin-right:14px;" ng-disabled="smain.btnBasicInfoEnabled == true" ng-click="smain.saveBasicInfo()">Save changes</button>
+                        <button type="button" class="btn btn-sm btn-general" style="float: right; margin-top:10px;  margin-right:14px;">Save changes</button>
                     </div>                     
                 </div>                 
             </div>             
@@ -161,19 +158,19 @@
                         <div class=".col-md-8"> 
                             <ul class="list-group"> 
                                 <li class="list-group-item">Tags:
-                                    <input type="email" placeholder="guitar, piano ..." ng-model="smain.newTagData"> 
-                                    <button type="button" class="btn btn-sm btn-general"  ng-click="smain.addTag()">
+                                    <input type="email" placeholder="guitar, piano ..."> 
+                                    <button type="button" class="btn btn-sm btn-general">
                                         <span class="glyphicon glyphicon-plus "></span>
                                     </button>                                     
                                 </li>
-                                <li class="list-group-item" ng-repeat="tag in smain.tagInfo">
+                                <li class="list-group-item">
                                     <div class="container-fluid">
                                         <div class="col-md-6">
-                                            <input type="email" placeholder="guitar, piano ..." class="list-text-field" ng-model="tag.data">
-                                            <button type="button" class="btn btn-default" ng-click="smain.saveTag(tag)">
+                                            <input type="email" placeholder="guitar, piano ..." class="list-text-field">
+                                            <button type="button" class="btn btn-default">
                                                 <span class="glyphicon glyphicon-pencil"></span>
                                             </button>
-                                            <button type="button" class="btn btn-default" ng-click="smain.removeTag(tag)">
+                                            <button type="button" class="btn btn-default">
                                                 <span class="glyphicon glyphicon-remove "></span>
                                             </button>                                             
                                         </div>
