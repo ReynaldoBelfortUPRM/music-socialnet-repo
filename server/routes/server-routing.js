@@ -243,7 +243,6 @@ router.get('/mvenue-database/homepage/:token', function(req, res) {
           else{
               //IN USER MODE
                   //----Get all post related to the user----
-                  var squery="(WITH followintposts AS (SELECT *  FROM post_user WHERE user_id IN (SELECT followed_id FROM follow WHERE follower_id= $1) )SELECT post_id, user_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", first_name as name  FROM followintposts NATURAL JOIN uuser NATURAL FULL JOIN(SELECT post_id, count(liked_by_id) as likes FROM post_user_like GROUP BY post_id) as postoffollowedusers)  UNION (SELECT post_id, business_id as id, data, media_path, media_type, date_time,  \"isBusinessPost\", name FROM (SELECT post_id, business_id, data, media_path, media_type, date_time, \"isBusinessPost\", name FROM post_business NATURAL JOIN businesspage  ) as bpostwithnames WHERE business_id IN (SELECT business_id FROM follow_business WHERE user_id = $2)) ORDER BY date_time DESC ;" ;
 
                   // SQL Query > Select Data
                   var query = client.query(squery, [uPayload.user_id, uPayload.user_id]);
@@ -1533,7 +1532,7 @@ router.get('/mvenue-database/changeUserMode/:token', function(req, res) {
 //------------------------ START PROFILE page--------------------------------------------
 //====TODO USERINFO====
 
-//====TODO FOLLOW====
+//====TODO FOLLOW  ====
 
 //====TODO UNFOLLOW====
 
