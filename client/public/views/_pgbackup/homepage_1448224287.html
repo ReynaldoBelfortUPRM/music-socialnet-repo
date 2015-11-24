@@ -1,0 +1,355 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+    <head> 
+        <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <meta name="description" content=""> 
+        <meta name="author" content=""> 
+        <title>MusicVenue - Homepage</title>         
+        <!-- Bootstrap core CSS -->         
+        <link rel="stylesheet" type="text/css" href="../res/lib/css/bootstrap.min.css" /> 
+        <!-- CSS for plugins -->         
+        <link rel="stylesheet" type="text/css" href="../res/lib/css/video-js.css" /> 
+        <link rel="stylesheet" type="text/css" href="css/upload-form-homepage.css" /> 
+        <!-- Homepage relevant -->         
+        <link rel="stylesheet" type="text/css" href="css/musicvenue-styles.css" /> 
+        <link rel="stylesheet" type="text/css" href="css/homepage-styles.css" /> 
+        <!-- Libraries -->         
+        <script type="text/javascript" src="../res/lib/jquery.min.js"></script>         
+        <script type="text/javascript" src="../res/lib/bootstrap.min.js"></script>         
+        <script type="text/javascript" src="../res/lib/angular.min.js"></script>         
+        <script type="text/javascript" src="../res/lib/angular-cookies.min.js"></script>         
+        <!-- Plug-ins -->         
+        <script type="text/javascript" src="../res/lib/masonry.pkgd.min.js"></script>         
+        <script type="text/javascript" src="../res/lib/audio.min.js"></script>         
+        <!-- AngularJS related -->         
+        <script type="text/javascript" src="../controllers/app.js"></script>         
+        <!--NavBar-->         
+        <link rel="stylesheet" type="text/css" href="css/general.css" /> 
+        <!--Custom Style-->         
+    </head>     
+    <body ng-app="app" ng-controller="HomepageController as homemain"> 
+        <!-- NavBar start....................................................................................................-->         
+        <!-- Fixed navbar -->         
+        <div ng-controller="NavBarController as navmain" class="navbar navbar-inverse navbar-fixed-top" role="navigation"> 
+            <div class="container"> 
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav"> 
+                        <li> 
+                            <a href="tradespace.html">Tradespace</a> 
+                        </li>                         
+                        <li> 
+                            <a href="businesspage.html">Business</a> 
+                        </li>                         
+                        <li> 
+                            <a href="#"> 
+                                <input type="text" placeholder="Search"> 
+                            </a>                             
+                        </li>                         
+                        <li> 
+                            <a href="#"> 
+                                <button type="button" class="btn btn-sm btn-general">Search</button>                                 
+                            </a>                             
+                        </li>                         
+                        <li>
+                            <a href="homepage.html"><span class="app-name-style">MusicVenue</span></a> 
+                        </li>                         
+                        <li>
+                            <a href="event.html">Events</a> 
+                        </li>                         
+                        <li>
+                            <a href="group_page.html">Groups</a> 
+                        </li>                         
+                        <li class="dropdown"> 
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{navmain.userName}}<b class="caret"></b></a> 
+                            <ul class="dropdown-menu"> 
+                                <li>
+                                    <a href="profile_page.html">Profile</a> 
+                                </li>                                 
+                                <li>
+                                    <a href="settings.html">Settings</a> 
+                                </li>                                 
+                                <li>
+                                    <a ng-click="navmain.logout()">Log Out</a> 
+                                </li>                                 
+                            </ul>                             
+                        </li>                         
+                    </ul>                     
+                </div>                 
+                <!--/.nav-collapse -->                 
+            </div>             
+        </div>         
+        <!-- End of Nav Bar -->         
+        <!-- NavBar end.....................................................................................................-->         
+        <div class="navbar-wrapper"> 
+            <div class="container-fluid"> 
+                <div class="navbar navbar-inverse navbar-static-top" role="navigation"> 
+                    <ul class="nav navbar-nav inline-div-fix"> 
+                        <li class="active"> 
+                            <a href="#">Home</a> 
+                        </li>                         
+                        <li> 
+                            <a href="#about">About</a> 
+                        </li>                         
+                        <li> 
+                            <a href="#contact">Contact</a> 
+                        </li>                         
+                    </ul>                     
+                    <div class="navbar-header inline-div-fix"> 
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> 
+                            <span class="sr-only">Toggle navigation</span> 
+                            <span class="icon-bar"></span> 
+                            <span class="icon-bar"></span> 
+                            <span class="icon-bar"></span> 
+                        </button>                         
+                        <a class="navbar-brand" href="#"><span class="app-name-style"> MusicVenue</span></a> 
+                    </div>                     
+                    <ul class="nav navbar-nav inline-div-fix"> 
+                        <li class="active"> 
+                            <a href="#">Home</a> 
+                        </li>                         
+                        <li> 
+                            <a href="#about">About</a> 
+                        </li>                         
+                        <li> 
+                            <a href="#contact">Contact</a> 
+                        </li>                         
+                    </ul>                     
+                </div>                 
+            </div>             
+        </div>         
+        <div class="container-fluid"> 
+            <div class="row">
+                <div class="modal fade pg-show-modal" id="modal1" tabindex="-1" role="dialog" aria-hidden="true"> 
+                    <div class="modal-dialog"> 
+                        <div class="modal-content"> 
+                            <div class="modal-header"> 
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>                                 
+                                <h4 class="modal-title">Edit Post</h4> 
+                            </div>                             
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group"> 
+                                            <label class="control-label" for="frmInput_PostEdit" style="font-family:Aller Light;">Post description:</label>                                             
+                                            <textarea class="form-control" rows="3" id="frmInputDescription"></textarea>
+                                        </div>                                         
+                                    </div>
+                                    <div class="col-md-12">
+                                        <h5 style="font-family:Aller Light;">Upload images:</h5>
+                                        <!-- Upload form plugin -->
+                                        <form id="upload" method="post" action="../res/lib/upload_form/upload.php" enctype="multipart/form-data">
+                                            <div id="drop">
+                                                Drop Here
+                                                <a>Browse</a>
+                                                <input type="file" name="upl" multiple />
+                                            </div>
+                                            <ul>
+                                                <!-- The file uploads will be shown here -->
+                                            </ul>
+                                        </form>                                         
+                                    </div>
+                                </div>                                 
+                            </div>                             
+                            <div class="modal-footer"> 
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                                 
+                                <button type="button" class="btn btn-primary">Save changes</button>                                 
+                            </div>                             
+                        </div>                         
+                    </div>                     
+                </div>                 
+                <div class="post-bar" id="postBar"> 
+                    <div class="container-fluid"> 
+                        <div class="row"> 
+                            <div class="col-md-9"> 
+                                <ul class="list-unstyled" id="post-ul-1" style="padding-top:5px;"> 
+                                    <li> 
+                                        <input type="text" class="form-control input-post-style" placeholder="What's your feeling?" ng-model="homemain.postDescription"> 
+                                    </li>                                     
+                                    <li> 
+                                        <button type="button" class="btn btn-general post-bar-button" ng-click="homemain.addPost()">Post</button>                                         
+                                    </li>                                     
+                                </ul>                                 
+                            </div>                             
+                            <div class="col-md-3"> 
+                                <ul class="list-unstyled postbar-ul-buttons" id="post-ul-2"> 
+                                    <li> 
+                                        <button type="button" class="btn btn-default btn-post-bar" ng-click="homemain.openUpload(0)"> 
+                                            <img src="../res/img/icons/camera3.png" class="img-responsive" width="20" height="20" /> 
+                                        </button>                                         
+                                        <button type="button" class="btn btn-default btn-post-bar" ng-click="homemain.openUpload(1)"> 
+                                            <img src="../res/img/icons/note55.png" class="img-responsive" height="25" width="25" /> 
+                                        </button>                                         
+                                        <button type="button" class="btn btn-default btn-post-bar" ng-click="homemain.openUpload(2)"> 
+                                            <img src="../res/img/icons/movie36.png" class="img-responsive" height="25" width="25" /> 
+                                        </button>                                         
+                                    </li>                                     
+                                    <li> 
+</li>                                     
+                                    <li> 
+</li>                                     
+                                </ul>                                 
+                            </div>                             
+                        </div>                         
+                        <div class="row" ng-if="homemain.showUpload"> 
+                            <h5 class="post-upload-title">Upload {{homemain.uploadTitle}}:</h5> 
+                            <!-- Upload form plugin -->                             
+                            <form id="upload" method="post" action="js/upload_form/upload.php" enctype="multipart/form-data"> 
+                                <div id="drop"> 
+                                    Drop Here
+                                    <a>Browse</a> 
+                                    <input type="file" name="upl" multiple /> 
+                                </div>                                 
+                                <ul> 
+                                    <!-- The file uploads will be shown here -->                                     
+                                </ul>                                 
+                            </form>                             
+                        </div>                         
+                    </div>                     
+                </div>                 
+            </div>             
+            <div class="row"> 
+                <div class="masonryClassWall" id="masonry"> 
+                    <div ng-repeat="uPost in homemain.posts" ng-switch="uPost.media_type"> 
+                        <div class="post" id="post-video" ng-switch-when="0"> 
+                            <div class="container-fluid"> 
+                                <div class="row"> 
+                                    <div class="col-md-7"> 
+                                        <div class="row post-video-row"> 
+                                            <!-- Video.js  plug-in -->                                             
+                                            <video id="my-video" class="video-js" controls preload="none" width="300" height="150" poster="MY_VIDEO_POSTER.jpg" data-setup="{}"> 
+                                                <source src="MY_VIDEO.mp4" type='video/mp4'> 
+                                                <source src="MY_VIDEO.webm" type='video/webm'> 
+                                                <p class="vjs-no-js"> 
+                                                  To view this video please enable JavaScript, and consider upgrading to a web browser that<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p> 
+                                            </video>                                             
+                                        </div>                                         
+                                        <div class="row"> 
+                                            <ul class="list-unstyled count-like"> 
+                                                <li> 
+                                                    <p class="like-count">82</p> 
+                                                </li>                                                 
+                                                <li> 
+                                                    <button type="button" class="btn btn-default post-button-like"> 
+</button>                                                     
+                                                </li>                                                 
+                                            </ul>                                             
+                                        </div>                                         
+                                    </div>                                     
+                                    <div class="col-md-5">
+                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelVideo" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>                                         
+                                        <div class="row"> 
+                                            <h3 class="post-image-video-title">{{uPost.name}}</h3> 
+                                            <div class="" style="background: #000000; width:90%; height:1px;margin-bottom:8px"></div>                                             
+                                        </div>                                         
+                                        <div class="row"> 
+                                            <p>{{uPost.data}}</p> 
+                                        </div>                                         
+                                    </div>                                     
+                                </div>                                 
+                            </div>                             
+                        </div>                         
+                        <div class="post" id="post-image" ng-switch-when="1"> 
+                            <div class="container-fluid"> 
+                                <div class="row"> 
+                                    <div class="col-md-7"> 
+                                        <div class="row"> 
+                                            <img ng-src="{{uPost.media_path}}" class="img-rounded post-image" width="200" /> 
+                                        </div>                                         
+                                        <div class="row"> 
+                                            <ul class="list-unstyled count-like"> 
+                                                <li> 
+                                                    <p class="like-count">15</p> 
+                                                </li>                                                 
+                                                <li> 
+                                                    <button type="button" class="btn btn-default post-button-like"> 
+</button>                                                     
+                                                </li>                                                 
+                                            </ul>                                             
+                                        </div>                                         
+                                    </div>                                     
+                                    <div class="col-md-5">
+                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelImage" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>                                         
+                                        <div class="row"> 
+                                            <h3 class="post-image-video-title">{{uPost.name}}</h3> 
+                                            <div class="" style="background: #000000; width:90%; height:1px;margin-bottom:8px"></div>                                             
+                                        </div>                                         
+                                        <div class="row"> 
+                                            <p>{{uPost.data}}</p> 
+                                        </div>                                         
+                                    </div>                                     
+                                </div>                                 
+                            </div>                             
+                        </div>                         
+                        <div class="post" id="post-text" ng-switch-when="2"> 
+                            <div class="container-fluid">
+                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelText" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>                                 
+                                <div class="row"> 
+                                    <h3 class="post-title-text">{{uPost.name}}</h3> 
+                                </div>                                 
+                                <div class="row"> 
+                                    <div class="post-line-break-text"></div>                                     
+                                </div>                                 
+                                <div class="row"> 
+                                    <div class="well post-description-text">{{uPost.data}}</div>                                     
+                                </div>                                 
+                                <div class="row"> 
+                                    <ul class="list-unstyled count-like"> 
+                                        <li> 
+                                            <p class="like-count">25</p> 
+                                        </li>                                         
+                                        <li> 
+                                            <button type="button" class="btn btn-default post-button-like"> 
+</button>                                             
+                                        </li>                                         
+                                    </ul>                                     
+                                </div>                                 
+                            </div>                             
+                        </div>                         
+                        <div class="post" id="post-audio" ng-switch-when="3"> 
+                            <div class="container-fluid">
+                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelAudio" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>                                 
+                                <div class="row"> 
+                                    <div class="col-md-8"> 
+                                        <div class="well post-description-audio">{{uPost.data}}</div>                                         
+                                    </div>                                     
+                                    <div class="col-md-4"> 
+                                        <h3 class="post-image-video-title">{{uPost.name}}</h3> 
+                                    </div>                                     
+                                </div>                                 
+                                <div class="row post-audio-row"> 
+                                    <!-- audio.js  plug-in -->                                     
+                                    <audio ng-src="{{uPost.media_path}}" preload="none"> 
+</audio>                                     
+                                </div>                                 
+                                <div class="row"> 
+                                    <ul class="list-unstyled count-like"> 
+                                        <li> 
+                                            <p class="like-count">8</p> 
+                                        </li>                                         
+                                        <li> 
+                                            <button type="button" class="btn btn-default post-button-like"> 
+</button>                                             
+                                        </li>                                         
+                                    </ul>                                     
+                                </div>                                 
+                            </div>                             
+                        </div>                         
+                    </div>                     
+                </div>                 
+            </div>             
+        </div>         
+        <!-- These  scripts are loaded here since we have to wait until AngularJS finishes initializing -->         
+        <script type="text/javascript" src="../res/lib/video.js"></script>         
+        <!-- Upload Form plugin -->         
+        <script src="../res/lib/upload_form/jquery.knob.js"></script>         
+        <script src="../res/lib/upload_form/jquery.ui.widget.js"></script>         
+        <script src="../res/lib/upload_form/jquery.iframe-transport.js"></script>         
+        <script src="../res/lib/upload_form/jquery.fileupload.js"></script>         
+        <script src="../res/lib/upload_form/upload-form.js"></script>         
+        <!-- Controllers -->         
+        <script type="text/javascript" src="../controllers/homepage.ctrl.js"></script>         
+        <script type="text/javascript" src="../controllers/navbar.ctrl.js"></script>         
+    </body>     
+</html>

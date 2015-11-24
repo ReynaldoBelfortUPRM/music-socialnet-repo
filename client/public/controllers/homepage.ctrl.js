@@ -53,6 +53,108 @@ angular.module('app').controller("HomepageController", function($http){
 
 	};
 
+	vmodel.addPost = function(){
+
+		//TODO Complete a validation 
+		if(vmodel.postDescription.length > 0){
+
+			//TODO Anadir comentario a esto
+			$http.post('/mvenue-database/homepage/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token, {data: vmodel.postDescription, media_path: '', media_type: 2}).then(
+				function successCallback(response){
+					//Clear description from post bar
+					vmodel.postDescription = "";
+
+					//Load data from server
+					vmodel.userID = response.data[1];
+            		vmodel.posts = response.data[0];
+				},
+				function errorCallback(response){
+					if(response.status == 400){
+						alert("Invalid username or password. Please try again.");
+					}
+					else{
+						alert("There was an internal error. Please try again soon.");
+					}
+
+				}
+			);
+	  }
+	};
+
+	vmodel.supplyEditModal = function(uPost){
+		//Bind the data from the selected post into the edit modal
+		vmodel.editData = uPost;
+		//Show modal
+		$('#modalEditPost').modal('show');
+	};
+
+	//Function needed in case the user closes the modal without saving any changes.
+	vmodel.clearModal = function(){
+		vmodel.editData = null;
+	};
+
+	vmodel.editPost = function(){
+		//TODO Here the edited post should be verified first. If media was added, update the media_type property.
+		//Verification must also be made whether there was a modification or not.
+
+		//TODO Complete a validation 
+		if(vmodel.editData.data.length > 0){
+			//Send a UPDATE request to save the edited data of the chosen post
+			$http.put('/mvenue-database/homepage/?tk=' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+	        + "&postID="+ vmodel.editData.post_id.toString(), {data: vmodel.editData.data, media_path: vmodel.editData.media_path, media_type: vmodel.editData.media_type}).then(function successCallback(response){
+	        	//Refresh post data with info data from server
+	        	vmodel.userID = response.data[1];
+	            vmodel.posts = response.data[0];
+	            //Erase edit data and hide modal.
+	            vmodel.clearModal();
+	            $('#modalEditPost').modal('hide');
+
+	        }, function errorCallback(response){
+	                if(response.status == 401){
+	                    alert("Authentication error! Your session may have been expired. Please log-in!");
+	                    //Erase current token
+	                    sessionStorage.removeItem('clientAuthentication');
+	                    //Re-direct user to the log-in page
+	                    window.location.href = "login.html";
+	                }
+	                else{
+	                	//Erase edit data. User can choose to close  modal or keep trying.
+	                	vmodel.clearModal();
+
+	                    alert("Server Internal Error: " + response.data);
+	                }
+
+	        });
+		} else {
+			alert ("You must have some text in a post!");
+		}
+	};//End editPost.
+
+	vmodel.deletePost = function(postID){
+		//Send a DELETE request to erase the chosen post
+		//Http data would be sent within a query string.
+		$http.delete('/mvenue-database/homepage/?tk=' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+        + "&postID="+postID.toString()).then(function successCallback(response){
+        	//Refresh post data with info data from server
+        	vmodel.userID = response.data[1];
+            vmodel.posts = response.data[0];
+
+        }, function errorCallback(response){
+                if(response.status == 401){
+                    alert("Authentication error! Your session may have been expired. Please log-in!");
+                    //Erase current token
+                    sessionStorage.removeItem('clientAuthentication');
+                    //Re-direct user to the log-in page
+                    window.location.href = "login.html";
+                }
+                else{
+                    alert("Server Internal Error: " + response.data);
+                }
+
+        });
+
+	};
+
 	//TODO-----------Dummy operations: for design purposes-----------------
 	// vmodel.showUpload = true;
 	//vmodel.post_type = 1;
@@ -66,43 +168,13 @@ angular.module('app').controller("HomepageController", function($http){
 		window.location.href = "index.html";
 	}
 
-
-	//TODO debug
-	$http.post('/mvenue-database/homepage-post/', {}).then(
-		function successCallback(response){
-			//TODO When user is logged out, the token must be erased.
-			//Retrieve token and store in browser's session cookie:
-			//sessionStorage.setItem('clientAuthentication', JSON.stringify({loggedIn: true, token: response.data.token}));
-
-			//Direct user to the homepage
-			//window.location.href = "homepage.html";
-
-			console.log("Salio todo bien");
-
-		},
-		function errorCallback(response){
-			if(response.status == 400){
-				alert("Invalid username or password. Please try again.");
-			}
-			else{
-				alert("There was an internal error. Please try again soon.");
-			}
-
-		}
-	);
-
-
-
-
-
-
-
 	$http.get('/mvenue-database/homepage/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
         ).then(function successCallback(response){
         	//------Recieve and manage response data-------
 
             //Load data from server
-            vmodel.posts = response.data.posts;
+            vmodel.userID = response.data[1];
+            vmodel.posts = response.data[0];
 
         }, function errorCallback(response){
                 if(response.status == 401){
