@@ -3,8 +3,6 @@ angular.module('app').controller("RegisterControl", function($http){
     var vmodel = this; //Scope of this controller.
 
     vmodel.register = function (){
-            console.log("antes");
-
 
             if(vmodel.password== vmodel.repassword) {
                 $http.post('/mvenue-database/register/', {
@@ -20,12 +18,9 @@ angular.module('app').controller("RegisterControl", function($http){
                 alert("Passwords do not match.");
             }
 
-            console.log("despues");
-
     };
     vmodel.cancel= function(){
         window.location.href = "index.html";
-
     };
 
 
