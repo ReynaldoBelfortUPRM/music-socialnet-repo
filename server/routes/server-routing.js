@@ -63,7 +63,6 @@ router.get('/', function(req, res, next) {
 //--------------TODO Check section for info on router methods: Response methods    http://expressjs.com/guide/routing.html 
 
 //------------------------ START REGISTER page------------------------------------------
-
  router.post('/mvenue-database/register/', function(req, res) {
 
      var results = [];
@@ -119,8 +118,12 @@ router.get('/', function(req, res, next) {
  });
 //------------------------ END REGISTER page--------------------------------------------
 
-//------------------------ START LOGIN page------------------------------------------
 
+
+
+
+
+//------------------------ START LOGIN page------------------------------------------
 router.post('/mvenue-database/login/', function(req, res) {
     //TODO DEBUG
     console.log("DEBUG: Login server entry.");
@@ -206,6 +209,9 @@ router.post('/mvenue-database/login/', function(req, res) {
     });
 });
 //------------------------ END LOGIN page--------------------------------------------
+
+
+
 
 
 
@@ -376,7 +382,6 @@ router.post('/mvenue-database/homepage/:token', function(req, res) {
 
 
 });
-
 
 //====DELETE====
 router.delete('/mvenue-database/homepage/', function(req, res) {
@@ -696,13 +701,792 @@ router.get('/mvenue-database/changeUserMode/:token', function(req, res) {
         }
 
     }
-
-
     //Change the user mode
 
     //----------TODO Database query code HERE
 });
 
+
+//--READS--//
+    //CLIENT INPUT: none
+    router.get('/mvenue-database/user-info/:token', function(req, res) {
+        //TODO DEBUG
+        console.log("DEBUG: Change User Mode Request entry.");
+        var uPayload={
+            isBusinessMode: false,
+            user_id: 1,
+            business_id_:1
+        };
+        var userInfo = [];
+
+        //Token validation
+        //try{
+        //    //Get payload data from the client that is logged in
+        //    uPayload = verifyToken(req.params.token);
+        //}catch(err){
+     //    return res.status(401).json(err); //End request by returning a failure response.
+        //}
+
+        pg.connect(connectionString, function (err, client, done) {
+            // Handle connection errors
+            if (err) {
+                done();
+                console.log(err);
+                return res.status(500).json({success: false, data: err});
+            }
+
+
+                console.log("DEBUG: DB QUERY BUSINESS MODE");
+
+                var getQuery="(SELECT first_name, last_name, email, photo_path, about FROM uuser WHERE user_id=$1)";
+
+                // SQL Query > Select Data
+                var query = client.query(getQuery, [uPayload.user_id]);
+
+
+                // Stream results back one row at a time
+                query.on('row', function (row) {
+                    userInfo.push(row);
+                });
+
+                // After all data is returned, close connection and return results
+                query.on('end', function () {
+                    done();
+
+                    console.log("DEBUG: GET userInfo - SETTINGS: "+ JSON.stringify(userInfo));
+
+                    return res.json(userInfo);
+                });
+
+        });
+
+    });
+
+    //CLIENT INPUT: none
+    router.get('/mvenue-database/user-tags/:token', function(req, res) {
+
+        console.log("DEBUG: Change User Mode Request entry.");
+
+        var uPayload={
+            isBusinessMode: false,
+            user_id: 1,
+            business_id_:1
+        };
+        var userTags = [];
+
+        //Token validation
+        //try{
+        //    //Get payload data from the client that is logged in
+        //    uPayload = verifyToken(req.params.token);
+        //}catch(err){
+        //    return res.status(401).json(err); //End request by returning a failure response.
+        //}
+
+        pg.connect(connectionString, function (err, client, done) {
+            // Handle connection errors
+            if (err) {
+                done();
+                console.log(err);
+                return res.status(500).json({success: false, data: err});
+            }
+
+
+            console.log("DEBUG: DB QUERY BUSINESS MODE");
+
+            var getQuery="(SELECT data FROM tag_user WHERE user_id=$1)";
+
+            // SQL Query > Select Data
+            var query = client.query(getQuery, [uPayload.user_id]);
+
+            // Stream results back one row at a time
+            query.on('row', function (row) {
+                userTags.push(row);
+            });
+
+            // After all data is returned, close connection and return results
+            query.on('end', function () {
+                done();
+
+                console.log("DEBUG: GET userTags - SETTINGS: "+ JSON.stringify(userTags));
+
+                return res.json(userTags);
+            });
+
+
+
+        });
+
+
+
+
+
+
+
+
+    });
+
+    //CLIENT INPUT: none
+    router.get('/mvenue-database/user-groups/:token', function(req, res) {
+    //The groups that the user administrates and the group that the user is in
+        console.log("DEBUG: Change User Mode Request entry.");
+
+        var uPayload={
+            isBusinessMode: false,
+            user_id: 1,
+            business_id_:1
+        };
+        var userGroups = [];
+
+        //Token validation
+        //try{
+        //    //Get payload data from the client that is logged in
+        //    uPayload = verifyToken(req.params.token);
+        //}catch(err){
+        //    return res.status(401).json(err); //End request by returning a failure response.
+        //}
+
+        pg.connect(connectionString, function (err, client, done) {
+            // Handle connection errors
+            if (err) {
+                done();
+                console.log(err);
+                return res.status(500).json({success: false, data: err});
+            }
+
+
+            console.log("DEBUG: DB QUERY BUSINESS MODE");
+
+            var getQuery="(SELECT group_id, name, description, group_administrator, photo_path FROM ggroupWHERE group_administrator =  $1 OR group_id IN  (SELECT group_id FROM group_membership WHERE user_id=$2)";
+
+            // SQL Query > Select Data
+            var query = client.query(getQuery, [uPayload.user_id,uPayload.user_id]);
+
+            // Stream results back one row at a time
+            query.on('row', function (row) {
+                userGroups.push(row);
+            });
+
+            // After all data is returned, close connection and return results
+            query.on('end', function () {
+                done();
+
+                console.log("DEBUG: GET userInfo - SETTINGS: "+ JSON.stringify(userGroups));
+
+                return res.json(userGroups);
+            });
+
+
+
+        });
+
+
+
+
+
+
+
+
+
+
+    });
+
+    //CLIENT INPUT: none
+    router.get('/mvenue-database/user-business-pages/:token', function(req, res) {
+    //The groups that the user administrates and the group that the user is in
+        console.log("DEBUG: Change User Mode Request entry.");
+
+        var uPayload={
+            isBusinessMode: false,
+            user_id: 1,
+            business_id_:1
+        };
+        var business = [];
+
+        //Token validation
+        //try{
+        //    //Get payload data from the client that is logged in
+        //    uPayload = verifyToken(req.params.token);
+        //}catch(err){
+        //    return res.status(401).json(err); //End request by returning a failure response.
+        //}
+
+        pg.connect(connectionString, function (err, client, done) {
+            // Handle connection errors
+            if (err) {
+                done();
+                console.log(err);
+                return res.status(500).json({success: false, data: err});
+            }
+
+
+            console.log("DEBUG: DB QUERY BUSINESS MODE");
+
+            var getQuery="(SELECT name, about, photo_path, user_id, business_id FROM businesspage WHERE user_id = $1)";
+
+            // SQL Query > Select Data
+            var query = client.query(getQuery, [uPayload.user_id]);
+
+            // Stream results back one row at a time
+            query.on('row', function (row) {
+                business.push(row);
+            });
+
+            // After all data is returned, close connection and return results
+            query.on('end', function () {
+                done();
+
+                console.log("DEBUG: GET business - SETTINGS: "+ JSON.stringify(business));
+
+                return res.json(business);
+            });
+
+
+
+        });
+
+
+
+
+
+
+
+
+
+
+    });
+//--READS--//
+
+//-------------------------------------------------------------------------
+//--CREATE--//
+    //USER//
+    //CLIENT INPUT: {data: data}
+    router.post('/mvenue-database/new-user-tag/:token', function(req, res) {
+        console.log("DEBUG: Homepage POST------.");
+
+        var post_input={
+            data: req.body.data
+        };
+
+
+
+        var uPayload;
+        var updatedTags = [];
+
+        //Token validation
+
+        try{
+            //Get payload data from the client that is logged in
+            uPayload = verifyToken(req.params.token);
+        }catch(err){
+            return res.status(401).json(err); //End request by returning a failure response.
+        }
+
+        // Get a Postgres client from the connection pool
+        console.log("DEBUG: DB CONNECT");
+
+
+        pg.connect(connectionString, function(err, client, done) {
+            // Handle connection errors
+            if (err) {
+                done();
+                console.log(err);
+                return res.status(500).json({success: false, data: err});
+            }
+
+            //This is a BUSINESS POST
+            // SQL Query > Insert Data
+
+            client.query(" INSERT INTO tag_user(data, user_id))" +
+                "VALUES ($1, $2)"
+                , [post_input.data, uPayload.user_id]);
+
+            //----Get all post related to the user----
+
+
+
+            var getQuery="(SELECT data FROM tag_user WHERE user_id=$1)";
+
+            // SQL Query > Select Data
+            var query = client.query(getQuery, uPayload.user_id);
+
+            // Stream results back one row at a time
+            query.on('row', function (row) {
+                updatedTags.push(row);
+            });
+
+            // After all data is returned, close connection and return results
+            query.on('end', function () {
+                done();
+
+                console.log("DEBUG: new-user-tag DONE");
+
+                return res.json(updatedTags);
+            });
+
+        });
+
+
+    });
+
+
+
+    //GROUP//
+    /*CLIENT INPUT: {
+     name: name,
+     about: description,
+     photo_path: photo_path
+
+     CLIENT OUTPUT:{
+
+     group_id,
+     name,
+     description,
+     group_administrator,
+     photo_path
+     }
+     }*/
+    router.post('/mvenue-database/new-group/:token', function(req, res) {
+        console.log("DEBUG: Homepage POST------.");
+
+        var post_input={
+            name: req.body.name,
+            about: req.body.description,
+            photo_path: req.body.photo_path
+        };
+
+        var uPayload;
+        var updatedGroups = [];
+
+        //Token validation
+        try{
+            //Get payload data from the client that is logged in
+            uPayload = verifyToken(req.params.token);
+        }catch(err){
+            return res.status(401).json(err); //End request by returning a failure response.
+        }
+
+        // Get a Postgres client from the connection pool
+        console.log("DEBUG: DB CONNECT");
+
+
+        pg.connect(connectionString, function(err, client, done) {
+            // Handle connection errors
+            if (err) {
+                done();
+                console.log(err);
+                return res.status(500).json({success: false, data: err});
+            }
+
+            //This is a BUSINESS POST
+            // SQL Query > Insert Data
+
+
+            var postquery = "(INSERT INTO ggroup(name, description, group_administrator, photo_path)VALUES ($1 , $2 , $3, $4))";
+
+            client.query(postquery, [post_input.name,post_input.description,post_input.photo_path ,uPayload.user_id]);
+
+
+
+
+            //----Get all groups that the user is in or administrates----
+            var getQuery="(SELECT group_id, name, description, group_administrator, photo_path FROM ggroup WHERE group_administrator =  $1 OR group_id IN  (SELECT group_id FROM group_membership WHERE user_id=$2)";
+            // SQL Query > Select Data
+            var query = client.query(getQuery, [uPayload.user_id,uPayload.user_id]);
+
+            // Stream results back one row at a time
+            query.on('row', function (row) {
+                updatedGroups.push(row);
+            });
+
+            // After all data is returned, close connection and return results
+            query.on('end', function () {
+                done();
+
+                console.log("DEBUG: new-group DONE");
+
+                return res.json(updatedGroups);
+            });
+
+        });
+
+
+    });
+
+    /*
+    CLIENT INPUT: {
+     user_id: user_id,
+     group_id: group_id
+     }
+
+     CLIENT OUTPUT:// The people that are in whe group with id group_id in input
+    * user_id
+    * first_name
+    * last_name
+    * */
+    router.post('/mvenue-database/new-group-member/:token', function(req, res) {
+        console.log("DEBUG: Homepage POST------.");
+
+        var post_input={
+            user_id: req.body.user_id,
+            group_id: req.body.group_id
+        };
+
+        var uPayload;
+        var updatedMembers = [];
+
+        //Token validation
+        try{
+            //Get payload data from the client that is logged in
+            uPayload = verifyToken(req.params.token);
+        }catch(err){
+            return res.status(401).json(err); //End request by returning a failure response.
+        }
+
+        // Get a Postgres client from the connection pool
+        console.log("DEBUG: DB CONNECT");
+
+
+        pg.connect(connectionString, function(err, client, done) {
+            // Handle connection errors
+            if (err) {
+                done();
+                console.log(err);
+                return res.status(500).json({success: false, data: err});
+            }
+
+            //This is a BUSINESS POST
+            // SQL Query > Insert Data
+
+            var insertquery="(INSERT INTO group_membership(group_id, user_id) VALUES ($1, $2))";
+
+            client.query(insertquery, [post_input.group_id, post_input.user_id]);
+
+            //----Get all the members of the group with id group_id----
+
+            var getQuery=   "SELECT user_id, first_name, last_name"+
+                            "FROM uuser"+
+                            "WHERE user_id IN (SELECT user_id FROM group_membership WHERE group_id = $1)";
+            // SQL Query > Select Data
+            var query = client.query(getQuery, [post_input.group_id]);
+
+            // Stream results back one row at a time
+            query.on('row', function (row) {
+                updatedMembers.push(row);
+            });
+
+            // After all data is returned, close connection and return results
+            query.on('end', function () {
+                done();
+
+                console.log("DEBUG: new-group-member DONE");
+
+                return res.json(updatedMembers);
+            });
+
+        });
+
+
+    });
+
+    /*CLIENT INPUT:
+     {data: data,
+     group_id: group_id}
+
+     OUTPUT: // with the new tag
+     {data: data}
+     */
+    router.post('/mvenue-database/new-group-tag/:token', function(req, res) {
+        console.log("DEBUG: Homepage POST------.");
+
+        var post_input={
+            data: req.body.data,
+            group_id: req.body.group_id
+        };
+
+
+
+        var uPayload;
+        var updatedTags = [];
+
+        //Token validation
+
+        try{
+            //Get payload data from the client that is logged in
+            uPayload = verifyToken(req.params.token);
+        }catch(err){
+            return res.status(401).json(err); //End request by returning a failure response.
+        }
+
+        // Get a Postgres client from the connection pool
+        console.log("DEBUG: DB CONNECT");
+
+
+        pg.connect(connectionString, function(err, client, done) {
+            // Handle connection errors
+            if (err) {
+                done();
+                console.log(err);
+                return res.status(500).json({success: false, data: err});
+            }
+
+            //This is a BUSINESS POST
+            // SQL Query > Insert Data
+
+            client.query(" INSERT INTO tag_group(data, group_id))" +
+                "VALUES ($1, $2)"
+                , [post_input.data, post_input.group_id]);
+
+            //----Get all tags related to the group----
+
+
+
+            var getQuery="(SELECT data FROM tag_group WHERE group_id=$1)";
+
+            // SQL Query > Select Data
+            var query = client.query(getQuery, post_input.group_id);
+
+            // Stream results back one row at a time
+            query.on('row', function (row) {
+                updatedTags.push(row);
+            });
+
+            // After all data is returned, close connection and return results
+            query.on('end', function () {
+                done();
+
+                console.log("DEBUG: new-group-tag DONE");
+
+                return res.json(updatedTags);
+            });
+
+        });
+
+
+    });
+
+
+
+    //BUSINESS//
+    /*CLIENT INPUT:
+    {   name: name,
+        about: about,
+        photo_path: photo_path
+    }
+
+    CLIENT OUTPUT:// That the user logged in administrates
+    {
+    business_id,
+    name,
+    about,
+    user_id,
+    photo_path
+    }
+
+    */
+    router.post('/mvenue-database/new-business/:token', function(req, res) {
+        console.log("DEBUG: Homepage POST------.");
+
+        var post_input={
+            name: req.body.name,
+            about: req.body.about,
+            photo_path: req.body.photo_path
+        };
+
+        var uPayload;
+        var updatedGroups = [];
+
+        //Token validation
+        try{
+            //Get payload data from the client that is logged in
+            uPayload = verifyToken(req.params.token);
+        }catch(err){
+            return res.status(401).json(err); //End request by returning a failure response.
+        }
+
+        // Get a Postgres client from the connection pool
+        console.log("DEBUG: DB CONNECT");
+
+
+        pg.connect(connectionString, function(err, client, done) {
+            // Handle connection errors
+            if (err) {
+                done();
+                console.log(err);
+                return res.status(500).json({success: false, data: err});
+            }
+
+            //This is a BUSINESS POST
+            // SQL Query > Insert Data
+            var postquery ="(INSERT INTO businesspage(name, about, photo_path, user_id) VALUES ($1, $2, $3, $4))";
+
+            client.query(postquery, [post_input.name,post_input.about,post_input.photo_path ,uPayload.user_id]);
+
+            //----Get all business that the user is in or administrates----
+            var getQuery="(SELECT business_id, name, about, user_id, photo_path FROM businesspage WHERE user_id =  $1 )";
+            // SQL Query > Select Data
+            var query = client.query(getQuery, [uPayload.user_id]);
+
+            // Stream results back one row at a time
+            query.on('row', function (row) {
+                updatedGroups.push(row);
+            });
+
+            // After all data is returned, close connection and return results
+            query.on('end', function () {
+                done();
+                console.log("DEBUG: new-business DONE");
+                return res.json(updatedGroups);
+            });
+
+        });
+
+
+    });
+
+/*
+ CLIENT INPUT:
+ {
+ data: data,
+ group_id: business_id
+ }
+
+ CLIENT OUTPUT:
+ {
+ data
+ }
+ */
+    router.post('/mvenue-database/new-business-tag/:token', function(req, res) {
+        console.log("DEBUG: Homepage POST------.");
+
+        var post_input={
+            data: req.body.data,
+            group_id: req.body.business_id
+        };
+
+
+
+        var uPayload;
+        var updatedTags = [];
+
+        //Token validation
+
+        try{
+            //Get payload data from the client that is logged in
+            uPayload = verifyToken(req.params.token);
+        }catch(err){
+            return res.status(401).json(err); //End request by returning a failure response.
+        }
+
+        // Get a Postgres client from the connection pool
+        console.log("DEBUG: DB CONNECT");
+
+
+        pg.connect(connectionString, function(err, client, done) {
+            // Handle connection errors
+            if (err) {
+                done();
+                console.log(err);
+                return res.status(500).json({success: false, data: err});
+            }
+
+            //This is a BUSINESS POST
+            // SQL Query > Insert Data
+
+            client.query(" INSERT INTO tag_busines(data, business_id))" +
+                "VALUES ($1, $2)"
+                , [post_input.data, post_input.business_id]);
+
+            //----Get all tags related to the business----
+
+            var getQuery="(SELECT data FROM tag_busines WHERE business_id=$1)";
+
+            // SQL Query > Select Data
+            var query = client.query(getQuery, post_input.business_id);
+
+            // Stream results back one row at a time
+            query.on('row', function (row) {
+                updatedTags.push(row);
+            });
+
+            // After all data is returned, close connection and return results
+            query.on('end', function () {
+                done();
+
+                console.log("DEBUG: new-business-tag DONE");
+
+                return res.json(updatedTags);
+            });
+
+        });
+
+
+    });
+
+//--CREATE--//
+//-------------------------------------------------------------------------
+//--DELETE--//
+router.delete('/mvenue-database/delete-user/', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: Homepage server entry. DELETE Post: TOKEN:" + req.query.tk + " , POST_ID: " + req.query.postID)
+    var uPayload;
+    var toDeleteID = req.query.ID;
+    var posts = [];
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.query.tk);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    console.log("DEBUG: TOKEN VERIFIED. DELETE USER:" + JSON.stringify(uPayload));
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+
+        //Execute delete query
+        client.query("DELETE FROM post_business WHERE post_id=$1;", [toDeleteID]);
+
+        //----Get all post related to the user----
+        var getQuery= "NATURAL FULL JOIN(SELECT post_id, count(liked_by_id) as likes FROM post_user_like GROUP BY post_id) as postoffollowedusers)  UNION (SELECT post_id, business_id as id, data, media_path, media_type, date_time, \"isBusinessPost\", name FROM post_business NATURAL JOIN businesspage ) ORDER BY date_time DESC ;";
+
+        // SQL Query > Select Data
+        var query = client.query(getQuery);
+
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            posts.push(row);
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+
+            console.log("DEBUG: DELETE USERS ");
+
+            return res.json([posts]);
+        });
+
+
+
+
+
+    });
+
+});
+
+
+
+
+//--DELETE--//
 //------------------------ END SETTINGS page--------------------------------------------
 
 //Extra functionality for JWT authentication
