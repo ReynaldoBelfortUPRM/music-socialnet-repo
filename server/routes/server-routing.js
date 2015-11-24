@@ -8,7 +8,7 @@ var router = express.Router();
 var path = require('path');
 var pg = require('pg');
 var jwt = require('jsonwebtoken');
-var bcrypt = require('bcryptjs');
+//var bcrypt = require('bcryptjs');
 var bcrypt = [];
 //For JWT implementation
 var config = require('../../config');
@@ -84,11 +84,13 @@ router.get('/', function(req, res, next) {
          }
 
          // Generate a salt as a requirement for the encryption method
-          var salt = bcrypt.genSaltSync(10); //Level 10 encryption, considering hardware limitaitions.
+         // var salt = bcrypt.genSaltSync(10); //Level 10 encryption, considering hardware limitaitions.
           //Encrypt new password
-          var hashPass = bcrypt.hashSync(user.password, salt);
+          //var hashPass = bcrypt.hashSync(user.password, salt);
           //TODO user_id attribute is needed in this query???
-          client.query("INSERT INTO uuser(user_id, first_name, last_name,email, password, photo_path, about) values($1, $2,$3, $4,$5, $6,$7)", [id, user.first_name, user.last_name, user.email, hashPass, user.photo_path, user.about]);
+            //client.query("INSERT INTO uuser(user_id, first_name, last_name,email, password, photo_path, about) values($1, $2,$3, $4,$5, $6,$7)", [id, user.first_name, user.last_name, user.email, hashPass, user.photo_path, user.about]);
+         client.query("INSERT INTO uuser(user_id, first_name, last_name,email, password, photo_path, about) values($1, $2,$3, $4,$5, $6,$7)", [id, user.first_name, user.last_name, user.email, user.password, user.photo_path, user.about]);
+           // client.query("INSERT INTO follow(follower_id, followed_id) values($1, $2)", [id, id]);
 
           //Return sucess response
           return res.status(200);
@@ -297,6 +299,9 @@ router.post('/mvenue-database/homepage/:token', function(req, res) {
         if (uPayload.isBusinessMode){
             //This is a BUSINESS POST
             // SQL Query > Insert Data
+
+            console.log("BUSINESS MODE");
+
             client.query("INSERT INTO post_business( business_id, data, media_path, media_type, date_time, \"isBusinessPost\")" +
                 "VALUES ( $1 , $2, $3, $4, CURRENT_TIMESTAMP, true)"
                 , [uPayload.business_id, post_input.data, post_input.media_path,post_input.media_type ]);
@@ -326,6 +331,8 @@ router.post('/mvenue-database/homepage/:token', function(req, res) {
             //THIS IS A USER POST
 
             // SQL Query > Insert Data
+
+            console.log("USER MODE");
             client.query("INSERT INTO post_user( user_id, data, media_path, media_type, date_time, \"isBusinessPost\")" +
                 "VALUES ( $1 , $2, $3, $4, CURRENT_TIMESTAMP, false)"
                 , [uPayload.user_id, post_input.data, post_input.media_path,post_input.media_type ]);
@@ -664,7 +671,7 @@ router.get('/mvenue-database/settings/basic-info/:token', function(req, res) {
 });
 
 
-//====UPDATE====
+//====UPDATE BASIC INFO====
 router.post('/mvenue-database/settings/basic-info/:token', function(req, res) {
     console.log("DEBUG: SETTINGS UPDATE Basic Info------.");
 
@@ -720,7 +727,37 @@ router.post('/mvenue-database/settings/basic-info/:token', function(req, res) {
 
 });
 
-//TODO  DELETE ACCOUNT
+//====DELETE ACCOUNT====
+router.delete('/mvenue-database/settings/user/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: SETTINGS MY TAGS DELETE Request entry.");
+    var uPayload;
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        //Delete the user from the database
+        client.query("DELETE FROM uuser WHERE user_id=$1;", [ uPayload.user_id]);
+
+        //Return a success Response
+        return res.status(200);
+
+    });
+
+});
 
 //====PASSWORD RESET====
 router.post('/mvenue-database/settings/password-reset/:token', function(req, res) {
@@ -787,6 +824,8 @@ router.post('/mvenue-database/settings/password-reset/:token', function(req, res
 
 });
 
+
+
 //====GET MY TAGS====
 router.get('/mvenue-database/settings/tag-info/:token', function(req, res) {
     //TODO DEBUG
@@ -842,7 +881,6 @@ router.get('/mvenue-database/settings/tag-info/:token', function(req, res) {
     });
 
 });
-
 
 //====ADD MY TAGS====
 router.get('/mvenue-database/settings/tag-info/:token', function(req, res) {
@@ -970,8 +1008,9 @@ router.delete('/mvenue-database/settings/tag-info/:token', function(req, res) {
 
 });
 
-//====GET GROUPS====
-router.get('/mvenue-database/settings/group-info/:token', function(req, res) {
+
+//==== GET GROUPS THE USER ADMINISTRATES====
+router.get('/mvenue-database/settings/group-administrating-info/:token', function(req, res) {
     //TODO DEBUG
     console.log("DEBUG: SETTINGS GROUPS Request entry.");        
     var uPayload;
@@ -996,8 +1035,12 @@ router.get('/mvenue-database/settings/group-info/:token', function(req, res) {
         }
 
         //Get tags from user
-        var query = client.query("SELECT group_id, name, description, group_administrator, photo_path FROM ggroup" + 
-                                  "WHERE group_administrator =  $1 OR group_id IN (SELECT group_id FROM group_membership WHERE user_id= $1);", [uPayload.user_id]);
+        //var query = client.query("SELECT group_id, name, description, group_administrator, photo_path FROM ggroup" +
+        //                          "WHERE group_administrator =  $1 OR group_id IN (SELECT group_id FROM group_membership WHERE user_id= $1);", [uPayload.user_id]);
+
+
+        var query = client.query("SELECT group_id, name, description, group_administrator, photo_path FROM ggroup" +
+                                 "WHERE group_administrator =  $1 ", [uPayload.user_id]);
 
         // Stream results back one row at a time
         query.on('row', function (row) {
@@ -1021,14 +1064,68 @@ router.get('/mvenue-database/settings/group-info/:token', function(req, res) {
     });
 });
 
+//====GET GROUPS THE USER IS IN====
+router.get('/mvenue-database/settings/group-administrating-info/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: SETTINGS GROUPS Request entry.");
+    var uPayload;
+    var results = [];
 
-//====TODO ADD GROUP====
-router.get('/mvenue-database/settings/group-info/:token', function(req, res) {
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GET GROUPS SETTINGS:" + JSON.stringify(uPayload));
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        //Get tags from user
+        var query = client.query("SELECT group_id, name, description, group_administrator, photo_path FROM ggroup" +
+            "WHERE group_id IN (SELECT group_id FROM group_membership WHERE user_id= $1);", [uPayload.user_id]);
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+
+            var groups = [];
+            //Store tag results in the var to be sent as a response
+            for (res in results) {
+                groups.push({group_id: res[0].group_id, name: res[0].name, description: res[0].description,
+                    group_administrator: res[0].group_administrator, photo_path: res[0].photo_path});
+            }
+
+            console.log("DEBUG: RESULTS SETTINGS Get GROUPS");
+            return res.json(groups);
+        });
+    });
+});
+
+//==== ADD GROUP====
+router.post('/mvenue-database/settings/new-group/:token', function(req, res) {
     //TODO DEBUG
     console.log("DEBUG: SETTINGS GROUP ADD Request entry.");        
     var uPayload;
     var results = [];
-
+    var post_input={
+        name: req.body.name,
+        description: req.body.description,
+        photo_path: req.body.photo_path
+    }
     //Token validation
     try{
       //Get payload data from the client that is logged in
@@ -1046,10 +1143,13 @@ router.get('/mvenue-database/settings/group-info/:token', function(req, res) {
         }
 
         //Add the tag to the database
-        client.query("INSERT INTO tag_user(data, user_id) VALUES ($1, $2);", [req.body.data, uPayload.user_id]);
+
+        var insertQuery = "INSERT INTO ggroup(name, description, group_administrator, photo_path)VALUES ($1, $2, $3, $4)";
+        client.query(insertQuery, [post_input.name, post_input.last_name, post_input.description,uPayload.user_id, post_input.photo_path]);
 
         //----Get all the available tags for this user----
-        var query = client.query("SELECT data FROM tag_user WHERE user_id= $1;", [uPayload.user_id]);
+        var getquery="SELECT name, description,  photo_path, group_id FROM ggroup WHERE  group_administrator = $1;";
+        var query = client.query(getquery, [uPayload.user_id]);
 
         // Stream results back one row at a time
         query.on('row', function (row) {
@@ -1065,14 +1165,10 @@ router.get('/mvenue-database/settings/group-info/:token', function(req, res) {
         query.on('end', function () {
             done();
 
-            var tags = [];
-            //Store tag results in the var to be sent as a response
-            for (res in results) {
-                tags.push({tag_id: res.tag_id, data: res.data});
-            }
+
 
             console.log("DEBUG: RESULTS SETTINGS Get GROUP after ADD GROUP");
-            return res.json(tags);
+            return res.json(results);
         });
    
     });
@@ -1080,11 +1176,14 @@ router.get('/mvenue-database/settings/group-info/:token', function(req, res) {
 });
 
 //====TODO EDIT/UPDATE GROUP====
-router.put('/mvenue-database/settings/tag-info/:token', function(req, res) {
+router.put('/mvenue-database/settings/update-group/:token', function(req, res) {
     //TODO DEBUG
     console.log("DEBUG: SETTINGS GROUP EDIT Request entry.");        
     var uPayload;
     var results = [];
+    put_input:{
+
+    }
     var currentGroup = req.body;
 
     //Token validation
@@ -1104,8 +1203,10 @@ router.put('/mvenue-database/settings/tag-info/:token', function(req, res) {
         }
 
         //Edit the tag to the database
+
+        var updateQuery="";
         client.query("UPDATE tag_user SET data = $1 WHERE tag_id = $2 and user_id= $3;", 
-                      [currentTag.data, currentTag.tag_id, uPayload.user_id]);
+                      [currentTag.data, currentGroup.group_id, uPayload.user_id]);
 
         //Return a success Response
         return res.status(200);
@@ -1147,7 +1248,12 @@ router.delete('/mvenue-database/settings/tag-info/:token', function(req, res) {
     });
 });
 
+
+
+
 //====TODO GET BUSINESS====
+//====TODO UPDATE BUSINESS====
+//====TODO DELETE BUSINESS====
 router.get('/mvenue-database/settings/business-info/:token', function(req, res) {
     //TODO DEBUG
     console.log("DEBUG: SETTINGS BUSINESS Request entry.");        
@@ -1257,16 +1363,23 @@ router.get('/mvenue-database/changeUserMode/:token', function(req, res) {
           //Return a failure status response (failure code):
           return res.status(500).json({success: false, data: err});
         }
-
     }
-
-
     //Change the user mode
-
     //----------TODO Database query code HERE
 });
 
 //------------------------ END SETTINGS page--------------------------------------------
+//------------------------ START PROFILE page--------------------------------------------
+//====TODO USERINFO====
+
+//====TODO FOLLOW====
+
+//====TODO UNFOLLOW====
+
+//====TODO ADD TO A GROUP====
+
+//====TODO REMOVE FROM A GROUP====
+//------------------------ END PROFILE page--------------------------------------------
 
 //Extra functionality for JWT authentication
 //This  funciton verifies and validates any token that is used 
