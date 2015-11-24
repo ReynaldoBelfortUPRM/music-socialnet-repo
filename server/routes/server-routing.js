@@ -875,7 +875,7 @@ router.get('/mvenue-database/settings/tag-info/:token', function(req, res) {
             }
 
             console.log("DEBUG: RESULTS SETTINGS Get MY TAGS");
-            return res.json(tags);
+            return res.status(200).json(tags);
         });
    
     });
@@ -975,17 +975,18 @@ router.put('/mvenue-database/settings/tag-info/:token', function(req, res) {
 });
 
 //====DELETE MY TAGS====
-router.delete('/mvenue-database/settings/tag-info/:token', function(req, res) {
+router.delete('/mvenue-database/settings/tag-info/', function(req, res) {
     //TODO DEBUG
-    console.log("DEBUG: SETTINGS MY TAGS DELETE Request entry.");        
+    console.log("DEBUG: SETTINGS MY TAGS DELETE Request entry.");
+    console.log("DEBUG: SETTINGS MY TAGS DELETE Request entry. TOKEN:" + req.query.tk + " , TAG_ID: " + req.query.tagID);
     var uPayload;
     var results = [];
-    var tagID = req.body.tagID;
+    var tagID = req.query.tagID;
 
     //Token validation
     try{
       //Get payload data from the client that is logged in
-      uPayload = verifyToken(req.params.token);
+      uPayload = verifyToken(req.query.tk);
     }catch(err){
         return res.status(401).json(err); //End request by returning a failure response.
     }
@@ -1175,18 +1176,20 @@ router.post('/mvenue-database/settings/new-group/:token', function(req, res) {
 
 });
 
-//====TODO EDIT/UPDATE GROUP====
+//==== EDIT/UPDATE GROUP====
 router.put('/mvenue-database/settings/update-group/:token', function(req, res) {
     //TODO DEBUG
     console.log("DEBUG: SETTINGS GROUP EDIT Request entry.");        
     var uPayload;
     var results = [];
-    put_input:{
-
+    var input={
+        group_id: group_id,
+        name:  name,
+        description: description,
+        photo_path: photo_path
     }
-    var currentGroup = req.body;
 
-    //Token validation
+
     try{
       //Get payload data from the client that is logged in
       uPayload = verifyToken(req.params.token);
@@ -1204,9 +1207,10 @@ router.put('/mvenue-database/settings/update-group/:token', function(req, res) {
 
         //Edit the tag to the database
 
-        var updateQuery="";
-        client.query("UPDATE tag_user SET data = $1 WHERE tag_id = $2 and user_id= $3;", 
-                      [currentTag.data, currentGroup.group_id, uPayload.user_id]);
+        var updateQuery="(UPDATE ggroup SET name=$1, description=$2,  photo_path=$3, WHERE group_administrator=$4)" ;
+
+        //Token validation
+        client.query(updateQuery, [input.name, input.description,input.photo_path, uPayload.user_id]);
 
         //Return a success Response
         return res.status(200);
