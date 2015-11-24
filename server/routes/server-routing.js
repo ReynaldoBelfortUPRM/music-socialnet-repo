@@ -670,7 +670,6 @@ router.get('/mvenue-database/settings/basic-info/:token', function(req, res) {
 
 });
 
-
 //====UPDATE BASIC INFO====
 router.post('/mvenue-database/settings/basic-info/:token', function(req, res) {
     console.log("DEBUG: SETTINGS UPDATE Basic Info------.");
@@ -867,13 +866,7 @@ router.get('/mvenue-database/settings/tag-info/:token', function(req, res) {
         // After all data is returned, close connection and return results
         query.on('end', function () {
             done();
-
-            //var tags = [];
-            //Store tag results in the var to be sent as a response
-            // for (rs in results) {
-            //     tags.push({tag_id: rs.tag_id, data: rs.data});
-            // }
-
+            
             console.log("DEBUG: RESULTS SETTINGS Get MY TAGS" + JSON.stringify(results));
             return res.json(results);
         });
@@ -925,14 +918,8 @@ router.post('/mvenue-database/settings/tag-info/:token', function(req, res) {
         query.on('end', function () {
             done();
 
-            var tags = [];
-            //Store tag results in the var to be sent as a response
-            for (res in results) {
-                tags.push({tag_id: res.tag_id, data: res.data});
-            }
-
             console.log("DEBUG: RESULTS SETTINGS Get MY TAGS after ADD MY TAG");
-            return res.json(tags);
+            return res.json(results);
         });
    
     });
@@ -1253,61 +1240,9 @@ router.delete('/mvenue-database/settings/tag-info/:token', function(req, res) {
 });
 
 
-
-
 //====TODO GET BUSINESS====
 //====TODO UPDATE BUSINESS====
 //====TODO DELETE BUSINESS====
-router.get('/mvenue-database/settings/business-info/:token', function(req, res) {
-    //TODO DEBUG
-    console.log("DEBUG: SETTINGS BUSINESS Request entry.");        
-    var uPayload;
-    var results = [];
-
-    //Token validation
-    try{
-      //Get payload data from the client that is logged in
-      uPayload = verifyToken(req.params.token);
-    }catch(err){
-        return res.status(401).json(err); //End request by returning a failure response.
-    }
-
-  console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GET GROUPS SETTINGS:" + JSON.stringify(uPayload));
-
-    pg.connect(connectionString, function (err, client, done) {
-        // Handle connection errors
-        if (err) {
-            done();
-            console.log(err);
-            return res.status(500).json({success: false, data: err});
-        }
-
-        //Get tags from user
-        var query = client.query("SELECT * FROM businesspage WHERE user_id= $1;", [uPayload.user_id]);
-
-        // Stream results back one row at a time
-        query.on('row', function (row) {
-            results.push(row);
-        });
-
-        // After all data is returned, close connection and return results
-        query.on('end', function () {
-            done();
-
-            var business = [];
-            //Store tag results in the var to be sent as a response
-            for (res in results) {
-                business.push({name: res[0].name, about: res[0].about, photo_path: res[0].photo_path,
-                            business_id: res[0].business_id});
-            }
-
-            console.log("DEBUG: RESULTS SETTINGS Get GROUPS");
-            return res.json(business);
-        });
-   
-    });
-
-});
 
 //====CHANGE USER====
 router.get('/mvenue-database/changeUserMode/:token', function(req, res) {
