@@ -883,7 +883,7 @@ router.get('/mvenue-database/settings/tag-info/:token', function(req, res) {
 });
 
 //====ADD MY TAGS====
-router.get('/mvenue-database/settings/tag-info/:token', function(req, res) {
+router.post('/mvenue-database/settings/tag-info/:token', function(req, res) {
     //TODO DEBUG
     console.log("DEBUG: SETTINGS MY TAGS ADD Request entry.");        
     var uPayload;
