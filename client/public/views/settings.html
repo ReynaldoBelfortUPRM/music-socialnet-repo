@@ -161,7 +161,7 @@
                         <div class=".col-md-8"> 
                             <ul class="list-group"> 
                                 <li class="list-group-item">Tags:
-                                    <input type="email" placeholder="guitar, piano ..." ng-model="smain.newTagData"> 
+                                    <input type="text" placeholder="guitar, piano ..." ng-model="smain.newTagData"> 
                                     <button type="button" class="btn btn-sm btn-general"  ng-click="smain.addTag()">
                                         <span class="glyphicon glyphicon-plus "></span>
                                     </button>                                     
@@ -169,7 +169,7 @@
                                 <li class="list-group-item" ng-repeat="tag in smain.tagInfo">
                                     <div class="container-fluid">
                                         <div class="col-md-6">
-                                            <input type="email" placeholder="guitar, piano ..." class="list-text-field" ng-model="tag.data">
+                                            <input type="text" placeholder="guitar, piano ..." class="list-text-field" ng-model="tag.data">
                                             <button type="button" class="btn btn-default" ng-click="smain.saveTag(tag)">
                                                 <span class="glyphicon glyphicon-pencil"></span>
                                             </button>

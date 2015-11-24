@@ -851,7 +851,7 @@ router.get('/mvenue-database/settings/tag-info/:token', function(req, res) {
         }
 
         //Get tags from user
-        var query = client.query("SELECT data FROM tag_user WHERE user_id= $1;", [uPayload.user_id]);
+        var query = client.query("SELECT tag_id, data FROM tag_user WHERE user_id= $1;", [uPayload.user_id]);
 
         // Stream results back one row at a time
         query.on('row', function (row) {
@@ -902,7 +902,7 @@ router.post('/mvenue-database/settings/tag-info/:token', function(req, res) {
         client.query("INSERT INTO tag_user(data, user_id) VALUES ($1, $2);", [req.body.data, uPayload.user_id]);
 
         //----Get all the available tags for this user----
-        var query = client.query("SELECT data FROM tag_user WHERE user_id= $1;", [uPayload.user_id]);
+        var query = client.query("SELECT tag_id, data FROM tag_user WHERE user_id= $1;", [uPayload.user_id]);
 
         // Stream results back one row at a time
         query.on('row', function (row) {
@@ -989,8 +989,26 @@ router.delete('/mvenue-database/settings/tag-info/', function(req, res) {
         //Delete the tag from the database
         client.query("DELETE FROM tag_user WHERE tag_id = $1 and user_id = $2;", [tagID, uPayload.user_id]);
 
-        //Return a success Response
-        return res.status(200);
+        //----Get all the available tags for this user----
+        var query = client.query("SELECT tag_id, data FROM tag_user WHERE user_id= $1;", [uPayload.user_id]);
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);
+        });
+
+        // Capture error from query execution
+        query.on('error', function (err) {
+            return res.status(500).json({data: err});
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+
+            console.log("DEBUG: RESULTS SETTINGS Get MY TAGS after ADD MY TAG");
+            return res.json(results);
+        });
    
     });
 

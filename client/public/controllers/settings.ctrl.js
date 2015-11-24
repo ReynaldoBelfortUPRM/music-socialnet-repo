@@ -56,7 +56,7 @@ angular.module('app').controller("SettingsController", function($http){
         if(vmodel.newTagData.length > 0){
             //Update tag in the database
             $http.post('/mvenue-database/settings/tag-info/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
-                , vmodel.newTagData).then(function successCallback(response){
+                , {data: vmodel.newTagData}).then(function successCallback(response){
                     //Succesful response
 
                     //Erase text field
@@ -106,7 +106,7 @@ angular.module('app').controller("SettingsController", function($http){
     vmodel.removeTag = function(tag){
       //Remove tag on the database
     $http.delete('/mvenue-database/settings/tag-info/?tk=' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
-        + "&tagID="+tagID.toString()).then(function successCallback(response){
+        + "&tagID="+ tag.tag_id.toString()).then(function successCallback(response){
             //Succesful request. Refresh tags on view
             vmodel.tagInfo = response.data;
             
