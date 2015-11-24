@@ -1259,9 +1259,212 @@ router.delete('/mvenue-database/settings/tag-info/:token', function(req, res) {
 });
 
 
-//====TODO GET BUSINESS====
-//====TODO UPDATE BUSINESS====
-//====TODO DELETE BUSINESS====
+//==== CREATE BUSINESS====
+router.post('/mvenue-database/settings/new-business/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: SETTINGS MY BUSINESS ADD Request entry.");
+    var uPayload;
+    var results = [];
+    var input={
+        name: req.body.name,
+        about: req.body.about,
+        photo_path: req.body.photo_path
+    }
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        //Add the business to the database
+
+        var insertquery="INSERT INTO businesspage(name, about, photo_path, user_id) VALUES ($1,$2, $3, $4)";
+
+        client.query(insertquery, [input.name,input.about,input.photo_path, uPayload.user_id]);
+
+        //----Get all business that this user administrates----
+        var getquery= "SELECT name, about, photo_path, user_id, business_id FROM businesspage WHERE user_id=$1";
+
+        //Get tags from user
+        var query = client.query(getquery, [uPayload.user_id]);
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);
+        });
+
+        // Capture error from query execution
+        query.on('error', function (err) {
+            return res.status(500).json({data: err});
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+
+            console.log("DEBUG: RESULTS SETTINGS Get MY BUESINESS ");
+            return res.json(results);
+        });
+
+    });
+
+});
+
+
+//==== GET BUSINESS====
+router.get('/mvenue-database/settings/business-info/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: SETTINGS MY BUSINESS Request entry.");
+    var uPayload;
+    var results = [];
+
+    //Token validation
+
+
+
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GET BASIC INFO SETTINGS:" + JSON.stringify(uPayload));
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        //Get all the business that the user administrates.
+        var getquery= "SELECT name, about, photo_path, user_id, business_id FROM businesspage WHERE user_id=$1";
+
+        var query = client.query(getquery, [uPayload.user_id]);
+
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);
+        });
+
+        // Capture error from query execution
+        query.on('error', function (err) {
+            return res.status(500).json({data: err});
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+
+            console.log("DEBUG: RESULTS SETTINGS Get MY BUSINESS" + JSON.stringify(results));
+            return res.json(results);
+        });
+
+    });
+
+});
+
+//==== UPDATE BUSINESS====
+router.put('/mvenue-database/settings/business-edit/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: SETTINGS MY BUSINESS EDIT Request entry.");
+    var uPayload;
+    var results = [];
+    var currentTag = req.body;
+
+    var input= {
+
+        name: req.body.name,
+        about: req.body.about,
+        photo_path: req.body.photo_path,
+        business_id: req.body.business_id
+
+    }
+
+
+
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        //Edit the business to the database
+
+        var updateQuery=" UPDATE businesspage SET name=$1, about=$2, photo_path=$3 WHERE business_id=$4";
+
+        client.query(updateQuery, [input.name, input.about, input.photo_path, input.business_id]);
+
+        //Return a success Response
+        return res.status(200);
+
+    });
+
+});
+
+
+
+//====TODO DELETE BUSINESS====---------------------------------------------Return????????
+router.delete('/mvenue-database/settings/tag-info/', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: SETTINGS MY BUSINESS DELETE Request entry.");
+    console.log("DEBUG: SETTINGS MY BUSINESS DELETE Request entry. TOKEN:" + req.query.tk + " , TAG_ID: " + req.query.tagID);
+    var uPayload;
+    var results = [];
+    var business_id = req.query.business_id;
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.query.tk);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        //Delete the tag from the database
+
+        var deleteQuery= "DELETE FROM businesspage WHERE business_id= $1";
+
+        client.query(delete, [business_id]);
+
+        //Return a success Response
+        return res.status(200);
+    });
+});
+
+
 
 //====CHANGE USER====
 router.get('/mvenue-database/changeUserMode/:token', function(req, res) {
