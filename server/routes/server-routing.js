@@ -2382,18 +2382,18 @@ router.get('/mvenue-database/events/not-going/:token', function(req, res) {
 //------------------------ START SEARCH page--------------------------------------------------------------------
 
 
-router.get('/mvenue-database/search/:token', function(req, res) {
+router.get('/mvenue-database/search/', function(req, res) {
     //TODO DEBUG
-    console.log("DEBUG: SEARCH Request entry.");
     var uPayload;
     var results = [];
+    var inputString = req.query.searchString;
+    console.log("DEBUG: SEARCH Request entry. Input string: ".green + inputString);
 
-    var inputString = req.body.searchString;
 
     //Token validation
     try{
         //Get payload data from the client that is logged in
-        uPayload = verifyToken(req.params.token);
+        uPayload = verifyToken(req.query.tk);
     }catch(err){
         return res.status(401).json(err); //End request by returning a failure response.
     }
@@ -2407,80 +2407,24 @@ router.get('/mvenue-database/search/:token', function(req, res) {
             console.log(err);
             return res.status(500).json({success: false, data: err});
         }
-        var searchQuery="";
 
-        searchQuery += " WITH userType AS";
-        searchQuery += " (SELECT type";
-        searchQuery += " FROM types";
-        searchQuery += " WHERE name='uuser'), ";
-        searchQuery += " ";
-        searchQuery += " businessType AS";
-        searchQuery += " (SELECT type";
-        searchQuery += "  FROM types";
-        searchQuery += " WHERE name='businesspage'),";
-        searchQuery += " groupType AS";
-        searchQuery += " (SELECT type";
-        searchQuery += " FROM types";
-        searchQuery += " WHERE name='ggroup'),";
-        searchQuery += " tgroupType AS";
-        searchQuery += " (SELECT type";
-        searchQuery += " FROM types";
-        searchQuery += " WHERE name='tag_group'),";
-        searchQuery += " tuserType AS";
-        searchQuery += " (SELECT type";
-        searchQuery += " FROM types";
-        searchQuery += " WHERE name='tag_user'), ";
-        searchQuery += " ";
-        searchQuery += " tbusinessType AS";
-        searchQuery += " (SELECT type";
-        searchQuery += " FROM types";
-        searchQuery += " WHERE name='tag_business')";
-        searchQuery += " SELECT ID,  data, type, entityName";
-        searchQuery += " FROM ( ";
-        searchQuery += "     (";
-        searchQuery += "     SELECT user_id as ID, CONCAT(first_name, ' ', last_name) AS data, type, CONCAT(first_name, ' ', last_name) AS entityName";
-        searchQuery += "     FROM (uuser NATURAL JOIN userType)";
-        searchQuery += "     )";
-        searchQuery += " UNION";
-        searchQuery += "     (";
-        searchQuery += "     SELECT group_id AS ID, name AS data, type, name AS entityName";
-        searchQuery += "     FROM (ggroup NATURAL JOIN groupType)";
-        searchQuery += "     )";
-        searchQuery += " UNION";
-        searchQuery += "     (";
-        searchQuery += "     SELECT business_id AS ID, name AS data, type, name AS entityName";
-        searchQuery += "     FROM (businesspage NATURAL JOIN businessType)";
-        searchQuery += "     )";
-        searchQuery += " ";
-        searchQuery += " UNION";
-        searchQuery += "     (";
-        searchQuery += "     SELECT business_id AS ID,  data, type, name AS entityName";
-        searchQuery += "     FROM (businesspage NATURAL JOIN tbusinessType NATURAL JOIN tag_busines)";
-        searchQuery += "     )";
-        searchQuery += " UNION";
-        searchQuery += "     (";
-        searchQuery += "     SELECT group_id AS ID, data, type, name AS entityName";
-        searchQuery += "     FROM (ggroup NATURAL JOIN tgroupType NATURAL JOIN tag_group)";
-        searchQuery += "     )";
-        searchQuery += " UNION";
-        searchQuery += "     (";
-        searchQuery += "     SELECT user_id as ID, data, type, CONCAT(first_name, ' ', last_name) AS entityName";
-        searchQuery += "     FROM (uuser NATURAL JOIN tuserType NATURAL JOIN tag_user)";
-        searchQuery += "     )";
-        searchQuery += " ";
-        searchQuery += "     ";
-        searchQuery += " ";
-        searchQuery += " ) ";
-        searchQuery += " as something";
-        searchQuery += " WHERE UPPER(data) LIKE UPPER($1) OR UPPER(data) LIKE UPPER($2) OR UPPER(data) LIKE UPPER($3);";
+        var searchQuery = "WITH userType AS (SELECT type FROM types WHERE name='uuser'), businessType AS (SELECT type FROM types WHERE name='businesspage')," + 
+        " groupType AS (SELECT type FROM types WHERE name='ggroup'), tgroupType AS (SELECT type FROM types WHERE name='tag_group'), tuserType AS (SELECT type FROM "  + 
+        "types WHERE name='tag_user'), tbusinessType AS (SELECT type FROM types WHERE name='tag_business') SELECT ID,  data, type, entityName FROM ((SELECT user_id as ID," + 
+        " CONCAT(first_name, ' ', last_name) AS data, type, CONCAT(first_name, ' ', last_name) AS entityName FROM (uuser NATURAL JOIN userType) ) UNION " + 
+        "(SELECT group_id AS ID, name AS data, type, name AS entityName FROM (ggroup NATURAL JOIN groupType) ) UNION (SELECT business_id AS ID, name AS data, type, name AS " + 
+        "entityName FROM (businesspage NATURAL JOIN businessType) ) UNION (SELECT business_id AS ID,  data, type, name AS entityName FROM (businesspage NATURAL JOIN tbusinessType " + 
+        "NATURAL JOIN tag_busines) ) UNION (SELECT group_id AS ID, data, type, name AS entityName FROM (ggroup NATURAL JOIN tgroupType NATURAL JOIN tag_group) ) UNION (SELECT user_id " + 
+        "as ID, data, type, CONCAT(first_name, ' ', last_name) AS entityName FROM (uuser NATURAL JOIN tuserType NATURAL JOIN tag_user) ) ) as something WHERE UPPER(data) LIKE UPPER('%' || $1 || '%')" + 
+        " OR UPPER(data) LIKE UPPER('%' || $1) OR UPPER(data) LIKE UPPER($1 || '%');";
 
-        console.log("DEBUG: About to execute this QUERY: " + searchQuery);
+        console.log("DEBUG: About to execute this QUERY: " + searchQuery.yellow);
 
-        var query = client.query(searchQuery, ['\'%' + inputString + '%\'', '\'' + inputString + '%\'', '\'%' + inputString + '\'']);
+        var query = client.query(searchQuery, [inputString]);
 
         // Stream results back one row at a time
         query.on('row', function (row) {
-            results.push(row);w
+            results.push(row);
         });
         // After all data is returned, close connection and return results
         query.on('end', function () {
