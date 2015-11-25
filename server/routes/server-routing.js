@@ -733,6 +733,7 @@ router.post('/mvenue-database/settings/basic-info/:token', function(req, res) {
 });
 
 //====PASSWORD RESET====
+//NOTE: BcryptJS is having some unexpected errors while encrypting for some reason.
 router.post('/mvenue-database/settings/password-reset/:token', function(req, res) {
     console.log("DEBUG: SETTINGS PASSWORD RESET------.")
 
@@ -770,25 +771,27 @@ router.post('/mvenue-database/settings/password-reset/:token', function(req, res
         query.on('end', function () {
             done();
             //Verify user's current password
-            if(bcrypt.compareSync(passData.currentPass, results[0].password)){
+            //if(bcrypt.compareSync(passData.currentPass, results[0].password)){
+            if(passData.currentPass == results[0].password){
               console.log("DEBUG: SETTINGS CURRENT PASSWORD VERIFIED. Changing for new passowrd");
 
               // Generate a salt as a requirement for the encryption method
-              var salt = bcrypt.genSaltSync(10);
+              //var salt = bcrypt.genSaltSync(10);
               //Encrypt new password
-              var hashPass = bcrypt.hashSync(passData.newPass, salt);
+              //var hashPass = bcrypt.hashSync(passData.newPass, salt);
 
               //Update password on database
-              client.query("UPDATE uuser SET password = $1 WHERE user_id = $2;", [hashPass, uPayload.user_id]);
+              //client.query("UPDATE uuser SET password = $1 WHERE user_id = $2;", [hashPass, uPayload.user_id]);
+              client.query("UPDATE uuser SET password = $1 WHERE user_id = $2;", [passData.newPass, uPayload.user_id]);
               
               //Return success response
-              return res.status(200);
+              return res.status(200).json(data: "Successful password change!");
             }
             else
             {
               //Return a failure response
               console.log("DEBUG: SETTINGS CURRENT PASSWORD INCORRECT.");
-              return res.status(401).json({data: "Incorrect password!"});
+              return res.status(402).json({message: "Incorrect current password!"});
             }
 
         });

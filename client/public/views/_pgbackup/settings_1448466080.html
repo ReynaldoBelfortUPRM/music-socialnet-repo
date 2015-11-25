@@ -70,8 +70,10 @@
             <div class="modal-content"> 
                 <div class="modal-header"> 
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>                     
+
                     <h4 class="modal-title">Add new group</h4> 
                 </div>                 
+
                 <div class="modal-body"> 
                     <div class="row"> 
                         <div class="col-md-12"> 
@@ -101,7 +103,8 @@
                             </form>                             
                         </div>                         
                     </div>                     
-                </div>                 
+                </div>                           
+
                 <div class="modal-footer"> 
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" ng-click="smain.addAdminGroup(smain.addGroupData)">Add group</button>                     
@@ -223,21 +226,21 @@
                             <ul class="list-group"> 
                                 <li class="list-group-item"> 
                                     <h4>Current password:</h4> 
-                                    <input type="password" value=" " style="margin-left:12px;" ng-model="smain.passData.currentPass" id="txtCurrentPass"> 
+                                    <input type="password" value=" " style="margin-left:12px;" ng-model="smain.passData.currentPass"> 
                                 </li>                                 
                                 <li class="list-group-item"> 
                                     <h4>New password:</h4> 
-                                    <input type="password" value=" " style="margin-left:12px;" ng-model="smain.passData.newPass" id="txtNewPass"> 
+                                    <input type="password" value=" " style="margin-left:12px;" ng-model="smain.passData.newPass"> 
                                 </li>                                 
                                 <li class="list-group-item"> 
                                     <h4>Re-enter password:</h4> 
-                                    <input type="password" value=" " style="margin-left:12px;" ng-model="smain.passData.confirmNewPass" id="txtConfirmNewPass"> 
+                                    <input type="password" value=" " style="margin-left:12px;" ng-model="smain.passData.confirmNewPass"> 
                                 </li>                                 
                             </ul>                             
                         </div>                         
                     </div>                     
                     <div class="row"> 
-                        <button type="button" class="btn btn-sm btn-general" style="float: right; margin-top:10px;  margin-right:14px;" id="btnSaveNewPass" ng-click="smain.saveNewPass()">Save new password</button>                         
+                        <button type="button" class="btn btn-sm btn-general" style="float: right; margin-top:10px;  margin-right:14px;">Save new password</button>                         
                     </div>                     
                 </div>                 
             </div>             

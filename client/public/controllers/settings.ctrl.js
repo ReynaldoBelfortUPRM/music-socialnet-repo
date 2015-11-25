@@ -4,6 +4,10 @@ angular.module('app').controller("SettingsController", function($http){
 	var vmodel = this; //The scope of this controller
     vmodel.newTagData = "";
     vmodel.btnBasicInfoEnabled = true;
+    vmodel.passData = {};
+    vmodel.passData.currentPass = "";
+    vmodel.passData.newPass = "";
+    vmodel.passData.confirmNewPass = "";
 
     //-----------Client-Server interaction--------------
     //TODO Verify if the user is logged in first!
@@ -48,6 +52,40 @@ angular.module('app').controller("SettingsController", function($http){
                     }
 
             });
+
+    };
+
+    vmodel.saveNewPass = function(){
+        if(vmodel.passData.newPass == vmodel.passData.confirmNewPass){
+        
+            //Verify current password and update new password in the database
+            $http.post('/mvenue-database/settings/password-reset/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+                , {currentPass: vmodel.passData.currentPass, newPass: vmodel.passData.newPass}).then(function successCallback(response){
+                    //Succesful password change
+                    alert("Your password was updated successfully!");
+                    //Clear text fields:
+                    vmodel.passData.currentPass = "";
+                    vmodel.passData.newPass = "";
+                    vmodel.passData.confirmNewPass = "";
+
+                }, function errorCallback(response){
+                        if(response.status == 401){
+                            alert("Authentication error! Your session may have been expired. Please log-in!");
+                            //Erase current token
+                            sessionStorage.removeItem('clientAuthentication');
+                            //Re-direct user to the log-in page
+                            window.location.href = "login.html";
+                        } else if(response.status == 402){
+                            alert("Error: " + response.data.message + " Please try again!");
+
+                        } else{
+                            alert("Server Internal Error: " + response.data);
+                        }
+
+                });
+        } else {
+            alert("Passwords don't match! Please try again!");
+        }
 
     };
 
