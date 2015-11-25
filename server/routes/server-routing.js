@@ -1197,17 +1197,17 @@ router.put('/mvenue-database/settings/update-group/:token', function(req, res) {
 });
 
 //====DELETE GROUP====
-router.delete('/mvenue-database/settings/tag-info/:token', function(req, res) {
+router.delete('/mvenue-database/settings/delete-admin-group/', function(req, res) {
     //TODO DEBUG
-    console.log("DEBUG: SETTINGS GROUP DELETE Request entry.");        
+    console.log("DEBUG: SETTINGS GROUP DELETE Request entry.");     
     var uPayload;
     var results = [];
-    var groupID = req.body.tagID;
+    var groupID = req.query.groupID;
 
     //Token validation
     try{
       //Get payload data from the client that is logged in
-      uPayload = verifyToken(req.params.token);
+      uPayload = verifyToken(req.query.tk);
     }catch(err){
         return res.status(401).json(err); //End request by returning a failure response.
     }
@@ -1223,8 +1223,30 @@ router.delete('/mvenue-database/settings/tag-info/:token', function(req, res) {
         //Delete the tag from the database
         client.query("DELETE FROM ggroup WHERE group_id=$1;", [groupID]);
 
-        //Return a success Response
-        return res.status(200);
+        console.log("DEBUG: SETTINGS GROUP DELETE SUCCESFUL..."); 
+
+        //----Get all the groups the user administrates----
+        var query = client.query("SELECT group_id, name, description, group_administrator, photo_path FROM ggroup" +
+                                 " WHERE group_administrator = $1;", [uPayload.user_id]);
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);
+        });
+
+        // Capture error from query execution
+        query.on('error', function (err) {
+          console.log("DEBUG: SETTINGS GROUP DELETE query ERROR..."); 
+            return res.status(500).json({data: err});
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+
+            console.log("DEBUG: RESULTS SETTINGS Get MY GROUPS ADMIN after DELETE ADMIN GROUP");
+            return res.json(results);
+        });
    
     });
 });
@@ -1497,7 +1519,7 @@ router.get('/mvenue-database/changeUserMode/:token', function(req, res) {
 //====DELETE USER ACCOUNT====
 router.delete('/mvenue-database/settings/user/:token', function(req, res) {
     //TODO DEBUG
-    console.log("DEBUG: SETTINGS MY TAGS DELETE Request entry.");
+    console.log("DEBUG: SETTINGS USER ACCOUNT DELETE Request entry.");
     var uPayload;
 
     //Token validation
