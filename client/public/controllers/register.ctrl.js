@@ -5,6 +5,8 @@ angular.module('app').controller("RegisterControl", function($http){
     vmodel.register = function (){
 
             if(vmodel.password== vmodel.repassword) {
+
+                console.log("se llamara la funcion");
                 $http.post('/mvenue-database/register/', {
                     first_name: vmodel.first_name,
                     last_name: vmodel.last_name,
