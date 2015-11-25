@@ -1,0 +1,98 @@
+
+
+body
+{
+    font-family: Open Sans, Damion;
+}
+
+.app-name-style
+{
+    font-family: Damion;
+    color: #ffffff;
+    font-size: 30px;
+    margin-top: 50px;
+}
+
+@font-face{
+    font-family: 'Open Sans';
+    src: url(../../res/fonts/OpenSans-Regular.ttf) format('truetype');
+}
+
+@font-face{
+    font-family: Damion;
+    src: url(../../res/fonts/Damion-Regular.ttf) format('truetype');
+}
+
+.btn-general
+{
+    color: #fff;
+    background-color: #61243c;
+    -webkit-box-shadow: 0px 1px 3px #666666;
+    -moz-box-shadow: 0px 1px 3px #666666;
+    box-shadow: 0px 1px 3px #666666;
+    border-color: #75273e;
+}
+
+.btn-general:hover,
+.btn-general:focus,
+.btn-general:active,
+.btn-general.active,
+.open .dropdown-toggle.btn-general
+{
+    color: #fff;
+    background-color: #c11313;
+    border-color: #b8110f;
+}
+
+.btn-general:active,
+.btn-general.active,
+.open .dropdown-toggle.btn-general
+{
+    background-image: none;
+}
+
+.btn-general.disabled,
+.btn-general[disabled],
+fieldset[disabled] .btn-general,
+.btn-general.disabled:hover,
+.btn-general[disabled]:hover,
+fieldset[disabled] .btn-general:hover,
+.btn-general.disabled:focus,
+.btn-general[disabled]:focus,
+fieldset[disabled] .btn-general:focus,
+.btn-general.disabled:active,
+.btn-general[disabled]:active,
+fieldset[disabled] .btn-general:active,
+.btn-general.disabled.active,
+.btn-general[disabled].active,
+fieldset[disabled] .btn-general.active
+{
+    background-color: #c11313;
+    border-color: #b8110f;
+}
+
+.btn-general .badge
+{
+    color: #c11313;
+    background-color: #fff;
+}
+
+.btn-edit
+{
+}
+
+.list-text-field
+{
+    width: 40%;
+    margin-left: -6%;
+}
+
+.current-user-title
+{
+    float: left;
+    margin-left: 10px;
+    text-decoration: underline;
+    font-size: 21px;
+    font-weight: bold;
+}
+

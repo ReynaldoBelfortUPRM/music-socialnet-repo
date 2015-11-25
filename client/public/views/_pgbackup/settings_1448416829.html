@@ -1,0 +1,382 @@
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>MusicVenue - Settings</title>     
+    <link rel="stylesheet" href="../res/lib/css/bootstrap.min.css"> 
+    <link rel="stylesheet" type="text/css" href="css/general.css" /> 
+    <link rel="stylesheet" type="text/css" href="css/upload-form-homepage.css" />
+    <!--Custom Style-->     
+    <link rel="stylesheet" type="text/css" href="css/settings.css" /> 
+    <!-- Libraries -->     
+    <script type="text/javascript" src="../res/lib/jquery.min.js"></script>     
+    <script type="text/javascript" src="../res/lib/bootstrap.min.js"></script>     
+    <script type="text/javascript" src="../res/lib/angular.min.js"></script>     
+    <script type="text/javascript" src="../controllers/app.js"></script>     
+    <link href="css/musicvenue-styles.css" rel="stylesheet" type="text/css">
+</head> 
+<body ng-app="app" ng-controller="SettingsController as smain"> 
+    <!-- NavBar start....................................................................................................-->     
+    <!-- Fixed navbar -->     
+    <div ng-controller="NavBarController as navmain" class="navbar navbar-inverse navbar-fixed-top" role="navigation"> 
+        <div class="container"> 
+            <div class="navbar-collapse collapse"> 
+                <ul class="nav navbar-nav"> 
+                    <li> 
+                        <a href="tradespace.html">Tradespace</a> 
+                    </li>                     
+                    <li> 
+                        <a href="businesspage.html">Business</a> 
+                    </li>                     
+                    <li> 
+                        <a href="#"> 
+                            <input type="text" placeholder="Search"> 
+                        </a>                         
+                    </li>                     
+                    <li> 
+                        <a href="#"> 
+                            <button type="button" class="btn btn-sm btn-general">Search</button>                             
+                        </a>                         
+                    </li>                     
+                    <li> 
+                        <a href="homepage.html"><span class="app-name-style">MusicVenue</span></a> 
+                    </li>                     
+                    <li> 
+                        <a href="event.html">Events</a> 
+                    </li>                     
+                    <li> 
+                        <a href="group_page.html">Groups</a> 
+                    </li>                     
+                    <li class="dropdown"> 
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{navmain.userName}}<b class="caret"></b></a> 
+                        <ul class="dropdown-menu"> 
+                            <li> 
+                                <a href="profile_page.html">Profile</a> 
+                            </li>                             
+                            <li> 
+                                <a href="settings.html">Settings</a> 
+                            </li>                             
+                            <li> 
+                                <a ng-click="navmain.logout()">Log Out</a> 
+                            </li>                             
+                        </ul>                         
+                    </li>                     
+                </ul>                 
+            </div>             
+            <!--/.nav-collapse -->             
+        </div>         
+    </div>     
+    <div class="modal fade pg-show-modal" id="modalEditGroup" tabindex="-1" role="dialog" aria-hidden="true"> 
+        <div class="modal-dialog"> 
+            <div class="modal-content"> 
+                <div class="modal-header"> 
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>                     
+                    <h4 class="modal-title">Edit Group</h4> 
+                </div>                 
+                <div class="modal-body"> 
+                    <div class="row">
+                        <div class="col-md-12"> 
+                            <div class="form-group"> 
+                                <label class="control-label" for="frmInput_DescEdit" style="font-family:Aller Light;">Group name:</label>
+                                <input type="text" class="form-control" placeholder="The nice group..." ng-model="smain.editData.name">                                  
+                            </div>                             
+                        </div>
+                        <div class="col-md-12"> 
+                            <div class="form-group"> 
+                                <label class="control-label" for="frmInput_DescEdit" style="font-family:Aller Light;">Description:</label>                                 
+                                <textarea class="form-control" rows="3" id="frmInputDescription" ng-model="smain.editData.description"></textarea>                                 
+                            </div>                             
+                        </div>                                                  
+                        <div class="col-md-12"> 
+                            <h5 style="font-family:Aller Light;">Upload image:</h5> 
+                            <!-- Upload form plugin -->
+                            <form id="upload" method="post" action="../res/lib/upload_form/upload.php" enctype="multipart/form-data">
+                                <div id="drop">
+                                    Drop Here
+                                    <a>Browse</a>
+                                    <input type="file" name="upl" multiple />
+                                </div>
+                                <ul>
+                                    <!-- The file uploads will be shown here -->
+                                </ul>
+                            </form>                             
+                        </div>                         
+                    </div>                     
+                </div>                 
+                <div class="modal-footer"> 
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="smain.clearModal()">Close</button>                     
+                    <button type="button" class="btn btn-primary" style="background-color: #61243c;" ng-click="smain.saveAdminGroup(adminGroup)">Save changes</button>                     
+                </div>                 
+            </div>             
+        </div>         
+    </div>     
+    <!-- End of Nav Bar -->     
+    <!-- NavBar end.....................................................................................................-->     
+    <div class="container theme-showcase"> 
+        <div class="jumbotron"> 
+            <h1>Hey, subscriber!</h1> 
+            Here in MusicVenue we strive to connect musicians by opening up a virtual world full of possibilities. Our mission is to provide an innovative experience in order to let your creative juices flow. Thanks for joining us!
+            <p></p> 
+            <p>XOXO, The CoffeeSquad</p> 
+        </div>         
+        <!--Start of Settings Components-->         
+        <div> 
+            <div class="page-header"> 
+                <h1>Settings</h1> 
+            </div>             
+            <!--ACCOUNT-->             
+            <div class="panel panel-general"> 
+                <div class="panel-heading"> 
+                    <h3 class="panel-title">Account</h3> 
+                </div>                 
+                <div class="panel-body"> 
+                    <div class="row"> 
+                        <div class=".col-md-8 col-md-9"> 
+                            <ul class="list-group"> 
+                                <li class="list-group-item">Full Name: 
+                                    <input type="text" value="" ng-model="smain.basicInfo.first_name" placeholder="First name" ng-change="smain.textChanged()"> 
+                                    <input type="text" value="" ng-model="smain.basicInfo.last_name" placeholder="Last name" ng-change="smain.textChanged()"> 
+                                </li>                                 
+                                <li class="list-group-item">Email Address: 
+                                    <input type="email" placeholder="nice@example.com" ng-model="smain.basicInfo.email" ng-change="smain.textChanged()"> 
+                                </li>                                 
+                                <li class="list-group-item"> 
+                                    <div class="container-fluid"> 
+                                        <div class="col-md-12"> 
+                                            <div class="form-group"> 
+                                                <label class="control-label" for="formInput8">About me</label>                                                 
+                                                <textarea class="form-control" rows="3" id="formInput8" placeholder="Describe yourself..." ng-model="smain.basicInfo.about" ng-change="smain.textChanged()"></textarea>                                                 
+                                            </div>                                             
+                                        </div>                                         
+                                    </div>                                     
+                                </li>                                 
+                            </ul>                             
+                        </div>                         
+                        <div class=".col-md-8 col-md-3"> 
+                            <div class="row"> 
+                                <div class="col-md-12"> 
+                                    <button type="button" class="btn btn-default" style="float: right;"> 
+                                        <span class="glyphicon glyphicon-plus"></span> 
+                                    </button>                                     
+                                    <h3 style="margin-top:0px;width:60%;">Profile Pic</h3> 
+                                    <img ng-src="{{smain.basicInfo.photo_path}}" width="200" class="" style="background-color:gray;background-color:gray;" height="200" /> 
+                                </div>                                 
+                            </div>                             
+                        </div>                         
+                    </div>                     
+                    <div class="row"> 
+                        <button type="button" class="btn btn-sm btn-general" style="float: right; margin-top:10px;  margin-right:14px;" ng-disabled="smain.btnBasicInfoEnabled == true" ng-click="smain.saveBasicInfo()">Save changes</button>                         
+                    </div>                     
+                </div>                 
+            </div>             
+            <!--ABOUT ME-->             
+            <div class="panel panel-general"> 
+                <div class="panel-heading"> 
+                    <h3 class="panel-title">Password Reset</h3> 
+                </div>                 
+                <div class="panel-body"> 
+                    <div class="row"> 
+                        <div class=".col-md-8"> 
+                            <ul class="list-group"> 
+                                <li class="list-group-item"> 
+                                    <h4>Current password:</h4> 
+                                    <input type="password" value=" " style="margin-left:12px;" ng-model="smain.passData.currentPass"> 
+                                </li>                                 
+                                <li class="list-group-item"> 
+                                    <h4>New password:</h4> 
+                                    <input type="password" value=" " style="margin-left:12px;" ng-model="smain.passData.newPass"> 
+                                </li>                                 
+                                <li class="list-group-item"> 
+                                    <h4>Re-enter password:</h4> 
+                                    <input type="password" value=" " style="margin-left:12px;" ng-model="smain.passData.confirmNewPass"> 
+                                </li>                                 
+                            </ul>                             
+                        </div>                         
+                    </div>                     
+                    <div class="row"> 
+                        <button type="button" class="btn btn-sm btn-general" style="float: right; margin-top:10px;  margin-right:14px;">Save new password</button>                         
+                    </div>                     
+                </div>                 
+            </div>             
+            <div class="panel panel-general"> 
+                <div class="panel-heading"> 
+                    <h3 class="panel-title">My Tags</h3> 
+                </div>                 
+                <div class="panel-body"> 
+                    <div class="row"> 
+                        <div class=".col-md-8"> 
+                            <ul class="list-group"> 
+                                <li class="list-group-item">Tags:
+                                    <input type="text" placeholder="guitar, piano ..." ng-model="smain.newTagData"> 
+                                    <button type="button" class="btn btn-sm btn-general" ng-click="smain.addTag()"> 
+                                        <span class="glyphicon glyphicon-plus "></span> 
+                                    </button>                                     
+                                </li>                                 
+                                <li class="list-group-item" ng-repeat="tag in smain.tagInfo"> 
+                                    <div class="container-fluid"> 
+                                        <div class="col-md-6"> 
+                                            <input type="text" placeholder="guitar, piano ..." class="list-text-field" ng-model="tag.data"> 
+                                            <button type="button" class="btn btn-default" ng-click="smain.saveTag(tag)"> 
+                                                <span class="glyphicon glyphicon-pencil"></span> 
+                                            </button>                                             
+                                            <button type="button" class="btn btn-default" ng-click="smain.removeTag(tag)"> 
+                                                <span class="glyphicon glyphicon-remove "></span> 
+                                            </button>                                             
+                                        </div>                                         
+                                    </div>                                     
+                                </li>                                 
+                            </ul>                             
+                        </div>                         
+                    </div>                     
+                </div>                 
+            </div>             
+            <!--MY TAGS-->             
+            <div class="panel panel-general"> 
+                <div class="panel-heading"> 
+                    <h3 class="panel-title">Groups administrating</h3> 
+                </div>                 
+                <div class="panel-body"> 
+                    <div class="row"> 
+                        <div class=".col-md-8"> 
+                            <ul class="list-group"> 
+                                <li class="list-group-item" style="padding-bottom:35px;"> 
+                                    <button type="button" class="btn btn-sm btn-general" style="float: right;" id="btnAddGroup"> 
+                                        <span class="glyphicon glyphicon-plus "></span> 
+                                    </button>                                     
+                                </li>                                 
+                                <li class="list-group-item" id="itemGroupID" ng-repeat="adminGroup in smain.adminGroupInfo"> 
+                                    <div class="container-fluid"> 
+                                        <div class="row"> 
+                                            <div class="col-md-4"> 
+                                                <h5>Group wallpaper:</h5> 
+                                                <img ng-src="{{adminGroup.media_path}}" width="250" style="border-radius: 3px; margin-top:5px;background-color:gray;" height="200" /> 
+                                            </div>                                             
+                                            <div class="col-md-8"> 
+                                                <div class="row"> 
+                                                    <div class="col-md-4"> 
+                                                        <h3>{{adminGroup.name}}</h3> 
+                                                    </div>                                                     
+                                                    <div class="col-md-8"> 
+                                                        <button type="button" class="btn btn-default" style="float: right; margin-top:15px;" id="btnEditAdminGroup" ng-click="smain.supplyEditModal(adminGroup)"> 
+                                                            <span class="glyphicon  glyphicon-pencil"></span> 
+                                                        </button>                                                         
+                                                    </div>                                                     
+                                                </div>                                                 
+                                                <div class="row"> 
+                                                    <div class="group-description"> 
+                                                        <p>{{adminGroup.description}}</p> 
+                                                    </div>                                                     
+                                                </div>                                                 
+                                            </div>                                             
+                                        </div>                                         
+                                    </div>                                     
+                                </li>                                 
+                            </ul>                             
+                        </div>                         
+                    </div>                     
+                </div>                 
+            </div>             
+            <div class="panel panel-general"> 
+                <div class="panel-heading"> 
+                    <h3 class="panel-title">Groups with membership</h3> 
+                </div>                 
+                <div class="panel-body"> 
+                    <div class="row"> 
+                        <div class=".col-md-8"> 
+                            <ul class="list-group"> 
+                                <li class="list-group-item"> 
+                                    <div class="container-fluid"> 
+                                        <div class="row"> 
+                                            <div class="col-md-4"> 
+                                                <h5>Group wallpaper:</h5> 
+                                                <img src="file:///C:/Program%20Files%20(x86)/Pinegrow%20Web%20Designer/placeholders/img7.jpg" width="250" style="border-radius: 3px; margin-top:5px;background-color:gray;" height="200" /> 
+                                            </div>                                             
+                                            <div class="col-md-8"> 
+                                                <div class="row"> 
+                                                    <div class="col-md-4"> 
+                                                        <h3>Sample group</h3> 
+                                                    </div>                                                     
+                                                    <div class="col-md-8"> 
+                                                        <button type="button" class="btn btn-default" style="float: right; margin-top:15px;"> 
+                                                            <span class="glyphicon  glyphicon-remove"></span> 
+                                                        </button>                                                         
+                                                    </div>                                                     
+                                                </div>                                                 
+                                                <div class="row"> 
+                                                    <div class="group-description"> 
+                                                        <p>Holasfdasfdhasfasdfhuasdoifhashdfosaiudfhasdfhooausifwefrqroiqgewrqworeuigwqoiergqwioeurgoiugoiuyqweryurewqofdfhwqfuhoqwuhfqwoihfe</p> 
+                                                    </div>                                                     
+                                                </div>                                                 
+                                            </div>                                             
+                                        </div>                                         
+                                    </div>                                     
+                                </li>                                 
+                            </ul>                             
+                        </div>                         
+                    </div>                     
+                </div>                 
+            </div>             
+            <!--CHATS-->             
+            <!--BUSINESS-->             
+            <div class="panel panel-general"> 
+                <div class="panel-heading"> 
+                    <h3 class="panel-title">Business</h3> 
+                </div>                 
+                <div class="panel-body"> 
+                    <div class="row"> 
+                        <div class="col-md-4"> 
+                            <h5 style="float: left;">Current user:</h5> 
+                            <h4 class="current-user-title">Sample Business</h4> 
+                        </div>                         
+                        <div class="col-md-4"> 
+                            <button type="button" class="btn btn-default" style="margin-left: 10px; margin-top:6px;"> 
+                                <span class="glyphicon  glyphicon-ok"></span> 
+                            </button>                             
+                            <h5 style="float: left;">Default user:</h5> 
+                            <h4 style="float: left;" class="default-user-title">Nina Belafonte</h4> 
+                        </div>                         
+                    </div>                     
+                    <div class="row"> 
+                        <div class=".col-md-8"> 
+                            <hr /> 
+                            <ul class="list-group" style="margin-top: 10px;"> 
+                                <li class="list-group-item">Business name:
+                                    <input type="email" placeholder="My company..."> 
+                                    <button type="button" class="btn btn-sm btn-general"> 
+                                        <span class="glyphicon glyphicon-plus "></span> 
+                                    </button>                                     
+                                </li>                                 
+                                <li class="list-group-item"> 
+                                    <div class="container-fluid"> 
+                                        <div class="col-md-6"> 
+                                            <input type="email" placeholder="The Company..." class="list-text-field"> 
+                                            <button type="button" class="btn btn-default"> 
+                                                <span class="glyphicon glyphicon-pencil"></span> 
+                                            </button>                                             
+                                            <button type="button" class="btn btn-default"> 
+                                                <span class="glyphicon glyphicon-remove "></span> 
+                                            </button>                                             
+                                            <button type="button" class="btn btn-default" style="margin-left:3px;"> 
+                                                <span class="glyphicon  glyphicon-ok"></span> 
+                                            </button>                                             
+                                        </div>                                         
+                                    </div>                                     
+                                </li>                                 
+                            </ul>                             
+                        </div>                         
+                    </div>                     
+                </div>                 
+            </div>             
+            <!--GROUPS-->             
+        </div>         
+        <!-- /container -->         
+        <!-- Upload Form plugin -->         
+        <script src="../res/lib/upload_form/jquery.knob.js"></script>         
+        <script src="../res/lib/upload_form/jquery.ui.widget.js"></script>         
+        <script src="../res/lib/upload_form/jquery.iframe-transport.js"></script>         
+        <script src="../res/lib/upload_form/jquery.fileupload.js"></script>         
+        <script src="../res/lib/upload_form/upload-form.js"></script>         
+        <!-- Controllers -->         
+        <script type="text/javascript" src="../controllers/navbar.ctrl.js"></script>         
+        <script type="text/javascript" src="../controllers/settings.ctrl.js"></script>         
+    </div>     
+</body>
