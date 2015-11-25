@@ -545,6 +545,10 @@ router.put('/mvenue-database/homepage/', function(req, res) {
 //------------------------ END HOMEPAGE--------------------------------------------|
 
 
+
+
+
+
 //------------------------START TRADESPACE------------------------------------------
 //====GET====
 router.get('/mvenue-database/tradespace/:token', function(req, res) {
@@ -619,6 +623,7 @@ router.get('/mvenue-database/tradespace/:token', function(req, res) {
 });
 
 //------------------------ END TRADESPACE------------------------------------------
+
 
 //------------------------ START SETTINGS page------------------------------------------
 
@@ -2068,6 +2073,458 @@ router.delete('/mvenue-database/profile/remove-from-a-group/', function(req, res
 
 
 //------------------------ END PROFILE page--------------------------------------------
+
+
+//------------------------ START GROUP page--------------------------------------------------------------------
+
+//Post de cualquier miembro del grupo
+
+router.get('/mvenue-database/group/posts/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: PROFILE GROUPS IS IN Request entry.");
+    var uPayload;
+    var results = [];
+    var input = {
+        group_id:req.body.group_id
+    }
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GET GROUPS SETTINGS:" + JSON.stringify(uPayload));
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+        //Get tags from user
+        var getquery =" SELECT post_id, user_id, data, media_path, media_type, date_time, \"isBusinessPost\" FROM post_user  WHERE user_id IN (  SELECT user_id FROM group_membership WHERE group_id=$1);";
+        var query = client.query(getquery, [input.group_id]);
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+            console.log("DEBUG: RESULTS PROFILE Get GROUPS IS IN");
+            return res.json(results);
+        });
+    });
+});
+
+
+//Todo los atributos que esten en el group info
+
+router.get('/mvenue-database/group/info/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: PROFILE GROUPS IS IN Request entry.");
+    var uPayload;
+    var results = [];
+    var input = {
+        group_id:req.body.group_id
+    }
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GET GROUPS SETTINGS:" + JSON.stringify(uPayload));
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+        //Get tags from user
+        var getquery = "SELECT * FROM ggroup  WHERE group_id= $1);";
+        var query = client.query(getquery, [input.group_id]);
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);
+        });
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+            console.log("DEBUG: RESULTS PROFILE Get GROUPS IS IN");
+            return res.json(results);
+        });
+    });
+});
+
+//group members
+
+router.get('/mvenue-database/group/members/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: PROFILE GROUPS IS IN Request entry.");
+    var uPayload;
+    var results = [];
+    var input = {
+        group_id:req.body.group_id
+    }
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GET GROUPS SETTINGS:" + JSON.stringify(uPayload));
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+        //Get tags from user
+        var getquery = "SELECT * FROM group_membership NATURAL JOIN uuser WHERE group_id=1;";
+        var query = client.query(getquery, [input.group_id]);
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);
+        });
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+            console.log("DEBUG: RESULTS PROFILE Get GROUPS IS IN");
+            return res.json(results);
+        });
+    });
+});
+
+//------------------------ END GROUP page--------------------------------------------------------------------
+
+
+//------------------------ START EVENTS page--------------------------------------------------------------------
+//Los eventos que administras
+router.get('/mvenue-database/eventes/administrating/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: PROFILE GROUPS IS IN Request entry.");
+    var uPayload;
+    var results = [];
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GET GROUPS SETTINGS:" + JSON.stringify(uPayload));
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+        //Get tags from user
+        var getquery = "SELECT * FROM event WHERE administrator_id=$1;";
+        var query = client.query(getquery, [uPayload.user_id]);
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);
+        });
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+            console.log("DEBUG: RESULTS PROFILE Get GROUPS IS IN");
+            return res.json(results);
+        });
+    });
+});
+
+
+
+
+
+//A los que vas
+
+router.get('/mvenue-database/eventes/going/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: PROFILE GROUPS IS IN Request entry.");
+    var uPayload;
+    var results = [];
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GET GROUPS SETTINGS:" + JSON.stringify(uPayload));
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+        //Get tags from user
+        var getquery = "SELECT * FROM eventWHERE event_id IN (SELECT event_id FROM event_going WHERE user_id=$1);";
+        var query = client.query(getquery, [uPayload.user_id]);
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);
+        });
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+            console.log("DEBUG: RESULTS PROFILE Get GROUPS IS IN");
+            return res.json(results);
+        });
+    });
+});
+
+
+
+
+//A los que no vas
+
+router.get('/mvenue-database/eventes/not-going/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: PROFILE GROUPS IS IN Request entry.");
+    var uPayload;
+    var results = [];
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GET GROUPS SETTINGS:" + JSON.stringify(uPayload));
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+        //Get tags from user
+        var getquery = "SELECT * FROM eventWHERE event_id NOT IN (SELECT event_id FROM event_going WHERE user_id=$1);";
+        var query = client.query(getquery, [uPayload.user_id]);
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);
+        });
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+            console.log("DEBUG: RESULTS PROFILE Get GROUPS IS IN");
+            return res.json(results);
+        });
+    });
+});
+
+
+
+
+//------------------------ START EVENTS page--------------------------------------------------------------------
+
+
+
+//------------------------ START SEARCH page--------------------------------------------------------------------
+
+
+router.get('/mvenue-database/eventes/not-going/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: PROFILE GROUPS IS IN Request entry.");
+    var uPayload;
+    var results = [];
+
+    var input= req.body.someData;
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GET GROUPS SETTINGS:" + JSON.stringify(uPayload));
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+        var searchQuery="";
+        searchQuery += " WITH userType AS";
+        searchQuery += " (SELECT type";
+        searchQuery += " FROM types";
+        searchQuery += " WHERE name='uuser'), ";
+        searchQuery += " ";
+        searchQuery += " businessType AS";
+        searchQuery += " (SELECT type";
+        searchQuery += "  FROM types";
+        searchQuery += " WHERE name='businesspage'),";
+        searchQuery += " groupType AS";
+        searchQuery += " (SELECT type";
+        searchQuery += " FROM types";
+        searchQuery += " WHERE name='ggroup'),";
+        searchQuery += " tgroupType AS";
+        searchQuery += " (SELECT type";
+        searchQuery += " FROM types";
+        searchQuery += " WHERE name='tag_group'),";
+        searchQuery += " tuserType AS";
+        searchQuery += " (SELECT type";
+        searchQuery += " FROM types";
+        searchQuery += " WHERE name='tag_user'), ";
+        searchQuery += " ";
+        searchQuery += " tbusinessType AS";
+        searchQuery += " (SELECT type";
+        searchQuery += " FROM types";
+        searchQuery += " WHERE name='tag_business')";
+        searchQuery += " SELECT ID,  data, type, entityName";
+        searchQuery += " FROM ( ";
+        searchQuery += "     (";
+        searchQuery += "     SELECT user_id as ID, CONCAT(first_name, ' ', last_name) AS data, type, CONCAT(first_name, ' ', last_name) AS entityName";
+        searchQuery += "     FROM (uuser NATURAL JOIN userType)";
+        searchQuery += "     )";
+        searchQuery += " UNION";
+        searchQuery += "     (";
+        searchQuery += "     SELECT group_id AS ID, name AS data, type, name AS entityName";
+        searchQuery += "     FROM (ggroup NATURAL JOIN groupType)";
+        searchQuery += "     )";
+        searchQuery += " UNION";
+        searchQuery += "     (";
+        searchQuery += "     SELECT business_id AS ID, name AS data, type, name AS entityName";
+        searchQuery += "     FROM (businesspage NATURAL JOIN businessType)";
+        searchQuery += "     )";
+        searchQuery += " ";
+        searchQuery += " UNION";
+        searchQuery += "     (";
+        searchQuery += "     SELECT business_id AS ID,  data, type, name AS entityName";
+        searchQuery += "     FROM (businesspage NATURAL JOIN tbusinessType NATURAL JOIN tag_busines)";
+        searchQuery += "     )";
+        searchQuery += " UNION";
+        searchQuery += "     (";
+        searchQuery += "     SELECT group_id AS ID, data, type, name AS entityName";
+        searchQuery += "     FROM (ggroup NATURAL JOIN tgroupType NATURAL JOIN tag_group)";
+        searchQuery += "     )";
+        searchQuery += " UNION";
+        searchQuery += "     (";
+        searchQuery += "     SELECT user_id as ID, data, type, CONCAT(first_name, ' ', last_name) AS entityName";
+        searchQuery += "     FROM (uuser NATURAL JOIN tuserType NATURAL JOIN tag_user)";
+        searchQuery += "     )";
+        searchQuery += " ";
+        searchQuery += "     ";
+        searchQuery += " ";
+        searchQuery += " ) ";
+        searchQuery += " as something";
+        searchQuery += " WHERE UPPER(data) LIKE UPPER('%$1%') OR UPPER(data) LIKE UPPER('$1%') OR UPPER(data) LIKE UPPER('%$1W');";
+        var query = client.query(getquery, [input]);
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);w
+        });
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+            console.log("DEBUG: RESULTS PROFILE Get GROUPS IS IN");
+            return res.json(results);
+        });
+    });
+});
+
+
+
+//------------------------ START SEARCH page--------------------------------------------------------------------
+
+
+
+
+//------------------------ START BUSINESS page--------------------------------------------------------------------
+
+//Business info
+
+router.get('/mvenue-database/eventes/not-going/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: PROFILE GROUPS IS IN Request entry.");
+    var uPayload;
+    var results = [];
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GET GROUPS SETTINGS:" + JSON.stringify(uPayload));
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+        //Get tags from user
+        var getquery = "SELECT * FROM businesspage WHERE business_id=$1;";
+        var query = client.query(getquery, [req.body.business_id]);
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);
+        });
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+            console.log("DEBUG: RESULTS PROFILE Get GROUPS IS IN");
+            return res.json(results);
+        });
+    });
+});
+
+
+
+
+
+
+//------------------------ START BUSINESS page--------------------------------------------------------------------
+
+
+
 
 //Extra functionality for JWT authentication
 //This  funciton verifies and validates any token that is used 
