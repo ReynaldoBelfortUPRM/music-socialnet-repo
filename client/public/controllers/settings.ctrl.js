@@ -267,30 +267,26 @@ angular.module('app').controller("SettingsController", function($http){
     };
 
     //-----Member group-----
-    vmodel.deleteMemberGroup = function(adminGroup){
-        //Update tag in the database
-        // $http.put('/mvenue-database/settings/update-group/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
-        //     , adminGroup).then(function successCallback(response){
-        //         //Alert user of the succes of the request
-        //         alert("Update successful!");
+    vmodel.deleteMemberGroup = function(memberGroup){
+        //Remove group from the database
+        $http.delete('/mvenue-database/settings/delete-member-group/?tk=' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+            + "&groupID="+ targetGroup.group_id.toString()).then(function successCallback(response){
+                //Succesful request. Refresh groups on view
+                vmodel.adminGroupInfo = response.data;
+                
+            }, function errorCallback(response){
+                    if(response.status == 401){
+                        alert("Authentication error! Your session may have been expired. Please log-in!");
+                        //Erase current token
+                        sessionStorage.removeItem('clientAuthentication');
+                        //Re-direct user to the log-in page
+                        window.location.href = "login.html";
+                    }
+                    else{
+                        alert("Server Internal Error: " + response.data);
+                    }
 
-        //         //Erase edit data and hide modal.
-        //         vmodel.clearModal();
-        //         $('#modalEditGroup').modal('hide');
-
-        //     }, function errorCallback(response){
-        //             if(response.status == 401){
-        //                 alert("Authentication error! Your session may have been expired. Please log-in!");
-        //                 //Erase current token
-        //                 sessionStorage.removeItem('clientAuthentication');
-        //                 //Re-direct user to the log-in page
-        //                 window.location.href = "login.html";
-        //             }
-        //             else{
-        //                 alert("Server Internal Error: " + response.data);
-        //             }
-
-        //     });
+            });
     };
 
     vmodel.deleteUserAccount = function(){

@@ -26,6 +26,7 @@ audiojs.events.ready(function() {
 angular.module('app').controller("HomepageController", function($http){
 	//Obtaining the scope obj. of the controller
 	var vmodel = this;
+	vmodel.searchString = "";
 
 	//------Event handlers-------
 
@@ -153,6 +154,57 @@ angular.module('app').controller("HomepageController", function($http){
 
         });
 
+	};
+
+	vmodel.search = function(){
+		if(vmodel.searchString.length > 0){
+			//Request database results related to the search string
+			$http.get('/mvenue-database/search/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+        		, {searchString: vmodel.searchString}).then(function successCallback(response){
+		        	//Show results to the user, if any:
+
+		        	if(response.data.length > 0){
+		        		//There are results related to the search string
+
+		        		//Store posts in a temporary variable
+		        		vmodel.tempPosts = vmodel.posts;
+		        		vmodel.posts = null;
+		        		//Show search results
+		        		vmodel.searchResults = response.data;		        		
+		        	} else {
+		        		//TODO Show a 'content box' with a 'No results' string.		        		
+		        		vmodel.tempPosts = vmodel.posts; //Store posts in a temporary variable
+		        		vmodel.posts = null;
+		        		vmodel.searchResults = [{id: 0, data: "" ,type: 1 ,entityname: "No results are available."}];
+		        	}
+
+		        }, function errorCallback(response){
+		                if(response.status == 401){
+		                    alert("Authentication error! Your session may have been expired. Please log-in!");
+		                    //Erase current token
+		                    sessionStorage.removeItem('clientAuthentication');
+		                    //Re-direct user to the log-in page
+		                    window.location.href = "login.html";
+		                }
+		                else{
+		                    alert("Server Internal Error: " + response.data);
+		                }
+
+		        });
+		}
+	};
+
+	vmodel.watchSearchString = function(){
+		//If the user is removes the search string, the interpret as: not looking for something
+		if(vmodel.searchString.length <= 0){
+			//Restore user posts
+			if(vmodel.posts == null){ 
+				//In case user starts typing but then erases the search string without pressing the search button.
+				vmodel.posts = vmodel.tempPosts;
+			}
+			vmodel.tempPosts = null;
+			vmodel.searchResults = null;			
+		}
 	};
 
 	//TODO-----------Dummy operations: for design purposes-----------------

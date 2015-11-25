@@ -8,6 +8,7 @@ var router = express.Router();
 var path = require('path');
 var pg = require('pg');
 var jwt = require('jsonwebtoken');
+var colors = require("colors"); //For a better debugging experience.
 //var bcrypt = require('bcryptjs');
 var bcrypt = [];
 //For JWT implementation
@@ -47,7 +48,8 @@ function initialize_id() {
       done();
 
       id = id[0].max+1;
-      console.log("DEBUG: REGISTER ID NUM: " + id[0].max.toString());//OMG este es el q es
+      console.log("DEBUG: REGISTER ID NUM: " + id[0].max.toString());
+      console.log("DEBUG: REGISTER ID NUM Typeof: " + typeof(id));
     });
 
 
@@ -94,7 +96,7 @@ router.get('/', function(req, res, next) {
           id = [];
 
           //Return sucess response
-          return res.status(200);
+          return res.status(200).json({message: "succesful"});
        });
  });
 //------------------------ END REGISTER page--------------------------------------------
@@ -785,7 +787,7 @@ router.post('/mvenue-database/settings/password-reset/:token', function(req, res
               client.query("UPDATE uuser SET password = $1 WHERE user_id = $2;", [passData.newPass, uPayload.user_id]);
               
               //Return success response
-              return res.status(200).json(data: "Successful password change!");
+              return res.status(200).json({data: "Successful password change!"});
             }
             else
             {
@@ -933,7 +935,7 @@ router.put('/mvenue-database/settings/tag-info/:token', function(req, res) {
                       [currentTag.data, currentTag.tag_id, uPayload.user_id]);
 
         //Return a success Response
-        return res.status(200);
+        return res.status(200).json({message: "succesful"});
    
     });
 
@@ -1193,7 +1195,7 @@ router.put('/mvenue-database/settings/update-group/:token', function(req, res) {
         client.query(updateQuery, [input.name, input.description,input.photo_path, input.group_id]);
 
         //Return a success Response
-        return res.status(200);
+        return res.status(200).json({message: "succesful delete"});
    
     });
 
@@ -1410,7 +1412,7 @@ router.put('/mvenue-database/settings/business-edit/:token', function(req, res) 
         client.query(updateQuery, [input.name, input.about, input.photo_path, input.business_id]);
 
         //Return a success Response
-        return res.status(200);
+        return res.status(200).json({message: "succesful"});
 
     });
 
@@ -1449,8 +1451,8 @@ router.delete('/mvenue-database/settings/business-info/', function(req, res) {
 
         client.query(deleteQuery, [business_id]);
 
-        //Return a success Response
-        return res.status(200);
+        //Return a success Response                
+        return res.status(200).json({message: "succesful"});
     });
 });
 
@@ -1545,7 +1547,7 @@ router.delete('/mvenue-database/settings/user/:token', function(req, res) {
         client.query("DELETE FROM uuser WHERE user_id=$1;", [ uPayload.user_id]);
 
         //Return a success Response
-        return res.status(200);
+        return res.status(200).json({message: "succesful delete"});
 
     });
 
@@ -1993,7 +1995,7 @@ router.delete('/mvenue-database/profile/unfollow/', function(req, res) {
         client.query(deleteQuery, [user_id]);
 
         //Return a success Response
-        return res.status(200);
+        return res.status(200).json({message: "succesful delete"});
     });
 });
 
@@ -2087,7 +2089,7 @@ router.delete('/mvenue-database/profile/remove-from-a-group/', function(req, res
         client.query(deleteQuery, [user_id, req.body.group_id]);
 
         //Return a success Response
-        return res.status(200);
+        return res.status(200).json({message: "succesful delete"});
     });
 });
 
@@ -2239,7 +2241,7 @@ router.get('/mvenue-database/group/members/:token', function(req, res) {
 
 //------------------------ START EVENTS page--------------------------------------------------------------------
 //Los eventos que administras
-router.get('/mvenue-database/eventes/administrating/:token', function(req, res) {
+router.get('/mvenue-database/events/administrating/:token', function(req, res) {
     //TODO DEBUG
     console.log("DEBUG: PROFILE GROUPS IS IN Request entry.");
     var uPayload;
@@ -2285,7 +2287,7 @@ router.get('/mvenue-database/eventes/administrating/:token', function(req, res) 
 
 //A los que vas
 
-router.get('/mvenue-database/eventes/going/:token', function(req, res) {
+router.get('/mvenue-database/events/going/:token', function(req, res) {
     //TODO DEBUG
     console.log("DEBUG: PROFILE GROUPS IS IN Request entry.");
     var uPayload;
@@ -2330,7 +2332,7 @@ router.get('/mvenue-database/eventes/going/:token', function(req, res) {
 
 //A los que no vas
 
-router.get('/mvenue-database/eventes/not-going/:token', function(req, res) {
+router.get('/mvenue-database/events/not-going/:token', function(req, res) {
     //TODO DEBUG
     console.log("DEBUG: PROFILE GROUPS IS IN Request entry.");
     var uPayload;
@@ -2380,13 +2382,13 @@ router.get('/mvenue-database/eventes/not-going/:token', function(req, res) {
 //------------------------ START SEARCH page--------------------------------------------------------------------
 
 
-router.get('/mvenue-database/eventes/not-going/:token', function(req, res) {
+router.get('/mvenue-database/search/:token', function(req, res) {
     //TODO DEBUG
-    console.log("DEBUG: PROFILE GROUPS IS IN Request entry.");
+    console.log("DEBUG: SEARCH Request entry.");
     var uPayload;
     var results = [];
 
-    var input= req.body.someData;
+    var inputString = req.body.searchString;
 
     //Token validation
     try{
@@ -2396,7 +2398,7 @@ router.get('/mvenue-database/eventes/not-going/:token', function(req, res) {
         return res.status(401).json(err); //End request by returning a failure response.
     }
 
-    console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GET GROUPS SETTINGS:" + JSON.stringify(uPayload));
+    console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD SEARCH Request:" + JSON.stringify(uPayload));
 
     pg.connect(connectionString, function (err, client, done) {
         // Handle connection errors
@@ -2406,6 +2408,7 @@ router.get('/mvenue-database/eventes/not-going/:token', function(req, res) {
             return res.status(500).json({success: false, data: err});
         }
         var searchQuery="";
+
         searchQuery += " WITH userType AS";
         searchQuery += " (SELECT type";
         searchQuery += " FROM types";
@@ -2469,8 +2472,11 @@ router.get('/mvenue-database/eventes/not-going/:token', function(req, res) {
         searchQuery += " ";
         searchQuery += " ) ";
         searchQuery += " as something";
-        searchQuery += " WHERE UPPER(data) LIKE UPPER('%$1%') OR UPPER(data) LIKE UPPER('$1%') OR UPPER(data) LIKE UPPER('%$1W');";
-        var query = client.query(getquery, [input]);
+        searchQuery += " WHERE UPPER(data) LIKE UPPER($1) OR UPPER(data) LIKE UPPER($2) OR UPPER(data) LIKE UPPER($3);";
+
+        console.log("DEBUG: About to execute this QUERY: " + searchQuery);
+
+        var query = client.query(searchQuery, ['\'%' + inputString + '%\'', '\'' + inputString + '%\'', '\'%' + inputString + '\'']);
 
         // Stream results back one row at a time
         query.on('row', function (row) {
@@ -2479,7 +2485,7 @@ router.get('/mvenue-database/eventes/not-going/:token', function(req, res) {
         // After all data is returned, close connection and return results
         query.on('end', function () {
             done();
-            console.log("DEBUG: RESULTS PROFILE Get GROUPS IS IN");
+            console.log("DEBUG: RETURNING SEARCH RESULTS. Data from database: ".green + JSON.stringify(results));
             return res.json(results);
         });
     });
@@ -2496,7 +2502,7 @@ router.get('/mvenue-database/eventes/not-going/:token', function(req, res) {
 
 //Business info
 
-router.get('/mvenue-database/eventes/not-going/:token', function(req, res) {
+router.get('/mvenue-database/search/:token', function(req, res) {
     //TODO DEBUG
     console.log("DEBUG: PROFILE GROUPS IS IN Request entry.");
     var uPayload;
