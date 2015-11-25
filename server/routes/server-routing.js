@@ -24,7 +24,6 @@ var connectionString={
 
 //Database initialization
 var id =[];
-initialize_id();
 function initialize_id() {
   pg.connect(connectionString, function (err, client, done) {
     // Handle connection errors
@@ -47,8 +46,8 @@ function initialize_id() {
     query.on('end', function () {
       done();
 
-      console.log(id[0].max);//OMG este es el q es
       id = id[0].max+1;
+      console.log("DEBUG: REGISTER ID NUM: " + id[0].max.toString());//OMG este es el q es
     });
 
 
@@ -83,6 +82,7 @@ router.get('/', function(req, res, next) {
            return res.status(500).json({ success: false, data: err});
          }
 
+         initialize_id();
          // Generate a salt as a requirement for the encryption method
          // var salt = bcrypt.genSaltSync(10); //Level 10 encryption, considering hardware limitaitions.
           //Encrypt new password
@@ -91,6 +91,7 @@ router.get('/', function(req, res, next) {
             //client.query("INSERT INTO uuser(user_id, first_name, last_name,email, password, photo_path, about) values($1, $2,$3, $4,$5, $6,$7)", [id, user.first_name, user.last_name, user.email, hashPass, user.photo_path, user.about]);
          client.query("INSERT INTO uuser(user_id, first_name, last_name,email, password, photo_path, about) values($1, $2,$3, $4,$5, $6,$7)", [id, user.first_name, user.last_name, user.email, user.password, user.photo_path, user.about]);
            // client.query("INSERT INTO follow(follower_id, followed_id) values($1, $2)", [id, id]);
+          id = [];
 
           //Return sucess response
           return res.status(200);
@@ -1019,7 +1020,7 @@ router.delete('/mvenue-database/settings/tag-info/', function(req, res) {
 //==== GET GROUPS THE USER ADMINISTRATES====
 router.get('/mvenue-database/settings/group-administrating-info/:token', function(req, res) {
     //TODO DEBUG
-    console.log("DEBUG: SETTINGS GROUPS Request entry.");        
+    console.log("DEBUG: SETTINGS ADMIN GROUPS Request entry.");        
     var uPayload;
     var results = [];
 
@@ -1047,7 +1048,7 @@ router.get('/mvenue-database/settings/group-administrating-info/:token', functio
 
 
         var query = client.query("SELECT group_id, name, description, group_administrator, photo_path FROM ggroup" +
-                                 "WHERE group_administrator =  $1 ", [uPayload.user_id]);
+                                 " WHERE group_administrator = $1;", [uPayload.user_id]);
 
         // Stream results back one row at a time
         query.on('row', function (row) {
@@ -1058,15 +1059,15 @@ router.get('/mvenue-database/settings/group-administrating-info/:token', functio
         query.on('end', function () {
             done();
 
-            var groups = [];
-            //Store tag results in the var to be sent as a response
-            for (res in results) {
-                groups.push({group_id: res[0].group_id, name: res[0].name, description: res[0].description,
-                            group_administrator: res[0].group_administrator, photo_path: res[0].photo_path});
-            }
+            // var groups = [];
+            // //Store tag results in the var to be sent as a response
+            // for (rs in results) {
+            //     groups.push({group_id: rs[0].group_id, name: rs[0].name, description: rs[0].description,
+            //                 group_administrator: rs[0].group_administrator, photo_path: rs[0].photo_path});
+            // }
 
-            console.log("DEBUG: RESULTS SETTINGS Get GROUPS");
-            return res.json(groups);
+            console.log("DEBUG: RESULTS SETTINGS Get ADMIN GROUPS");
+            return res.json(results);
         });
     });
 });
@@ -1098,7 +1099,7 @@ router.get('/mvenue-database/settings/group-administrating-info/:token', functio
 
         //Get tags from user
         var query = client.query("SELECT group_id, name, description, group_administrator, photo_path FROM ggroup" +
-            "WHERE group_id IN (SELECT group_id FROM group_membership WHERE user_id= $1);", [uPayload.user_id]);
+            " WHERE group_id IN (SELECT group_id FROM group_membership WHERE user_id= $1);", [uPayload.user_id]);
 
         // Stream results back one row at a time
         query.on('row', function (row) {
@@ -1454,7 +1455,7 @@ router.delete('/mvenue-database/settings/tag-info/', function(req, res) {
 
         var deleteQuery= "DELETE FROM businesspage WHERE business_id= $1";
 
-        client.query(delete, [business_id]);
+        client.query(deleteQuery, [business_id]);
 
         //Return a success Response
         return res.status(200);

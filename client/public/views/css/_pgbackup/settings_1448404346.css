@@ -101,8 +101,5 @@ fieldset[disabled] .btn-general.active
     min-height: 70px;
     height: auto;
     border-radius: 4px;
-    word-wrap: break-word;
-    padding: 7px;
-    font-size: 19px;
 }
 

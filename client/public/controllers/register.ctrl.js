@@ -10,8 +10,10 @@ angular.module('app').controller("RegisterControl", function($http){
                     last_name: vmodel.last_name,
                     email: vmodel.email,
                     password: vmodel.password
-                }).success(function (dbData) {
-                    vmodel.uusers = dbData;
+                }).success(function (response) {
+                    //Succesful registration
+                    //Re-direct user to the login page
+                    window.location.href = "index.html";
                 });
             }
             else{

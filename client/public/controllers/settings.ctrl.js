@@ -195,5 +195,25 @@ angular.module('app').controller("SettingsController", function($http){
                 }
 
         });
+
+    //GET for loading Groups that user administrates
+    $http.get('/mvenue-database/settings/group-administrating-info/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+        ).then(function successCallback(response){
+
+            //Load object coming from server
+            vmodel.adminGroupInfo = response.data;
+        }, function errorCallback(response){
+                if(response.status == 401){
+                    alert("Authentication error! Your session may have been expired. Please log-in!");
+                    //Erase current token
+                    sessionStorage.removeItem('clientAuthentication');
+                    //Re-direct user to the log-in page
+                    window.location.href = "login.html";
+                }
+                else{
+                    alert("Server Internal Error: " + response.data);
+                }
+
+        });
     
 });//End angular controller
