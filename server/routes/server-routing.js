@@ -1186,14 +1186,14 @@ router.post('/mvenue-database/settings/new-group/:token', function(req, res) {
 //==== EDIT/UPDATE GROUP====
 router.put('/mvenue-database/settings/update-group/:token', function(req, res) {
     //TODO DEBUG
-    console.log("DEBUG: SETTINGS GROUP EDIT Request entry.");        
+    console.log("DEBUG: SETTINGS GROUP EDIT/UPDATE Request entry.");        
     var uPayload;
     var results = [];
     var input={
-        group_id: group_id,
-        name:  name,
-        description: description,
-        photo_path: photo_path
+        group_id: req.body.group_id,
+        name:  req.body.name,
+        description: req.body.description,
+        photo_path: req.body.photo_path
     }
 
 
@@ -1214,10 +1214,10 @@ router.put('/mvenue-database/settings/update-group/:token', function(req, res) {
 
         //Edit the tag to the database
 
-        var updateQuery="(UPDATE ggroup SET name=$1, description=$2,  photo_path=$3, WHERE group_administrator=$4)" ;
+        var updateQuery = "UPDATE ggroup SET name=$1, description=$2, photo_path=$3 WHERE group_id=$4;" ;
 
         //Token validation
-        client.query(updateQuery, [input.name, input.description,input.photo_path, uPayload.user_id]);
+        client.query(updateQuery, [input.name, input.description,input.photo_path, input.group_id]);
 
         //Return a success Response
         return res.status(200);

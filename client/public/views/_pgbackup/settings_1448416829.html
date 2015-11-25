@@ -77,7 +77,7 @@
                         <div class="col-md-12"> 
                             <div class="form-group"> 
                                 <label class="control-label" for="frmInput_DescEdit" style="font-family:Aller Light;">Group name:</label>
-                                <input type="text" class="form-control" placeholder="The nice group..." ng-model="smain.editData.name"> 
+                                <input type="text" class="form-control" placeholder="The nice group..." ng-model="smain.editData.name">                                  
                             </div>                             
                         </div>
                         <div class="col-md-12"> 
@@ -85,7 +85,7 @@
                                 <label class="control-label" for="frmInput_DescEdit" style="font-family:Aller Light;">Description:</label>                                 
                                 <textarea class="form-control" rows="3" id="frmInputDescription" ng-model="smain.editData.description"></textarea>                                 
                             </div>                             
-                        </div>                         
+                        </div>                                                  
                         <div class="col-md-12"> 
                             <h5 style="font-family:Aller Light;">Upload image:</h5> 
                             <!-- Upload form plugin -->
@@ -104,7 +104,7 @@
                 </div>                 
                 <div class="modal-footer"> 
                     <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="smain.clearModal()">Close</button>                     
-                    <button type="button" class="btn btn-primary" style="background-color: #61243c;" ng-click="smain.saveAdminGroup(smain.editData)">Save changes</button>                     
+                    <button type="button" class="btn btn-primary" style="background-color: #61243c;" ng-click="smain.saveAdminGroup(adminGroup)">Save changes</button>                     
                 </div>                 
             </div>             
         </div>         
@@ -256,10 +256,7 @@
                                                         <h3>{{adminGroup.name}}</h3> 
                                                     </div>                                                     
                                                     <div class="col-md-8"> 
-                                                        <button type="button" class="btn btn-default" style="float: right; margin-top:15px;" id="btnDeleteAdmin" ng-click="smain.deleteAdminGroup(adminGroup)"> 
-                                                            <span class="glyphicon  glyphicon-remove"></span> 
-                                                        </button>
-                                                        <button type="button" class="btn btn-default" style="float: right; margin-top:15px;margin-right:10px;" id="btnEditAdminGroup" ng-click="smain.supplyAdminEditModal(adminGroup)"> 
+                                                        <button type="button" class="btn btn-default" style="float: right; margin-top:15px;" id="btnEditAdminGroup" ng-click="smain.supplyEditModal(adminGroup)"> 
                                                             <span class="glyphicon  glyphicon-pencil"></span> 
                                                         </button>                                                         
                                                     </div>                                                     
@@ -288,28 +285,25 @@
                             <ul class="list-group"> 
                                 <li class="list-group-item"> 
                                     <div class="container-fluid"> 
-                                        <div class="row" ng-repeat="memberGroup in smain.memberGroupInfo"> 
+                                        <div class="row"> 
                                             <div class="col-md-4"> 
                                                 <h5>Group wallpaper:</h5> 
-                                                <img ng-src="{{memberGroup.photo_path}}" style="border-radius: 3px; margin-top:5px;background-color:gray;" height="200" " width="200"> 
+                                                <img src="file:///C:/Program%20Files%20(x86)/Pinegrow%20Web%20Designer/placeholders/img7.jpg" width="250" style="border-radius: 3px; margin-top:5px;background-color:gray;" height="200" /> 
                                             </div>                                             
                                             <div class="col-md-8"> 
                                                 <div class="row"> 
                                                     <div class="col-md-4"> 
-                                                        <h3>{{memberGroup.name}}</h3> 
+                                                        <h3>Sample group</h3> 
                                                     </div>                                                     
                                                     <div class="col-md-8"> 
-                                                        <button type="button" class="btn btn-default" style="float: right; margin-top:15px;" ng-click="smain.deleteMemberGroup()" id="btnDeleteMemberGroup"> 
+                                                        <button type="button" class="btn btn-default" style="float: right; margin-top:15px;"> 
                                                             <span class="glyphicon  glyphicon-remove"></span> 
-                                                        </button>
-                                                        <button type="button" class="btn btn-default" style="float: right; margin-top:15px; margin-right:10px;" ng-click="smain.supplyMemberEditModal()" id="btnEditMemberGroup"> 
-                                                            <span class="glyphicon  glyphicon-pencil"></span> 
                                                         </button>                                                         
                                                     </div>                                                     
                                                 </div>                                                 
                                                 <div class="row"> 
                                                     <div class="group-description"> 
-                                                        <p>{{memberGroup.description}}</p> 
+                                                        <p>Holasfdasfdhasfasdfhuasdoifhashdfosaiudfhasdfhooausifwefrqroiqgewrqworeuigwqoiergqwioeurgoiugoiuyqweryurewqofdfhwqfuhoqwuhfqwoihfe</p> 
                                                     </div>                                                     
                                                 </div>                                                 
                                             </div>                                             

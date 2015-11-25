@@ -104,7 +104,7 @@
                 </div>                 
                 <div class="modal-footer"> 
                     <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="smain.clearModal()">Close</button>                     
-                    <button type="button" class="btn btn-primary" style="background-color: #61243c;" ng-click="smain.saveAdminGroup(smain.editData)">Save changes</button>                     
+                    <button type="button" class="btn btn-primary" style="background-color: #61243c;" ng-click="smain.saveAdminGroup(adminGroup)">Save changes</button>                     
                 </div>                 
             </div>             
         </div>         
@@ -256,10 +256,7 @@
                                                         <h3>{{adminGroup.name}}</h3> 
                                                     </div>                                                     
                                                     <div class="col-md-8"> 
-                                                        <button type="button" class="btn btn-default" style="float: right; margin-top:15px;" id="btnDeleteAdmin" ng-click="smain.deleteAdminGroup(adminGroup)"> 
-                                                            <span class="glyphicon  glyphicon-remove"></span> 
-                                                        </button>
-                                                        <button type="button" class="btn btn-default" style="float: right; margin-top:15px;margin-right:10px;" id="btnEditAdminGroup" ng-click="smain.supplyAdminEditModal(adminGroup)"> 
+                                                        <button type="button" class="btn btn-default" style="float: right; margin-top:15px;" id="btnEditAdminGroup" ng-click="smain.supplyEditModal(adminGroup)"> 
                                                             <span class="glyphicon  glyphicon-pencil"></span> 
                                                         </button>                                                         
                                                     </div>                                                     
@@ -302,8 +299,8 @@
                                                         <button type="button" class="btn btn-default" style="float: right; margin-top:15px;" ng-click="smain.deleteMemberGroup()" id="btnDeleteMemberGroup"> 
                                                             <span class="glyphicon  glyphicon-remove"></span> 
                                                         </button>
-                                                        <button type="button" class="btn btn-default" style="float: right; margin-top:15px; margin-right:10px;" ng-click="smain.supplyMemberEditModal()" id="btnEditMemberGroup"> 
-                                                            <span class="glyphicon  glyphicon-pencil"></span> 
+                                                        <button type="button" class="btn btn-default" style="float: right; margin-top:15px; margin-right:10px;" ng-click="smain.deleteMemberGroup()" id="btnDeleteMemberGroup"> 
+                                                            <span class="glyphicon  glyphicon-remove"></span> 
                                                         </button>                                                         
                                                     </div>                                                     
                                                 </div>                                                 

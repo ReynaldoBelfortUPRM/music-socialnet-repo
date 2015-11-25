@@ -65,7 +65,7 @@
             <!--/.nav-collapse -->             
         </div>         
     </div>     
-    <div class="modal fade pg-show-modal" id="modalEditGroup" tabindex="-1" role="dialog" aria-hidden="true"> 
+    <div class="modal fade pg-show-modal" id="modal1" tabindex="-1" role="dialog" aria-hidden="true"> 
         <div class="modal-dialog"> 
             <div class="modal-content"> 
                 <div class="modal-header"> 
@@ -73,17 +73,11 @@
                     <h4 class="modal-title">Edit Group</h4> 
                 </div>                 
                 <div class="modal-body"> 
-                    <div class="row">
-                        <div class="col-md-12"> 
-                            <div class="form-group"> 
-                                <label class="control-label" for="frmInput_DescEdit" style="font-family:Aller Light;">Group name:</label>
-                                <input type="text" class="form-control" placeholder="The nice group..." ng-model="smain.editData.name"> 
-                            </div>                             
-                        </div>
+                    <div class="row"> 
                         <div class="col-md-12"> 
                             <div class="form-group"> 
                                 <label class="control-label" for="frmInput_DescEdit" style="font-family:Aller Light;">Description:</label>                                 
-                                <textarea class="form-control" rows="3" id="frmInputDescription" ng-model="smain.editData.description"></textarea>                                 
+                                <textarea class="form-control" rows="3" id="frmInputDescription" ng-model="homemain.editData.data"></textarea>                                 
                             </div>                             
                         </div>                         
                         <div class="col-md-12"> 
@@ -98,13 +92,13 @@
                                 <ul>
                                     <!-- The file uploads will be shown here -->
                                 </ul>
-                            </form>                             
+                            </form>                                                          
                         </div>                         
                     </div>                     
                 </div>                 
                 <div class="modal-footer"> 
-                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="smain.clearModal()">Close</button>                     
-                    <button type="button" class="btn btn-primary" style="background-color: #61243c;" ng-click="smain.saveAdminGroup(smain.editData)">Save changes</button>                     
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="homemain.clearModal()">Close</button>                     
+                    <button type="button" class="btn btn-primary" style="background-color: #61243c;" ng-click="homemain.editPost()">Save changes</button>                     
                 </div>                 
             </div>             
         </div>         
@@ -239,7 +233,7 @@
                         <div class=".col-md-8"> 
                             <ul class="list-group"> 
                                 <li class="list-group-item" style="padding-bottom:35px;"> 
-                                    <button type="button" class="btn btn-sm btn-general" style="float: right;" id="btnAddGroup"> 
+                                    <button type="button" class="btn btn-sm btn-general" style="float: right;"> 
                                         <span class="glyphicon glyphicon-plus "></span> 
                                     </button>                                     
                                 </li>                                 
@@ -256,10 +250,7 @@
                                                         <h3>{{adminGroup.name}}</h3> 
                                                     </div>                                                     
                                                     <div class="col-md-8"> 
-                                                        <button type="button" class="btn btn-default" style="float: right; margin-top:15px;" id="btnDeleteAdmin" ng-click="smain.deleteAdminGroup(adminGroup)"> 
-                                                            <span class="glyphicon  glyphicon-remove"></span> 
-                                                        </button>
-                                                        <button type="button" class="btn btn-default" style="float: right; margin-top:15px;margin-right:10px;" id="btnEditAdminGroup" ng-click="smain.supplyAdminEditModal(adminGroup)"> 
+                                                        <button type="button" class="btn btn-default" style="float: right; margin-top:15px;" id="btnEditAdminGroup" ng-click="smain.editAdminGroup(adminGroup)"> 
                                                             <span class="glyphicon  glyphicon-pencil"></span> 
                                                         </button>                                                         
                                                     </div>                                                     
@@ -288,28 +279,25 @@
                             <ul class="list-group"> 
                                 <li class="list-group-item"> 
                                     <div class="container-fluid"> 
-                                        <div class="row" ng-repeat="memberGroup in smain.memberGroupInfo"> 
+                                        <div class="row"> 
                                             <div class="col-md-4"> 
                                                 <h5>Group wallpaper:</h5> 
-                                                <img ng-src="{{memberGroup.photo_path}}" style="border-radius: 3px; margin-top:5px;background-color:gray;" height="200" " width="200"> 
+                                                <img src="file:///C:/Program%20Files%20(x86)/Pinegrow%20Web%20Designer/placeholders/img7.jpg" width="250" style="border-radius: 3px; margin-top:5px;background-color:gray;" height="200" /> 
                                             </div>                                             
                                             <div class="col-md-8"> 
                                                 <div class="row"> 
                                                     <div class="col-md-4"> 
-                                                        <h3>{{memberGroup.name}}</h3> 
+                                                        <h3>Sample group</h3> 
                                                     </div>                                                     
                                                     <div class="col-md-8"> 
-                                                        <button type="button" class="btn btn-default" style="float: right; margin-top:15px;" ng-click="smain.deleteMemberGroup()" id="btnDeleteMemberGroup"> 
+                                                        <button type="button" class="btn btn-default" style="float: right; margin-top:15px;"> 
                                                             <span class="glyphicon  glyphicon-remove"></span> 
-                                                        </button>
-                                                        <button type="button" class="btn btn-default" style="float: right; margin-top:15px; margin-right:10px;" ng-click="smain.supplyMemberEditModal()" id="btnEditMemberGroup"> 
-                                                            <span class="glyphicon  glyphicon-pencil"></span> 
                                                         </button>                                                         
                                                     </div>                                                     
                                                 </div>                                                 
                                                 <div class="row"> 
                                                     <div class="group-description"> 
-                                                        <p>{{memberGroup.description}}</p> 
+                                                        <p>Holasfdasfdhasfasdfhuasdoifhashdfosaiudfhasdfhooausifwefrqroiqgewrqworeuigwqoiergqwioeurgoiugoiuyqweryurewqofdfhwqfuhoqwuhfqwoihfe</p> 
                                                     </div>                                                     
                                                 </div>                                                 
                                             </div>                                             
