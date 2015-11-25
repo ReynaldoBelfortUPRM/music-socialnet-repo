@@ -1,0 +1,73 @@
+    
+ <head> 
+        <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <meta name="description" content=""> 
+        <meta name="author" content=""> 
+        <title>MusicVenue - Homepage</title>         
+        <!-- Bootstrap core CSS -->         
+        <link rel="stylesheet" type="text/css" href="../res/lib/css/bootstrap.min.css" /> 
+        <!-- CSS for plugins -->         
+        <link rel="stylesheet" type="text/css" href="../res/lib/css/video-js.css" /> 
+        <link rel="stylesheet" type="text/css" href="css/upload-form-homepage.css" /> 
+        <!-- Homepage relevant -->         
+        <link rel="stylesheet" type="text/css" href="css/musicvenue-styles.css" /> 
+        <link rel="stylesheet" type="text/css" href="css/homepage-styles.css" /> 
+        <!-- Libraries -->         
+        <script type="text/javascript" src="../res/lib/jquery.min.js"></script>         
+        <script type="text/javascript" src="../res/lib/bootstrap.min.js"></script>         
+        <script type="text/javascript" src="../res/lib/angular.min.js"></script>                  
+        <!-- Plug-ins -->         
+        <script type="text/javascript" src="../res/lib/masonry.pkgd.min.js"></script>         
+        <script type="text/javascript" src="../res/lib/audio.min.js"></script>         
+        <!-- AngularJS related -->         
+        <script type="text/javascript" src="../controllers/app.js"></script>         
+        <!--NavBar-->         
+        <link rel="stylesheet" type="text/css" href="css/general.css" /> 
+        <!--Custom Style-->         
+    </head>     
+
+
+
+
+    <div class="post" id="search-entity" ng-switch-when="2"> 
+                            <div class="container-fluid">                                
+                                <div class="row"> 
+                                    <h3 class="post-title-text">{{uPost.name}}</h3> 
+                                </div>                                 
+                                <div class="row"> 
+                                    <div class="post-line-break-text"></div>                                     
+                                </div>                                 
+                                <div class="row"> 
+                                    <div class="well post-description-text">{{uPost.data}}</div>                                     
+                                </div>                                 
+                               <p><br/></p>                                 
+                            </div>                             
+    </div>    
+
+
+     <div class="post" id="search-tag" ng-switch-when="2"> 
+                            <div class="container-fluid">                                
+                                <div class="row"> 
+                                    <h3 class="post-title-text">{{uPost.name}}</h3> 
+                                </div>                                 
+                                                          
+                               <p><br/></p>                                 
+                            </div>                             
+    </div>    
+
+
+
+
+            <!-- These  scripts are loaded here since we have to wait until AngularJS finishes initializing -->         
+        <script type="text/javascript" src="../res/lib/video.js"></script>         
+        <!-- Upload Form plugin -->         
+        <script src="../res/lib/upload_form/jquery.knob.js"></script>         
+        <script src="../res/lib/upload_form/jquery.ui.widget.js"></script>         
+        <script src="../res/lib/upload_form/jquery.iframe-transport.js"></script>         
+        <script src="../res/lib/upload_form/jquery.fileupload.js"></script>         
+        <script src="../res/lib/upload_form/upload-form.js"></script>         
+        <!-- Controllers -->         
+        <script type="text/javascript" src="../controllers/homepage.ctrl.js"></script>         
+        <script type="text/javascript" src="../controllers/navbar.ctrl.js"></script>    
