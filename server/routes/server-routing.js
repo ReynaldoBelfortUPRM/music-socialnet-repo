@@ -1329,9 +1329,6 @@ router.get('/mvenue-database/settings/business-info/:token', function(req, res) 
     var results = [];
 
     //Token validation
-
-
-
     try{
         //Get payload data from the client that is logged in
         uPayload = verifyToken(req.params.token);
