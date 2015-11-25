@@ -127,6 +127,47 @@ angular.module('app').controller("SettingsController", function($http){
     };
 
     //-----Admin group-----
+
+    vmodel.showModalAddGroup = function(){
+        //Show modal dialog to add a new group
+        $('#modalAddAdminGroup').modal('show');
+    };
+
+    vmodel.addAdminGroup = function(newAdminGroup){
+        //In case of no photo
+        newAdminGroup.photo_path = "";
+
+        //Add group into the database
+        if(newAdminGroup.name.length > 0){
+            //Update tag in the database
+            $http.post('/mvenue-database/settings/new-group/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+                , newAdminGroup).then(function successCallback(response){
+                    //Succesful response
+
+                    //Erase edit data and hide modal.
+                    vmodel.clearModal();
+                    $('#modalAddAdminGroup').modal('hide');
+
+                    //Reload admin group data:
+                    vmodel.adminGroupInfo = response.data;
+
+                }, function errorCallback(response){
+                        if(response.status == 401){
+                            alert("Authentication error! Your session may have been expired. Please log-in!");
+                            //Erase current token
+                            sessionStorage.removeItem('clientAuthentication');
+                            //Re-direct user to the log-in page
+                            window.location.href = "login.html";
+                        }
+                        else{
+                            alert("Server Internal Error: " + response.data);
+                        }
+
+                });
+        }
+    };
+
+
     vmodel.saveAdminGroup = function(adminGroup){
         //Update tag in the database
         $http.put('/mvenue-database/settings/update-group/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
@@ -160,45 +201,13 @@ angular.module('app').controller("SettingsController", function($http){
         $('#modalEditGroup').modal('show');
     };
 
-    vmodel.supplyMemberEditModal = function(memberGroup){
-        //Bind the data from the selected post into the edit modal
-        vmodel.editData = memberGroup;
-        //Show modal
-        $('#modalEditGroup').modal('show');
-    };
-
     //Function needed in case the user closes the modal without saving any changes.
     vmodel.clearModal = function(){
         vmodel.editData = null;
+        vmodel.addGroupData = null;
     };
 
     //-----Member group-----
-    vmodel.editMemberGroup = function(adminGroup){
-        //Update tag in the database
-        // $http.put('/mvenue-database/settings/update-group/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
-        //     , adminGroup).then(function successCallback(response){
-        //         //Alert user of the succes of the request
-        //         alert("Update successful!");
-
-        //         //Erase edit data and hide modal.
-        //         vmodel.clearModal();
-        //         $('#modalEditGroup').modal('hide');
-
-        //     }, function errorCallback(response){
-        //             if(response.status == 401){
-        //                 alert("Authentication error! Your session may have been expired. Please log-in!");
-        //                 //Erase current token
-        //                 sessionStorage.removeItem('clientAuthentication');
-        //                 //Re-direct user to the log-in page
-        //                 window.location.href = "login.html";
-        //             }
-        //             else{
-        //                 alert("Server Internal Error: " + response.data);
-        //             }
-
-        //     });
-    };
-
     vmodel.deleteMemberGroup = function(adminGroup){
         //Update tag in the database
         // $http.put('/mvenue-database/settings/update-group/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
@@ -225,6 +234,16 @@ angular.module('app').controller("SettingsController", function($http){
         //     });
     };
 
+    vmodel.deleteUser = function(){
+        var proceed = confirm("Are you really sure you want to delete your account?");
+
+        if(proceed){
+            //TODO Proceed to delete the user account
+
+
+        }
+
+    };
 
 	vmodel.changeUserMode = function(){
 

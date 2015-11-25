@@ -732,38 +732,6 @@ router.post('/mvenue-database/settings/basic-info/:token', function(req, res) {
 
 });
 
-//====DELETE ACCOUNT====
-router.delete('/mvenue-database/settings/user/:token', function(req, res) {
-    //TODO DEBUG
-    console.log("DEBUG: SETTINGS MY TAGS DELETE Request entry.");
-    var uPayload;
-
-    //Token validation
-    try{
-        //Get payload data from the client that is logged in
-        uPayload = verifyToken(req.params.token);
-    }catch(err){
-        return res.status(401).json(err); //End request by returning a failure response.
-    }
-
-    pg.connect(connectionString, function (err, client, done) {
-        // Handle connection errors
-        if (err) {
-            done();
-            console.log(err);
-            return res.status(500).json({success: false, data: err});
-        }
-
-        //Delete the user from the database
-        client.query("DELETE FROM uuser WHERE user_id=$1;", [ uPayload.user_id]);
-
-        //Return a success Response
-        return res.status(200);
-
-    });
-
-});
-
 //====PASSWORD RESET====
 router.post('/mvenue-database/settings/password-reset/:token', function(req, res) {
     console.log("DEBUG: SETTINGS PASSWORD RESET------.")
@@ -1155,13 +1123,12 @@ router.post('/mvenue-database/settings/new-group/:token', function(req, res) {
             return res.status(500).json({success: false, data: err});
         }
 
-        //Add the tag to the database
-
+        //Add the group to the database
         var insertQuery = "INSERT INTO ggroup(name, description, group_administrator, photo_path)VALUES ($1, $2, $3, $4)";
-        client.query(insertQuery, [post_input.name, post_input.last_name, post_input.description,uPayload.user_id, post_input.photo_path]);
+        client.query(insertQuery, [post_input.name, post_input.description,uPayload.user_id, post_input.photo_path]);
 
-        //----Get all the available tags for this user----
-        var getquery="SELECT name, description,  photo_path, group_id FROM ggroup WHERE  group_administrator = $1;";
+        //----Get all the available groups for this user----
+        var getquery="SELECT name, description,  photo_path, group_id FROM ggroup WHERE group_administrator = $1;";
         var query = client.query(getquery, [uPayload.user_id]);
 
         // Stream results back one row at a time
@@ -1177,8 +1144,6 @@ router.post('/mvenue-database/settings/new-group/:token', function(req, res) {
         // After all data is returned, close connection and return results
         query.on('end', function () {
             done();
-
-
 
             console.log("DEBUG: RESULTS SETTINGS Get GROUP after ADD GROUP");
             return res.json(results);
@@ -1397,9 +1362,6 @@ router.put('/mvenue-database/settings/business-edit/:token', function(req, res) 
 
     }
 
-
-
-
     //Token validation
     try{
         //Get payload data from the client that is logged in
@@ -1432,7 +1394,7 @@ router.put('/mvenue-database/settings/business-edit/:token', function(req, res) 
 
 
 //====TODO DELETE BUSINESS====---------------------------------------------Return????????
-router.delete('/mvenue-database/settings/tag-info/', function(req, res) {
+router.delete('/mvenue-database/settings/business-info/', function(req, res) {
     //TODO DEBUG
     console.log("DEBUG: SETTINGS MY BUSINESS DELETE Request entry.");
     console.log("DEBUG: SETTINGS MY BUSINESS DELETE Request entry. TOKEN:" + req.query.tk + " , TAG_ID: " + req.query.tagID);
@@ -1531,6 +1493,39 @@ router.get('/mvenue-database/changeUserMode/:token', function(req, res) {
     //Change the user mode
     //----------TODO Database query code HERE
 });
+
+//====DELETE USER ACCOUNT====
+router.delete('/mvenue-database/settings/user/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: SETTINGS MY TAGS DELETE Request entry.");
+    var uPayload;
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        //Delete the user from the database
+        client.query("DELETE FROM uuser WHERE user_id=$1;", [ uPayload.user_id]);
+
+        //Return a success Response
+        return res.status(200);
+
+    });
+
+});
+
 
 //------------------------ END SETTINGS page--------------------------------------------
 //------------------------ START PROFILE page--------------------------------------------
