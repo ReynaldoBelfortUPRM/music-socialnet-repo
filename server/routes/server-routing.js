@@ -1529,15 +1529,544 @@ router.get('/mvenue-database/changeUserMode/:token', function(req, res) {
 
 //------------------------ END SETTINGS page--------------------------------------------
 //------------------------ START PROFILE page--------------------------------------------
-//====TODO USERINFO====
+//==== GET USERINFO====
 
-//====TODO FOLLOW  ====
+/*INPUT req.body.user_id where the user_id is the user id of the user of the profile that you are seeing*/
+router.get('/mvenue-database/profile/basic-info/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: SETTINGS BASIC INFO Request entry.");
+    var uPayload;
+    var results = [];
 
-//====TODO UNFOLLOW====
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
 
-//====TODO ADD TO A GROUP====
+    console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GET BASIC INFO SETTINGS:" + JSON.stringify(uPayload));
 
-//====TODO REMOVE FROM A GROUP====
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        //=============TODO Aqui va query para UPDATE POST=================
+        //Get basic info from user
+        var query = client.query("SELECT first_name, last_name, email, photo_path, about FROM uuser WHERE user_id = $1", [req.body.user_id]);
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+
+            console.log("DEBUG: RESULTS GET BASIC INFO SETTINGS ");
+            return res.json({first_name: results[0].first_name, last_name: results[0].last_name,
+                email: results[0].email, photo_path: results[0].photo_path, about: results[0].about});
+        });
+    });
+
+});
+
+//==== GET USERTAGS====
+/*INPUT req.body.user_id where the user_id is the user id of the user of the profile that you are seeing*/
+router.get('/mvenue-database/profile/tag-info/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: PROFILE MY TAGS Request entry.");
+    var uPayload;
+    var results = [];
+    var user_id=req.body.user_id;
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GET BASIC INFO SETTINGS:" + JSON.stringify(uPayload));
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        //Get tags from user
+        var query = client.query("SELECT data FROM tag_user WHERE user_id= $1;", [user_id]);
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);
+        });
+
+        // Capture error from query execution
+        query.on('error', function (err) {
+            return res.status(500).json({data: err});
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+
+
+            console.log("DEBUG: RESULTS PROFILE Get MY TAGS" + JSON.stringify(results));
+            return res.json(results);
+        });
+
+    });
+
+});
+
+//==== FOLLOWERS====
+/*INPUT req.body.user_id where the user_id is the user id of the user of the profile that you are seeing*/
+router.get('/mvenue-database/profile/followers/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: PROFILE MY FOLLOWERS Request entry.");
+    var uPayload;
+    var results = [];
+    var user_id=req.body.user_id;
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GET BASIC INFO SETTINGS:" + JSON.stringify(uPayload));
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+        var followersquery="WITH theprofileisfolledby AS (SELECT follower_id as user_id FROM follow WHERE followed_id= $1 ) SELECT * FROM uuser NATURAL JOIN theprofileisfolledby WHERE user_id <> $1";
+        var query = client.query(followersquery, [user_id]);
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);
+        });
+
+        // Capture error from query execution
+        query.on('error', function (err) {
+            return res.status(500).json({data: err});
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+
+
+            console.log("DEBUG: RESULTS PROFILE Get MY FOLLOWERS" + JSON.stringify(results));
+            return res.json(results);
+        });
+
+    });
+
+});
+
+
+
+
+//====FOLLOWING====
+router.get('/mvenue-database/profile/following/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: PROFILE MY FOLLOWING Request entry.");
+    var uPayload;
+    var results = [];
+    var user_id=req.body.user_id;
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GET BASIC INFO SETTINGS:" + JSON.stringify(uPayload));
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        var followersquery="WITH theprofileisfollowing AS ( SELECT followed_id as user_id FROM follow WHERE follower_id= 1) SELECT * FROM uuser NATURAL JOIN theprofileisfollowing";
+        var query = client.query(followersquery, [user_id]);
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);
+        });
+
+        // Capture error from query execution
+        query.on('error', function (err) {
+            return res.status(500).json({data: err});
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+
+
+            console.log("DEBUG: RESULTS PROFILE Get MY FOLLOWING" + JSON.stringify(results));
+            return res.json(results);
+        });
+
+    });
+
+});
+
+//====GROUPS ADMINISTRATING====
+router.get('/mvenue-database/settings/group-administrating-info/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: PROFILE GROUPS  ADMINISTRATED Request entry.");
+    var uPayload;
+    var results = [];
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GET GROUPS SETTINGS:" + JSON.stringify(uPayload));
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+
+        var query = client.query("SELECT group_id, name, description, group_administrator, photo_path FROM ggroup" +
+            "WHERE group_administrator =  $1 ", [req.body.user_id]);
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+            console.log("DEBUG: PROFILE GROUPS ADMINISTRATED Get GROUPS");
+            return res.json(results);
+        });
+    });
+});
+
+
+//====GROUPS IS IN====
+router.get('/mvenue-database/settings/group-is-in-info/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: PROFILE GROUPS IS IN Request entry.");
+    var uPayload;
+    var results = [];
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GET GROUPS SETTINGS:" + JSON.stringify(uPayload));
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        //Get tags from user
+        var query = client.query("SELECT group_id, name, description, group_administrator, photo_path FROM ggroup" +
+            " WHERE group_id IN (SELECT group_id FROM group_membership WHERE user_id= $1);", [req.body.user_id]);
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+
+            console.log("DEBUG: RESULTS PROFILE Get GROUPS IS IN");
+            return res.json(results);
+        });
+    });
+});
+
+
+//==== COMO SABER SI TU ESTAS FOLLOWING A ESA PERSONA==== FOLLOW STATUS
+/*
+ Input profile_user_id // is the user_id of the owner of the profile
+
+ Returns the tuple of follower_id, followed_id if the user (user_id) visiting the profile  of (profile_user_id) is following (profile_user_id)
+ Returns Empty or nothing of the (user_id) is not following (profile_user_id)
+ */
+
+router.get('/mvenue-database/settings/follow-status/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: PROFILE GROUPS IS IN Request entry.");
+    var uPayload;
+    var results = [];
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GET GROUPS SETTINGS:" + JSON.stringify(uPayload));
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+        //Get tags from user
+        var getquery ="SELECT follower_id, followed_id FROM follow WHERE follower_id=$1 AND followed_id=$2";
+
+        var query = client.query(getquery, [uPayload.user_id, req.body.user_id]);
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+            console.log("DEBUG: RESULTS PROFILE Get GROUPS IS IN");
+            return res.json(results);
+        });
+    });
+});
+
+
+
+//==== FOLLOW====
+
+/*INPUT req.body.user_id where the user_id is the user id of the user loogged in want to follow*/
+router.post('/mvenue-database/profile/follow/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: PROFILE FOLLOW Request entry.");
+    var uPayload;
+    var results = [];
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+
+        var insertquery="INSERT INTO follow(follower_id, followed_id) VALUES ($1, $2)";
+        client.query(insertquery, [uPayload.user_id,req.body.user_id]);
+
+
+        var followersquery="WITH theprofileisfolledby AS (SELECT follower_id as user_id FROM follow WHERE followed_id= $1 ) SELECT * FROM uuser NATURAL JOIN theprofileisfolledby WHERE user_id <> $1";
+        var query = client.query(followersquery, [req.body.user_id]);
+
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);
+        });
+
+        // Capture error from query execution
+        query.on('error', function (err) {
+            return res.status(500).json({data: err});
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+
+            console.log("DEBUG: RESULTS PROFILE FOLLOW");
+            return res.json(results);
+        });
+
+    });
+
+});
+
+
+//==== UNFOLLOW====
+/*INPUT req.body.user_id where the user_id is the user id of the user loogged in want to unfollow*/
+router.delete('/mvenue-database/profile/unfollow/', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: PROFILE MY UNFOLLOW Request entry.");
+    console.log("DEBUG: PROFILE MY UNFOLLOW Request entry. TOKEN:" + req.query.tk + " , TAG_ID: " + req.query.tagID);
+    var uPayload;
+    var results = [];
+    var user_id = req.query.user_id;
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.query.tk);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        //Delete the tag from the database
+
+        var deleteQuery= "DELETE FROM follow WHERE follower_id=$1 AND followed_id=$2;";
+
+        client.query(deleteQuery, [user_id]);
+
+        //Return a success Response
+        return res.status(200);
+    });
+});
+
+
+
+
+//==== ADD TO A GROUP====
+/*INPUT req.body.user_id and req.body.group_id*/
+router.post('/mvenue-database/profile/add-to-group/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: PROFILE FOLLOW Request entry.");
+    var uPayload;
+    var results = [];
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+
+        var insertquery="INSERT INTO group_membership ( group_id, user_id ) VALUES ($1, $2);";
+
+        client.query(insertquery, [req.body.group_id, req.body.user_id]);
+
+
+        var query = client.query("SELECT group_id, name, description, group_administrator, photo_path FROM ggroup" +
+            " WHERE group_id IN (SELECT group_id FROM group_membership WHERE user_id= $1);", [req.body.user_id]);
+
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);
+        });
+
+        // Capture error from query execution
+        query.on('error', function (err) {
+            return res.status(500).json({data: err});
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+
+            console.log("DEBUG: RESULTS PROFILE FOLLOW");
+            return res.json(results);
+        });
+
+    });
+
+});
+
+
+//==== REMOVE FROM A GROUP====
+router.delete('/mvenue-database/profile/remove-from-a-group/', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: PROFILE MY UNFOLLOW Request entry.");
+    console.log("DEBUG: PROFILE MY UNFOLLOW Request entry. TOKEN:" + req.query.tk + " , TAG_ID: " + req.query.tagID);
+    var uPayload;
+    var results = [];
+    var user_id = req.query.user_id;
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.query.tk);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        //Delete the tag from the database
+        var deleteQuery= "DELETE FROM group_membership WHERE user_id=$1 AND group_id=$2; ";
+        client.query(deleteQuery, [user_id, req.body.group_id]);
+
+        //Return a success Response
+        return res.status(200);
+    });
+});
+
+
 //------------------------ END PROFILE page--------------------------------------------
 
 //Extra functionality for JWT authentication
