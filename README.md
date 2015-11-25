@@ -25,6 +25,26 @@ Heroku MusicVenue Main Page: https://musicvenue.herokuapp.com/welcome_page.html
 
 -----------
 
+# Sprint 5: Retrospective Analysis
+
+___What Worked Well?___
+
+1. The more CRUDs we wrote the easier it became to implement them
+
+___What Did Not Work Well?___
+
+1. Finding Heroku local directions to fix stalling issues
+2. SendGrid integration was not as simple as thought at first
+
+___What We Learned?___
+
+1. Better work planification
+2. Solving Heroku local problems without any help from any existent API or documentation
+
+
+
+-----------
+
 # Sprint 4: Retrospective Analysis
 
 ___What Worked Well?___
