@@ -159,8 +159,8 @@ angular.module('app').controller("HomepageController", function($http){
 	vmodel.search = function(){
 		if(vmodel.searchString.length > 0){
 			//Request database results related to the search string
-			$http.get('/mvenue-database/search/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
-        		, {searchString: vmodel.searchString}).then(function successCallback(response){
+			$http.get('/mvenue-database/search/?tk=' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+        			+ "&searchString="+vmodel.searchString).then(function successCallback(response){
 		        	//Show results to the user, if any:
 
 		        	if(response.data.length > 0){

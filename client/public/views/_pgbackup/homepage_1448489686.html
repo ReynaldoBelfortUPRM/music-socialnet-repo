@@ -210,35 +210,43 @@
             </div>             
             <div class="row"> 
                 <div class="masonryClassWall" id="masonry"> 
+
                     <div ng-repeat="result in homemain.searchResults" ng-switch="result.type" ng-if="homemain.searchResults.length > 0"> 
-                        <div class="post result-business" id="search-business" ng-switch-when="1"> 
-                            <div class="container-fluid"> 
+
+                        <div class="post" id="search-business" ng-switch-when="1"> 
+                            <div class="container-fluid">                                
                                 <div class="row"> 
                                     <h3 class="post-title-text">{{result.entityname}}</h3> 
                                 </div>                                 
-                                <p><br /></p> 
+                                                          
+                               <p><br/></p>                                 
                             </div>                             
-                        </div>                         
-                        <div class="post result-group" id="search-group" ng-switch-when="2"> 
-                            <div class="container-fluid"> 
+                        </div>  
+
+                        <div class="post" id="search-group" ng-switch-when="2"> 
+                            <div class="container-fluid">                                
                                 <div class="row"> 
                                     <h3 class="post-title-text">{{result.entityname}}</h3> 
                                 </div>                                 
-                                <p><br /></p> 
+                                                          
+                               <p><br/></p>                                 
                             </div>                             
                         </div>
-                        <div class="post result-user" id="search-user" ng-switch-when="0"> 
-                            <div class="container-fluid"> 
+
+                        <div class="post" id="search-user" ng-switch-when="0"> 
+                            <div class="container-fluid">                                
                                 <div class="row"> 
                                     <h3 class="post-title-text">{{result.entityname}}</h3> 
                                 </div>                                 
-                                <p><br /></p> 
+                                                          
+                               <p><br/></p>                                 
                             </div>                             
-                        </div>                         
-                        <div class="post result-business" id="search-business-tag" ng-switch-when="4"> 
-                            <div class="container-fluid"> 
+                        </div>                    
+
+                        <div class="post" id="search-business-tag" ng-switch-when="4"> 
+                            <div class="container-fluid">                                
                                 <div class="row"> 
-                                    <h3 class="post-title-text">{{result.entityname}}'s tag</h3> 
+                                    <h3 class="post-title-text">{{result.entityname}}</h3> 
                                 </div>                                 
                                 <div class="row"> 
                                     <div class="post-line-break-text"></div>                                     
@@ -246,13 +254,14 @@
                                 <div class="row"> 
                                     <div class="well post-description-text">{{result.data}}</div>                                     
                                 </div>                                 
-                                <p><br /></p> 
+                               <p><br/></p>                                 
                             </div>                             
-                        </div>                         
-                        <div class="post result-group" id="search-group-tag" ng-switch-when="5"> 
-                            <div class="container-fluid"> 
+                        </div> 
+
+                        <div class="post" id="search-group-tag" ng-switch-when="5"> 
+                            <div class="container-fluid">                                
                                 <div class="row"> 
-                                    <h3 class="post-title-text">{{result.entityname}}'s tag</h3> 
+                                    <h3 class="post-title-text">{{result.entityname}}</h3> 
                                 </div>                                 
                                 <div class="row"> 
                                     <div class="post-line-break-text"></div>                                     
@@ -260,13 +269,14 @@
                                 <div class="row"> 
                                     <div class="well post-description-text">{{result.data}}</div>                                     
                                 </div>                                 
-                                <p><br /></p> 
+                               <p><br/></p>                                 
                             </div>                             
-                        </div>                         
-                        <div class="post result-user" id="search-user-tag" ng-switch-when="3"> 
-                            <div class="container-fluid"> 
+                        </div> 
+
+                        <div class="post" id="search-user-tag" ng-switch-when="3"> 
+                            <div class="container-fluid">                                
                                 <div class="row"> 
-                                    <h3 class="post-title-text">{{result.entityname}}'s tag</h3> 
+                                    <h3 class="post-title-text">{{result.entityname}}</h3> 
                                 </div>                                 
                                 <div class="row"> 
                                     <div class="post-line-break-text"></div>                                     
@@ -274,10 +284,11 @@
                                 <div class="row"> 
                                     <div class="well post-description-text">{{result.data}}</div>                                     
                                 </div>                                 
-                                <p><br /></p> 
+                               <p><br/></p>                                 
                             </div>                             
-                        </div>                         
-                    </div>                     
+                        </div>    
+                    </div> 
+
                     <div ng-repeat="uPost in homemain.posts" ng-switch="uPost.media_type"> 
                         <div class="post" id="post-video" ng-switch-when="0"> 
                             <div class="container-fluid"> 
@@ -300,7 +311,7 @@
                                                 <li> 
                                                     <button type="button" class="btn btn-default post-button-like"> 
 </button>                                                     
-                                                </li>  -->                                                 
+                                                </li>  -->                                                
                                             </ul>                                             
                                         </div>                                         
                                     </div>                                     
@@ -335,7 +346,7 @@
                                                 <li> 
                                                     <button type="button" class="btn btn-default post-button-like"> 
 </button>                                                     
-                                                </li>  -->                                                 
+                                                </li>  -->                                                
                                             </ul>                                             
                                         </div>                                         
                                     </div>                                     
@@ -378,7 +389,7 @@
                                         <li> 
                                             <button type="button" class="btn btn-default post-button-like"> 
 </button>                                             
-                                        </li>  -->                                         
+                                        </li>  -->                                        
                                     </ul>                                     
                                 </div>                                 
                             </div>                             
@@ -438,7 +449,7 @@
                                                 <li> 
                                                     <button type="button" class="btn btn-default post-button-like"> 
 </button>                                                     
-                                                </li>  -->                                                 
+                                                </li>  -->                                                
                                             </ul>                                             
                                         </div>                                         
                                     </div>                                     
@@ -467,7 +478,7 @@
                                         </div>                                         
                                         <div class="row"> 
                                             <ul class="list-unstyled count-like"> 
-                                                <!--  <li> 
+                                               <!--  <li> 
                                                     <p class="like-count">15</p> 
                                                 </li>                                                 
                                                 <li> 
@@ -516,7 +527,7 @@
                                         <li> 
                                             <button type="button" class="btn btn-default post-button-like"> 
 </button>                                             
-                                        </li>  -->                                         
+                                        </li>  -->                                        
                                     </ul>                                     
                                 </div>                                 
                             </div>                             
