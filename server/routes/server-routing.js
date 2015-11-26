@@ -24,37 +24,9 @@ var connectionString={
 };
 
 //Database initialization
-var id =[];
-function initialize_id() {
-  pg.connect(connectionString, function (err, client, done) {
-    // Handle connection errors
-    if (err) {
-      done();
-      console.log(err);
-      return res.status(500).json({success: false, data: err});
-    }
 
 
-    // SQL Query > Select Data
-    var query = client.query("SELECT MAX(user_id) FROM uuser");
 
-    // Stream results back one row at a time
-    query.on('row', function (row) {
-      id.push(row);
-    });
-
-    // After all data is returned, close connection and return results
-    query.on('end', function () {
-      done();
-
-      id = id[0].max+1;
-      console.log("DEBUG: REGISTER ID NUM: " + id[0].max.toString());
-      console.log("DEBUG: REGISTER ID NUM Typeof: " + typeof(id));
-    });
-
-
-  });
-}
 
 //Sending the MusicVenue welcome page to the client
 router.get('/', function(req, res, next) {
@@ -68,36 +40,54 @@ router.get('/', function(req, res, next) {
 //------------------------ START REGISTER page------------------------------------------
 
  router.post('/mvenue-database/register/', function(req, res) {
+     var results=[];
 
-     var results = [];
 
-     // Grab data from http request
-     //var data = {text: req.body.text, complete: false};
-      var user = {first_name: req.body.first_name, last_name:req.body.last_name, email:req.body.email, password:req.body.password, photo_path:"photo", about:"I'm a MusicVenue user!" };
+    var input ={
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        password: req.body.password,
+        user_id: req.body.user_id
+    }
 
-     // Get a Postgres client from the connection pool
+
      pg.connect(connectionString, function(err, client, done) {
          // Handle connection errors
-         if(err) {
-           done();
-           console.log("DEBUG: PG ERROR REGISTER: " + err);        
-           return res.status(500).json({ success: false, data: err});
+         if (err) {
+             done();
+             console.log(err);
+             return res.status(500).json({success: false, data: err});
          }
+            var insertquery="INSERT INTO uuser(first_name, last_name, email, password, photo_path, about) VALUES ($1, $2, $3, $4, $5, $6 );";
 
-         initialize_id();
-         // Generate a salt as a requirement for the encryption method
-         // var salt = bcrypt.genSaltSync(10); //Level 10 encryption, considering hardware limitaitions.
-          //Encrypt new password
-          //var hashPass = bcrypt.hashSync(user.password, salt);
-          //TODO user_id attribute is needed in this query???
-            //client.query("INSERT INTO uuser(user_id, first_name, last_name,email, password, photo_path, about) values($1, $2,$3, $4,$5, $6,$7)", [id, user.first_name, user.last_name, user.email, hashPass, user.photo_path, user.about]);
-         client.query("INSERT INTO uuser(user_id, first_name, last_name,email, password, photo_path, about) values($1, $2,$3, $4,$5, $6,$7)", [id, user.first_name, user.last_name, user.email, user.password, user.photo_path, user.about]);
-           // client.query("INSERT INTO follow(follower_id, followed_id) values($1, $2)", [id, id]);
-          id = [];
+            client.query(insertquery, [ input.first_name, input.last_name, input.email, input.password,input.photo_path,input.about]);
 
-          //Return sucess response
-          return res.status(200).json({message: "succesful"});
-       });
+             //----Get all post related to the user----
+
+
+         var getQuery="SELECT * FROM uuser ";
+        // SQL Query > Select Data
+             var query = client.query(getQuery);
+
+
+             // Stream results back one row at a time
+             query.on('row', function (row) {
+                 results.push(row);
+             });
+
+             // After all data is returned, close connection and return results
+             query.on('end', function () {
+                 done();
+
+                 console.log("Pudiste Registrarte".green);
+
+                 return res.json(results);
+             });
+
+     });
+
+
  });
 //------------------------ END REGISTER page--------------------------------------------
 
