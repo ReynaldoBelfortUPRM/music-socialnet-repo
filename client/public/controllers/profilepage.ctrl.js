@@ -6,14 +6,40 @@ angular.module('app').controller("ProfileController", function($http){
     //Array initialization
     vmodel.groupInfo = [];
     vmodel.myTagInfo = [];
-
+    vmodel.followingUser = false;
 
     //-------Event Handling----------
     
-    //----------------Loading Dummy data for testing-----------------------
-    $http.get('../data/group.json').success(function(response){
-             vmodel.groupData = response.groupData;
-    });
+    // //----------------Loading Dummy data for testing-----------------------
+    // $http.get('../data/group.json').success(function(response){
+    //          vmodel.groupData = response.groupData;
+    // });
+
+    vmodel.followUser = function(){
+        //Follow user (database)
+        $http.post('/mvenue-database/profile/follow/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+            , {user_id: vmodel.basicInfo.user_id}).then(function successCallback(response){
+                //------Recieve and manage response data-------
+                vmodel.followingUser = true;
+                
+            }, function errorCallback(response){
+                    if(response.status == 401){
+                        alert("Authentication error! Your session may have been expired. Please log-in again!");
+                        //Erase current token from the browser cookie
+                        sessionStorage.removeItem('clientAuthentication');
+                        //Re-direct user to the log-in page
+                        window.location.href = "login.html";
+                    }
+                    else{
+                        alert("Server Internal Error: " + response.data + "\nTry refreshing the page.");
+                    }
+
+        });
+    };
+
+    vmodel.unfollowUser = function(){
+        
+    };
 
     //-----------Client-Server interaction--------------
 
@@ -110,7 +136,7 @@ angular.module('app').controller("ProfileController", function($http){
     });
 
     //GET Group administrating
-    $http.get('/mvenue-database/settings/group-administrating-info/?tk=' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+    $http.get('/mvenue-database/profile/group-administrating-info/?tk=' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
         + "&targetID=" + profileData.id.toString()).then(function successCallback(response){
             //------Recieve and manage response data-------
 
@@ -132,7 +158,7 @@ angular.module('app').controller("ProfileController", function($http){
     });
 
     //GET Group member
-    $http.get('/mvenue-database/settings/group-member-info/?tk=' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+    $http.get('/mvenue-database/profile/group-member-info/?tk=' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
         + "&targetID=" + profileData.id.toString()).then(function successCallback(response){
             //------Recieve and manage response data-------
 
@@ -155,16 +181,18 @@ angular.module('app').controller("ProfileController", function($http){
 
     var fromCurrentUser = sessionStorage.getItem('fromCurrentUser');
 
-    if(fromCurrentUser){
+    vmodel.currentUser = fromCurrentUser;
+
+    if(fromCurrentUser == false){
 
         //GET Following status
-        $http.get('/mvenue-database/settings/follow-status/?tk=' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+        $http.get('/mvenue-database/profile/follow-status/?tk=' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
             + "&targetID=" + profileData.id.toString()).then(function successCallback(response){
                 //------Recieve and manage response data-------
 
-                //Extend arrar of groups user is involved in
                 if(response.data.length > 0){
-                    
+                    //Current logged in user is following the user on profile page
+                    vmodel.followingUser = true;
                 }
                 
             }, function errorCallback(response){

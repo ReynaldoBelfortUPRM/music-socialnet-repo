@@ -1911,7 +1911,7 @@ router.get('/mvenue-database/profile/following/', function(req, res) {
 });
 
 //====GROUPS ADMINISTRATING====
-router.get('/mvenue-database/settings/group-administrating-info/', function(req, res) {
+router.get('/mvenue-database/profile/group-administrating-info/', function(req, res) {
     //TODO DEBUG
     console.log("DEBUG: PROFILE GROUPS ADMINISTRATED Request entry.");
     var uPayload;
@@ -1955,7 +1955,7 @@ router.get('/mvenue-database/settings/group-administrating-info/', function(req,
 
 
 //====GROUPS IS IN====
-router.get('/mvenue-database/settings/group-member-info/', function(req, res) {
+router.get('/mvenue-database/profile/group-member-info/', function(req, res) {
     //TODO DEBUG
     console.log("DEBUG: PROFILE GROUPS IS IN Request entry.");
     var uPayload;
@@ -2007,7 +2007,7 @@ router.get('/mvenue-database/settings/group-member-info/', function(req, res) {
  Returns Empty or nothing of the (user_id) is not following (profile_user_id)
  */
 
-router.get('/mvenue-database/settings/follow-status/:token', function(req, res) {
+router.get('/mvenue-database/profile/follow-status/:token', function(req, res) {
     //TODO DEBUG
     console.log("DEBUG: PROFILE GROUPS IS IN Request entry.");
     var uPayload;

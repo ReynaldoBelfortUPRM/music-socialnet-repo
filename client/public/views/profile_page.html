@@ -87,7 +87,8 @@
                                 <img ng-src="{{profilemain.basicInfo.photo_path}}" alt="" class=""> 
                             </a>                             
                             <h1>{{profilemain.basicInfo.first_name}} {{profilemain.basicInfo.last_name}}</h1> 
-                            <button type="button" class="btn btn-block btn-general">Follow musician</button>                             
+                            <button type="button" class="btn btn-block btn-general" ng-if="!profilemain.followingUser and !profilemain.currentUser" ng-click="profilemain.followUser()">Follow musician</button>
+                            <button type="button" class="btn btn-block btn-general" ng-if="profilemain.followingUser and !profilemain.currentUser" ng-click="profilemain.unfollowUser()">Un-follow musician</button>                             
                         </div>                         
                     </div>                     
                     <div class="row"> 
