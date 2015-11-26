@@ -46,24 +46,6 @@ body, html
     margin-top: 9px;
 }
 
-.tag-list
-{
-    margin-left: 5%;
-    width: auto;
-    max-width: 90%;
-}
-
-.tag-style
-{
-    min-width: 40px;
-    background-color: #b7b7b7;
-    border-radius: 2px;
-    float: left;
-    margin: 4px 3px;
-    padding: 2px 4px;
-}
-
-
 /*Content board related*/
 
 .post-fix

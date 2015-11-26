@@ -84,9 +84,9 @@
                     <div class="row"> 
                         <div class="col-md-offset-2 col-md-9"> 
                             <a href="#" class="thumbnail"> 
-                                <img ng-src="{{profilemain.basicInfo.first_name}}" alt="" class=""> 
+                                <img src="http://36.media.tumblr.com/c15adbf486f843667ecd5ac2d7c8b5be/tumblr_inline_ntwsdxwocs1syu3vs_500.jpg" alt=""> 
                             </a>                             
-                            <h1>{{profilemain.basicInfo.first_name profilemain.basicInfo.last_name}}</h1> 
+                            <h1>Nina Belafonte</h1> 
                             <button type="button" class="btn btn-block btn-general">Follow musician</button>                             
                         </div>                         
                     </div>                     
@@ -95,7 +95,7 @@
                             <h4>General description</h4> 
                             <hr /> 
                         </div>                         
-                        <div class="well col-md-offset-1 col-md-10">{{profilemain.basicInfo.about}}</div>                         
+                        <div class="well col-md-offset-1 col-md-10">{{profilemain.about}}</div>                         
                     </div>                     
                     <div class="row"> 
                         <h4>My stuff</h4> 
@@ -160,7 +160,7 @@
                     <div class="row"> 
                         <div id="masonry"> 
                             <div ng-repeat="uPost in profilemain.posts" ng-switch="uPost.post_type"> 
-                                <div class="post" id="post-video" ng-switch-when="0"> 
+                                <div class="post post-fix" id="post-video" ng-switch-when="0"> 
                                     <div class="container-fluid"> 
                                         <div class="row"> 
                                             <div class="col-md-7"> 
@@ -170,129 +170,113 @@
                                                         <source src="MY_VIDEO.mp4" type='video/mp4'> 
                                                         <source src="MY_VIDEO.webm" type='video/webm'> 
                                                         <p class="vjs-no-js"> 
-                                                          To view this video please enable JavaScript, and consider upgrading to a web browser that<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p> 
+                                                  To view this video please enable JavaScript, and consider upgrading to a web browser that<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p> 
                                                     </video>                                                     
                                                 </div>                                                 
                                                 <div class="row"> 
-                                                    <ul class="list-unstyled count-like"> 
-                                                        <!-- <li> 
+                                                    <ul class="count-like list-unstyled list-inline"> 
+                                                        <li> 
                                                             <p class="like-count">82</p> 
-                                                        </li>                                                 
+                                                        </li>                                                         
                                                         <li> 
                                                             <button type="button" class="btn btn-default post-button-like"> 
-        </button>                                                     
-                                                        </li>  -->                                                         
+</button>                                                             
+                                                        </li>                                                         
                                                     </ul>                                                     
                                                 </div>                                                 
                                             </div>                                             
                                             <div class="col-md-5"> 
-                                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelVideo" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>                                                 
-                                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnEditVideo" ng-click="homemain.supplyEditModal(uPost)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false"> 
-                                                    <span class="glyphicon glyphicon-pencil edit-icon"></span> 
-                                                </button>                                                 
                                                 <div class="row"> 
-                                                    <h3 class="post-image-video-title">{{uPost.name}}</h3> 
-                                                    <div class="" style="background: #000000; width:90%; height:1px;margin-bottom:8px"></div>                                                     
+                                                    <h3 class="post-image-video-title">Juan Rivera</h3> 
+                                                    <div style="background: #000000; width:90%; height:1px;margin-bottom:8px"></div>                                                     
                                                 </div>                                                 
                                                 <div class="row"> 
-                                                    <p>{{uPost.data}}</p> 
+                                                    <p>Paragraph Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar faucibus neque, nec rhoncus nunc ultrices sit amet. Curabitur ac sagittis neque, vel egestas est.</p> 
                                                 </div>                                                 
                                             </div>                                             
                                         </div>                                         
                                     </div>                                     
                                 </div>                                 
-                                <div class="post" id="post-image" ng-switch-when="1"> 
+                                <div class="post post-fix" id="post-image" ng-switch-when="1"> 
                                     <div class="container-fluid"> 
                                         <div class="row"> 
                                             <div class="col-md-7"> 
                                                 <div class="row"> 
-                                                    <img ng-src="{{uPost.media_path}}" class="img-rounded post-image" width="200" /> 
+                                                    <img src="../res/img/photo/1.jpg" class="img-rounded post-image" width="200" /> 
                                                 </div>                                                 
                                                 <div class="row"> 
-                                                    <ul class="list-unstyled count-like"> 
-                                                        <!--  <li> 
+                                                    <ul class="list-unstyled count-like list-inline"> 
+                                                        <li> 
                                                             <p class="like-count">15</p> 
-                                                        </li>                                                 
+                                                        </li>                                                         
                                                         <li> 
                                                             <button type="button" class="btn btn-default post-button-like"> 
-        </button>                                                     
-                                                        </li> -->                                                         
+</button>                                                             
+                                                        </li>                                                         
                                                     </ul>                                                     
                                                 </div>                                                 
                                             </div>                                             
                                             <div class="col-md-5"> 
-                                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelImage" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>                                                 
-                                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnEditVideo" ng-click="homemain.supplyEditModal(uPost)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false"> 
-                                                    <span class="glyphicon glyphicon-pencil edit-icon"></span> 
-                                                </button>                                                 
                                                 <div class="row"> 
-                                                    <h3 class="post-image-video-title">{{uPost.name}}</h3> 
-                                                    <div class="" style="background: #000000; width:90%; height:1px;margin-bottom:8px"></div>                                                     
+                                                    <h3 class="post-image-video-title">Juan Rivera</h3> 
+                                                    <div style="background: #000000; width:90%; height:1px;margin-bottom:8px"></div>                                                     
                                                 </div>                                                 
                                                 <div class="row"> 
-                                                    <p>{{uPost.data}}</p> 
+                                                    <p>Paragraph Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar faucibus neque, nec rhoncus nunc ultrices sit amet. Curabitur ac sagittis neque, vel egestas est.</p> 
                                                 </div>                                                 
                                             </div>                                             
                                         </div>                                         
                                     </div>                                     
                                 </div>                                 
-                                <div class="post" id="post-text" ng-switch-when="2"> 
+                                <div class="post post-fix" id="post-text" ng-switch-when="2"> 
                                     <div class="container-fluid"> 
-                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelText" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>                                         
-                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnEditVideo" ng-click="homemain.supplyEditModal(uPost)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false"> 
-                                            <span class="glyphicon glyphicon-pencil edit-icon"></span> 
-                                        </button>                                         
                                         <div class="row"> 
-                                            <h3 class="post-title-text">{{uPost.name}}</h3> 
+                                            <h3 class="post-title-text">Juan Rivera</h3> 
                                         </div>                                         
                                         <div class="row"> 
                                             <div class="post-line-break-text"></div>                                             
                                         </div>                                         
                                         <div class="row"> 
-                                            <div class="well post-description-text">{{uPost.data}}</div>                                             
+                                            <div class="well post-description-text">Paragraph Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar faucibus neque, nec rhoncus nunc ultrices sit amet. Curabitur ac sagittis neque, vel egestas est.</div>                                             
                                         </div>                                         
                                         <div class="row"> 
-                                            <ul class="list-unstyled count-like"> 
-                                                <!-- <li> 
+                                            <ul class="list-unstyled count-like list-inline"> 
+                                                <li> 
                                                     <p class="like-count">25</p> 
-                                                </li>                                         
+                                                </li>                                                 
                                                 <li> 
                                                     <button type="button" class="btn btn-default post-button-like"> 
-        </button>                                             
-                                                </li>  -->                                                 
+</button>                                                     
+                                                </li>                                                 
                                             </ul>                                             
                                         </div>                                         
                                     </div>                                     
                                 </div>                                 
-                                <div class="post" id="post-audio" ng-switch-when="3"> 
+                                <div class="post post-fix" id="post-audio" ng-switch-when="3"> 
                                     <div class="container-fluid"> 
-                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelAudio" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>                                         
-                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnEditVideo" ng-click="homemain.supplyEditModal(uPost)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false"> 
-                                            <span class="glyphicon glyphicon-pencil edit-icon"></span> 
-                                        </button>                                         
                                         <div class="row"> 
                                             <div class="col-md-8"> 
-                                                <div class="well post-description-audio">{{uPost.data}}</div>                                                 
+                                                <div class="well post-description-audio">Paragraph Lorem ipsum dolor sit amet, consectetur adipiscing elit. CConsectetur adipiscing elit.. </div>                                                 
                                             </div>                                             
                                             <div class="col-md-4"> 
-                                                <h3 class="post-image-video-title">{{uPost.name}}</h3> 
+                                                <h3 class="post-image-video-title">Juan Rivera</h3> 
                                             </div>                                             
                                         </div>                                         
                                         <div class="row post-audio-row"> 
                                             <!-- audio.js  plug-in -->                                             
-                                            <audio ng-src="{{uPost.media_path}}" preload="none"> 
+                                            <audio src="http://kolber.github.io/audiojs/demos/mp3/juicy.mp3" preload="none"> 
 </audio>                                             
                                         </div>                                         
                                         <div class="row"> 
-                                            <!-- <ul class="list-unstyled count-like"> 
+                                            <ul class="list-unstyled count-like list-inline"> 
                                                 <li> 
                                                     <p class="like-count">8</p> 
-                                                </li>                                         
+                                                </li>                                                 
                                                 <li> 
                                                     <button type="button" class="btn btn-default post-button-like"> 
-        </button>                                             
-                                                </li>                                         
-                                            </ul> -->                                             
+</button>                                                     
+                                                </li>                                                 
+                                            </ul>                                             
                                         </div>                                         
                                     </div>                                     
                                 </div>                                 

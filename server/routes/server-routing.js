@@ -1559,16 +1559,17 @@ router.delete('/mvenue-database/settings/user/:token', function(req, res) {
 //==== GET USERINFO====
 
 /*INPUT req.body.user_id where the user_id is the user id of the user of the profile that you are seeing*/
-router.get('/mvenue-database/profile/basic-info/:token', function(req, res) {
+router.get('/mvenue-database/profile/basic-info/', function(req, res) {
     //TODO DEBUG
-    console.log("DEBUG: SETTINGS BASIC INFO Request entry.");
+    console.log("DEBUG: PROFILE BASIC INFO Request entry.");
     var uPayload;
     var results = [];
+    var targetID = req.query.targetID;
 
     //Token validation
     try{
         //Get payload data from the client that is logged in
-        uPayload = verifyToken(req.params.token);
+        uPayload = verifyToken(req.query.tk);
     }catch(err){
         return res.status(401).json(err); //End request by returning a failure response.
     }
@@ -1585,7 +1586,7 @@ router.get('/mvenue-database/profile/basic-info/:token', function(req, res) {
 
         //=============TODO Aqui va query para UPDATE POST=================
         //Get basic info from user
-        var query = client.query("SELECT first_name, last_name, email, photo_path, about FROM uuser WHERE user_id = $1", [req.body.user_id]);
+        var query = client.query("SELECT first_name, last_name, email, photo_path, about FROM uuser WHERE user_id = $1", [targetID]);
 
         // Stream results back one row at a time
         query.on('row', function (row) {

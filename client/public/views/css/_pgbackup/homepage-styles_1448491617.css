@@ -1,84 +1,20 @@
 
 
-body, html
+/*To arrange the  input textbox and post button*/
+
+ul > li
 {
-    margin: 0;
-    overflow: hidden;
-    height: 100%;
-}
-
-@media (min-width: 768px)
-{
-    #leftPanel
-    {
-        position: absolute;
-        top: 0px;
-        bottom: 0;
-        left: 0;
-        width: 30%;
-        overflow-y: scroll;
-    }
-    #rightPanel
-    {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        overflow-y: scroll;
-        width: 70%;
-    }
-}
-
-#leftPanel
-{
-    text-align: center;
-    height: 100%;
-}
-
-#rightPanel
-{
-    height: 100%;
-    text-align: center;
-}
-
-.top-buffer
-{
-    margin-top: 9px;
-}
-
-.tag-list
-{
-    margin-left: 5%;
-    width: auto;
-    max-width: 90%;
-}
-
-.tag-style
-{
-    min-width: 40px;
-    background-color: #b7b7b7;
-    border-radius: 2px;
-    float: left;
-    margin: 4px 3px;
-    padding: 2px 4px;
-}
-
-
-/*Content board related*/
-
-.post-fix
-{
-    margin-left: 8%;
-    margin-top: 6%;
+    display: inline-block;
+    zoom: 1;
 }
 
 .post
 {
     width: 580px;
     background-color: #DDDDDD;
-    margin-top: 5%;
+    margin-top: 3%;
     border-radius: 10px;
-    margin-left: 9%;
+    margin-left: 30%;
     height: auto;
     max-height: 230px;
 }
@@ -93,7 +29,7 @@ body, html
 
 .count-like
 {
-    margin-left: 4%;
+    margin-left: 5%;
     width: auto;
     float: left;
     margin-top: 2%;
@@ -125,6 +61,7 @@ body, html
     font-weight: bold;
     text-align: right;
     width: 90%;
+    margin-top: 11%;
 }
 
 .post-title-text
@@ -160,3 +97,73 @@ body, html
     margin-top: 3%;
     width: 113%;
 }
+
+.post-bar
+{
+    background-color: #DDDDDD;
+    margin-left: 25%;
+    margin-top: 5%;
+    border-radius: 8px;
+    padding-top: 10px;
+    width: auto;
+    float: left;
+    min-height: 65px;
+    height: auto;
+}
+
+.input-post-style
+{
+    width: 446px;
+}
+
+.btn-post-bar
+{
+    margin-right: 3px;
+    border-radius: 25px;
+    width: 45px;
+    height: 45px;
+    margin-left: -2px;
+}
+
+.postbar-ul-buttons
+{
+    display: inline-block;
+    text-align: center;
+    height: 55px;
+}
+
+.post-close-button
+{
+    font-size: 19px;
+    font-weight: bold;
+    color: #61243c;
+    margin: 3px -5px -5px 10px;
+}
+
+.edit-icon
+{
+    color: green;
+    font-weight: bolder;
+    top: 1px;
+}
+
+.search-input
+{
+    color: black;
+}
+
+.result-business
+{
+    background-color: rgba(243, 196, 196, 0.50);
+}
+
+.result-group
+{
+    background-color: rgba(162, 241, 168, 0.50);
+}
+
+.result-user
+{
+    background-color: rgba(193, 198, 255, 0.87);
+}
+

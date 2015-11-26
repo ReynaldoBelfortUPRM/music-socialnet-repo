@@ -20,26 +20,30 @@ angular.module('app').controller("ProfileController", function($http){
         window.location.href = "index.html";
     }
 
-    
-    // $http.get('/mvenue-database/profilepage/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
-    //     ).then(function successCallback(response){
-    //         //------Recieve and manage response data-------
+    //Get data from cookie
+    var profileData = sessionStorage.getItem('profileData');
 
 
+    //GET Basic Info
+    $http.get('/mvenue-database/profile/basic-info/?tk=' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+        + "&targetID=" + profileData.id.toString()).then(function successCallback(response){
+            //------Recieve and manage response data-------
+
+            vmodel.basicInfo = response.data;
             
-    //     }, function errorCallback(response){
-    //             if(response.status == 401){
-    //                 alert("Authentication error! Your session may have been expired. Please log-in again!");
-    //                 //Erase current token from the browser cookie
-    //                 sessionStorage.removeItem('clientAuthentication');
-    //                 //Re-direct user to the log-in page
-    //                 window.location.href = "login.html";
-    //             }
-    //             else{
-    //                 alert("Server Internal Error: " + response.data + "\nTry refreshing the page.");
-    //             }
+        }, function errorCallback(response){
+                if(response.status == 401){
+                    alert("Authentication error! Your session may have been expired. Please log-in again!");
+                    //Erase current token from the browser cookie
+                    sessionStorage.removeItem('clientAuthentication');
+                    //Re-direct user to the log-in page
+                    window.location.href = "login.html";
+                }
+                else{
+                    alert("Server Internal Error: " + response.data + "\nTry refreshing the page.");
+                }
 
-    //     });
+        });
 
 });
 

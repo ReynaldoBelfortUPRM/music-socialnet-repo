@@ -207,6 +207,12 @@ angular.module('app').controller("HomepageController", function($http){
 		}
 	};
 
+	vmodel.resultClick = function(result){
+		//Re-direct user to the profile page, leaving a cookie
+		sessionStorage.setItem('profileData', result);
+		window.location.href = "profile_page.html";
+	};
+
 	//TODO-----------Dummy operations: for design purposes-----------------
 	// vmodel.showUpload = true;
 	//vmodel.post_type = 1;
