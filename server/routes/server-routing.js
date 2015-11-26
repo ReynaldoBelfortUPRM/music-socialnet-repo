@@ -2589,8 +2589,7 @@ router.get('/mvenue-database/search/', function(req, res) {
 //------------------------ START BUSINESS page--------------------------------------------------------------------
 
 //Business info
-
-router.get('/mvenue-database/search/:token', function(req, res) {
+router.post('/mvenue-database/business/:token', function(req, res) {
     //TODO DEBUG
     console.log("DEBUG: PROFILE GROUPS IS IN Request entry.");
     var uPayload;
@@ -2629,8 +2628,6 @@ router.get('/mvenue-database/search/:token', function(req, res) {
         });
     });
 });
-
-
 
 
 

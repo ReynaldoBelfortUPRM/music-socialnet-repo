@@ -29,9 +29,10 @@
     <script type="text/javascript" src="../res/lib/audio.min.js"></script>
     <!-- AngularJS related -->
     <script type="text/javascript" src="../controllers/app.js"></script>
+    <script type="text/javascript" src="../controllers/businesspage.ctrl.js.js"></script>
 
 </head>
-<body ng-app="app">
+<body ng-app="app" ng-controller="businessCTRL as main">
 
 
 <!-- NavBar start....................................................................................................-->
@@ -95,28 +96,30 @@
                 <div class="row">
                     <div class="col-md-4">
 
-                        <h1>Music Place</h1>
+                        <h1 ng-model="main.name">Music Place</h1>
                     </div>
 
                 </div>
                     <hr>
 
                 <div class="row">
-                    <div class="col-md-4">
-                        <button type="button" class="btn btn-general">Follow</button>
+
+                    <div class="col-md-4" ng-model="main.followbutton">
+                        <button type="button" class="btn btn-general" ng-click="main.follow()">Follow</button>
+                        <button type="button" class="btn btn-general" ng-click="main.unfollow()">Un-Follow</button>
                     </div>
 
                 </div>
 
                 <div class="row">
                     <div class="col-md-4">
-                        <h2>About Us</h2>
+                        <h2> About Us </h2>
                     </div>
 
                 </div>
                 <div class="row">
-                    <div class="col-md-8">
-                        <h4>This is a place where you and your friends can come to ger good music. There Every weekend  are playing different bands.</h4>
+                    <div class="col-md-8" >
+                        <h4 ng-model="main.description">This is a place where you and your friends can come to ger good music. There Every weekend  are playing different bands.</h4>
                     </div>
 
                 </div>

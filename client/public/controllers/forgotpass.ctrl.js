@@ -14,7 +14,7 @@ angular.module('app').controller("ForgotPassCTRL", function($http, $location){
                 window.location.href = "login.html";
             }, function errorCallback(response){
 
-                    alert("There was an internal error. Please try again soon.");
+                alert("There was an internal error. Please try again soon.");
             });
     }
 
