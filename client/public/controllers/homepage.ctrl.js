@@ -207,9 +207,16 @@ angular.module('app').controller("HomepageController", function($http){
 		}
 	};
 
-	vmodel.resultClick = function(result){
-		//Re-direct user to the profile page, leaving a cookie
-		sessionStorage.setItem('profileData', result);
+	vmodel.goToProfile = function(result, fromCurrentUser){
+		//Re-direct user to the profile page, leaving a cookie.
+
+		//Verify if the current logged in user wants to go to it's profile page
+		if(fromCurrentUser){						
+			sessionStorage.setItem('profileData', JSON.stringify({id: vmodel.userID}));
+		} else{
+			sessionStorage.setItem('profileData', result);
+		}
+		sessionStorage.setItem('fromCurrentUser', fromCurrentUser);
 		window.location.href = "profile_page.html";
 	};
 
@@ -246,25 +253,5 @@ angular.module('app').controller("HomepageController", function($http){
                     alert("Server Internal Error: " + response.data);
                 }
 
-        });.then(function successCallback(response){
-		//------Recieve and manage response data-------
-
-		//Load data from server
-		vmodel.userID = response.data[1];
-		vmodel.posts = response.data[0];
-
-	}, function errorCallback(response){
-		if(response.status == 401){
-			alert("Authentication error! Your session may have been expired. Please log-in!");
-			//Erase current token
-			sessionStorage.removeItem('clientAuthentication');
-			//Re-direct user to the log-in page
-			window.location.href = "login.html";
-		}
-		else{
-			alert("Server Internal Error: " + response.data);
-		}
-
-	});
-
+        });
 });

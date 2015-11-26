@@ -64,7 +64,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{navmain.userName}}<b class="caret"></b></a> 
                             <ul class="dropdown-menu"> 
                                 <li> 
-                                    <a href="profile_page.html">Profile</a> 
+                                    <a ng-click="homemain.goToProfile(null, true)">Profile</a> 
                                 </li>                                 
                                 <li> 
                                     <a href="settings.html">Settings</a> 
@@ -214,7 +214,7 @@
                         <div class="post result-business" id="search-business" ng-switch-when="1"> 
                             <div class="container-fluid"> 
                                 <div class="row">
-                                    <button type="button" class="close post-close-button" aria-hidden="true" id="btnClickResult" ng-click="homemain.resultClick(result)"> 
+                                    <button type="button" class="close post-close-button" aria-hidden="true" id="btnClickResult" ng-click="homemain.goToProfile(result, false)"> 
                                         <span class="glyphicon edit-icon glyphicon-menu-up" style="margin-right:12px; color:black;"></span> 
                                     </button>                                     
                                     <h3 class="post-title-text">{{result.entityname}}</h3> 
@@ -225,7 +225,7 @@
                         <div class="post result-group" id="search-group" ng-switch-when="2"> 
                             <div class="container-fluid"> 
                                 <div class="row"> 
-                                    <button type="button" class="close post-close-button" aria-hidden="true" id="btnClickResult" ng-click="homemain.resultClick(result)"> 
+                                    <button type="button" class="close post-close-button" aria-hidden="true" id="btnClickResult" ng-click="homemain.goToProfile(result, false)"> 
                                         <span class="glyphicon edit-icon glyphicon-menu-up" style="margin-right:12px; color:black;"></span> 
                                     </button>
                                     <h3 class="post-title-text">{{result.entityname}}</h3> 
@@ -236,7 +236,7 @@
                         <div class="post result-user" id="search-user" ng-switch-when="0"> 
                             <div class="container-fluid"> 
                                 <div class="row">
-                                    <button type="button" class="close post-close-button" aria-hidden="true" id="btnClickResult" ng-click="homemain.resultClick(result)"> 
+                                    <button type="button" class="close post-close-button" aria-hidden="true" id="btnClickResult" ng-click="homemain.goToProfile(result, false)"> 
                                         <span class="glyphicon edit-icon glyphicon-menu-up" style="margin-right:12px; color:black;"></span> 
                                     </button>                                     
                                     <h3 class="post-title-text">{{result.entityname}}</h3> 
@@ -247,7 +247,7 @@
                         <div class="post result-business" id="search-business-tag" ng-switch-when="4"> 
                             <div class="container-fluid"> 
                                 <div class="row">
-                                    <button type="button" class="close post-close-button" aria-hidden="true" id="btnClickResult" ng-click="homemain.resultClick(result)"> 
+                                    <button type="button" class="close post-close-button" aria-hidden="true" id="btnClickResult" ng-click="homemain.goToProfile(result, false)"> 
                                         <span class="glyphicon edit-icon glyphicon-menu-up" style="margin-right:12px; color:black;"></span> 
                                     </button>                                     
                                     <h3 class="post-title-text">{{result.entityname}}'s tag</h3> 
@@ -264,7 +264,7 @@
                         <div class="post result-group" id="search-group-tag" ng-switch-when="5"> 
                             <div class="container-fluid"> 
                                 <div class="row">
-                                    <button type="button" class="close post-close-button" aria-hidden="true" id="btnClickResult" ng-click="homemain.resultClick(result)"> 
+                                    <button type="button" class="close post-close-button" aria-hidden="true" id="btnClickResult" ng-click="homemain.goToProfile(result, false)"> 
                                         <span class="glyphicon edit-icon glyphicon-menu-up" style="margin-right:12px; color:black;"></span> 
                                     </button>                                     
                                     <h3 class="post-title-text">{{result.entityname}}'s tag</h3> 
@@ -281,7 +281,7 @@
                         <div class="post result-user" id="search-user-tag" ng-switch-when="3"> 
                             <div class="container-fluid"> 
                                 <div class="row">
-                                    <button type="button" class="close post-close-button" aria-hidden="true" id="btnClickResult" ng-click="homemain.resultClick(result)"> 
+                                    <button type="button" class="close post-close-button" aria-hidden="true" id="btnClickResult" ng-click="homemain.goToProfile(result, false)"> 
                                         <span class="glyphicon edit-icon glyphicon-menu-up" style="margin-right:12px; color:black;"></span> 
                                     </button>                                     
                                     <h3 class="post-title-text">{{result.entityname}}'s tag</h3> 
