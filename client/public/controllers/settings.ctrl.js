@@ -4,6 +4,10 @@ angular.module('app').controller("SettingsController", function($http){
 	var vmodel = this; //The scope of this controller
     vmodel.newTagData = "";
     vmodel.btnBasicInfoEnabled = true;
+    vmodel.passData = {};
+    vmodel.passData.currentPass = "";
+    vmodel.passData.newPass = "";
+    vmodel.passData.confirmNewPass = "";
 
     //-----------Client-Server interaction--------------
     //TODO Verify if the user is logged in first!
@@ -48,6 +52,40 @@ angular.module('app').controller("SettingsController", function($http){
                     }
 
             });
+
+    };
+
+    vmodel.saveNewPass = function(){
+        if(vmodel.passData.newPass == vmodel.passData.confirmNewPass){
+        
+            //Verify current password and update new password in the database
+            $http.post('/mvenue-database/settings/password-reset/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+                , {currentPass: vmodel.passData.currentPass, newPass: vmodel.passData.newPass}).then(function successCallback(response){
+                    //Succesful password change
+                    alert("Your password was updated successfully!");
+                    //Clear text fields:
+                    vmodel.passData.currentPass = "";
+                    vmodel.passData.newPass = "";
+                    vmodel.passData.confirmNewPass = "";
+
+                }, function errorCallback(response){
+                        if(response.status == 401){
+                            alert("Authentication error! Your session may have been expired. Please log-in!");
+                            //Erase current token
+                            sessionStorage.removeItem('clientAuthentication');
+                            //Re-direct user to the log-in page
+                            window.location.href = "login.html";
+                        } else if(response.status == 402){
+                            alert("Error: " + response.data.message + " Please try again!");
+
+                        } else{
+                            alert("Server Internal Error: " + response.data);
+                        }
+
+                });
+        } else {
+            alert("Passwords don't match! Please try again!");
+        }
 
     };
 
@@ -104,29 +142,69 @@ angular.module('app').controller("SettingsController", function($http){
     };
 
     vmodel.removeTag = function(tag){
-      //Remove tag on the database
-    $http.delete('/mvenue-database/settings/tag-info/?tk=' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
-        + "&tagID="+ tag.tag_id.toString()).then(function successCallback(response){
-            //Succesful request. Refresh tags on view
-            vmodel.tagInfo = response.data;
-            
-        }, function errorCallback(response){
-                if(response.status == 401){
-                    alert("Authentication error! Your session may have been expired. Please log-in!");
-                    //Erase current token
-                    sessionStorage.removeItem('clientAuthentication');
-                    //Re-direct user to the log-in page
-                    window.location.href = "login.html";
-                }
-                else{
-                    alert("Server Internal Error: " + response.data);
-                }
+        //Remove tag on the database
+        $http.delete('/mvenue-database/settings/tag-info/?tk=' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+            + "&tagID="+ tag.tag_id.toString()).then(function successCallback(response){
+                //Succesful request. Refresh tags on view
+                vmodel.tagInfo = response.data;
+                
+            }, function errorCallback(response){
+                    if(response.status == 401){
+                        alert("Authentication error! Your session may have been expired. Please log-in!");
+                        //Erase current token
+                        sessionStorage.removeItem('clientAuthentication');
+                        //Re-direct user to the log-in page
+                        window.location.href = "login.html";
+                    }
+                    else{
+                        alert("Server Internal Error: " + response.data);
+                    }
 
-        });
-      //Reload tags
+            });
     };
 
     //-----Admin group-----
+
+    vmodel.showModalAddGroup = function(){
+        //Show modal dialog to add a new group
+        $('#modalAddAdminGroup').modal('show');
+    };
+
+    vmodel.addAdminGroup = function(newAdminGroup){
+        //In case of no photo
+        newAdminGroup.photo_path = "";
+
+        //Add group into the database
+        if(newAdminGroup.name.length > 0){
+            //Update tag in the database
+            $http.post('/mvenue-database/settings/new-group/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+                , newAdminGroup).then(function successCallback(response){
+                    //Succesful response
+
+                    //Erase edit data and hide modal.
+                    vmodel.clearModal();
+                    $('#modalAddAdminGroup').modal('hide');
+
+                    //Reload admin group data:
+                    vmodel.adminGroupInfo = response.data;
+
+                }, function errorCallback(response){
+                        if(response.status == 401){
+                            alert("Authentication error! Your session may have been expired. Please log-in!");
+                            //Erase current token
+                            sessionStorage.removeItem('clientAuthentication');
+                            //Re-direct user to the log-in page
+                            window.location.href = "login.html";
+                        }
+                        else{
+                            alert("Server Internal Error: " + response.data);
+                        }
+
+                });
+        }
+    };
+
+
     vmodel.saveAdminGroup = function(adminGroup){
         //Update tag in the database
         $http.put('/mvenue-database/settings/update-group/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
@@ -153,6 +231,28 @@ angular.module('app').controller("SettingsController", function($http){
             });
     };
 
+    vmodel.deleteAdminGroup = function(targetGroup){
+        //Remove group from the database
+        $http.delete('/mvenue-database/settings/delete-admin-group/?tk=' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+            + "&groupID="+ targetGroup.group_id.toString()).then(function successCallback(response){
+                //Succesful request. Refresh groups on view
+                vmodel.adminGroupInfo = response.data;
+                
+            }, function errorCallback(response){
+                    if(response.status == 401){
+                        alert("Authentication error! Your session may have been expired. Please log-in!");
+                        //Erase current token
+                        sessionStorage.removeItem('clientAuthentication');
+                        //Re-direct user to the log-in page
+                        window.location.href = "login.html";
+                    }
+                    else{
+                        alert("Server Internal Error: " + response.data);
+                    }
+
+            });
+    };
+
     vmodel.supplyAdminEditModal = function(adminGroup){
         //Bind the data from the selected post into the edit modal
         vmodel.editData = adminGroup;
@@ -160,71 +260,61 @@ angular.module('app').controller("SettingsController", function($http){
         $('#modalEditGroup').modal('show');
     };
 
-    vmodel.supplyMemberEditModal = function(memberGroup){
-        //Bind the data from the selected post into the edit modal
-        vmodel.editData = memberGroup;
-        //Show modal
-        $('#modalEditGroup').modal('show');
-    };
-
     //Function needed in case the user closes the modal without saving any changes.
     vmodel.clearModal = function(){
         vmodel.editData = null;
+        vmodel.addGroupData = null;
     };
 
     //-----Member group-----
-    vmodel.editMemberGroup = function(adminGroup){
-        //Update tag in the database
-        // $http.put('/mvenue-database/settings/update-group/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
-        //     , adminGroup).then(function successCallback(response){
-        //         //Alert user of the succes of the request
-        //         alert("Update successful!");
+    vmodel.deleteMemberGroup = function(memberGroup){
+        //Remove group from the database
+        $http.delete('/mvenue-database/settings/delete-member-group/?tk=' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+            + "&groupID="+ targetGroup.group_id.toString()).then(function successCallback(response){
+                //Succesful request. Refresh groups on view
+                vmodel.adminGroupInfo = response.data;
+                
+            }, function errorCallback(response){
+                    if(response.status == 401){
+                        alert("Authentication error! Your session may have been expired. Please log-in!");
+                        //Erase current token
+                        sessionStorage.removeItem('clientAuthentication');
+                        //Re-direct user to the log-in page
+                        window.location.href = "login.html";
+                    }
+                    else{
+                        alert("Server Internal Error: " + response.data);
+                    }
 
-        //         //Erase edit data and hide modal.
-        //         vmodel.clearModal();
-        //         $('#modalEditGroup').modal('hide');
-
-        //     }, function errorCallback(response){
-        //             if(response.status == 401){
-        //                 alert("Authentication error! Your session may have been expired. Please log-in!");
-        //                 //Erase current token
-        //                 sessionStorage.removeItem('clientAuthentication');
-        //                 //Re-direct user to the log-in page
-        //                 window.location.href = "login.html";
-        //             }
-        //             else{
-        //                 alert("Server Internal Error: " + response.data);
-        //             }
-
-        //     });
+            });
     };
 
-    vmodel.deleteMemberGroup = function(adminGroup){
-        //Update tag in the database
-        // $http.put('/mvenue-database/settings/update-group/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
-        //     , adminGroup).then(function successCallback(response){
-        //         //Alert user of the succes of the request
-        //         alert("Update successful!");
+    vmodel.deleteUserAccount = function(){
+        var proceed = confirm("Are you really sure you want to delete your account?");
 
-        //         //Erase edit data and hide modal.
-        //         vmodel.clearModal();
-        //         $('#modalEditGroup').modal('hide');
+        if(proceed){
+            //TODO Proceed to delete the user account
+            $http.delete('/mvenue-database/settings/user/' + $.parseJSON(sessionStorage.getItem('clientAuthentication')).token
+            ).then(function successCallback(response){
+                //Succesful request. //Re-direct client to the homepage
+                window.location.href = "login.html";
+                
+            }, function errorCallback(response){
+                    if(response.status == 401){
+                        alert("Authentication error! Your session may have been expired. Please log-in!");
+                        //Erase current token
+                        sessionStorage.removeItem('clientAuthentication');
+                        //Re-direct user to the log-in page
+                        window.location.href = "login.html";
+                    }
+                    else{
+                        alert("Server Internal Error: " + response.data);
+                    }
+                    
+                });
+        }
 
-        //     }, function errorCallback(response){
-        //             if(response.status == 401){
-        //                 alert("Authentication error! Your session may have been expired. Please log-in!");
-        //                 //Erase current token
-        //                 sessionStorage.removeItem('clientAuthentication');
-        //                 //Re-direct user to the log-in page
-        //                 window.location.href = "login.html";
-        //             }
-        //             else{
-        //                 alert("Server Internal Error: " + response.data);
-        //             }
-
-        //     });
     };
-
 
 	vmodel.changeUserMode = function(){
 

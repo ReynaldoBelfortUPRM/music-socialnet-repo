@@ -31,16 +31,14 @@
                 <span id="reauth-email" class="reauth-email"></span>
                 <input ng-model="main.loginemail" type="email" class="form-control" placeholder="Email address" required autofocus >
                 <input  ng-model="main.loginpassword" type="password" class="form-control" placeholder="Password" required>
-                <form> <input type="submit" value="Sign in" class="inputbtn btn-general" ng-click="main.signin()">
-
-                    <input type="submit" id="signup" value="Sign Up" class="inputbtn btn-general" onclick=""window.location="register.html">
-
+                <form>
+                    <input type="submit" value="Sign in" class="inputbtn btn-general" ng-click="main.signin()">
                 </form>
 
             </form><!-- /form -->
 
 
-            <a href="#" class="forgot-password" id='forgotpass'>
+            <a ng-click="main.forgotpasss()" class="forgot-password" id='forgotpass'>
                 Forgot Password?
             </a>
         </div><!-- /card-container -->
