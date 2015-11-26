@@ -14,6 +14,9 @@ var bcrypt = [];
 //For JWT implementation
 var config = require('../../config');
 
+var nodemailer = require("nodemailer");
+
+
 var connectionString={
   user: "nhtxclclofbeab",
   password: "K9eQnPqG_yWOgquFHw9PkfhmhX",
@@ -177,6 +180,108 @@ router.post('/mvenue-database/login/', function(req, res) {
 
     });
 });
+
+
+
+router.post('/mvenue-database/forgot-pass/', function(req, res) {
+    console.log("DEBUG: Homepage POST------.");
+
+    var email = req.body.email;
+    var password = "temporarypassword";
+    var message = "";
+
+    console.log("Email: ".red +email);
+    console.log("Password ".red +password);
+
+
+    // Get a Postgres client from the connection pool
+    console.log("DEBUG: DB CONNECT");
+
+
+});
+
+router.post('/mvenue-database/forgotpass/', function(req, res) {
+
+    var email = req.body.email;
+    var password = "1233421dsdasfs";
+    var message = "";
+
+    console.log("Email: ".red +email);
+    console.log("Password ".red +password);
+
+
+
+    var client = new pg.Client(connectionString);
+
+
+    client.connect();
+
+    client.query("SELECT * FROM uuser WHERE email=$1", [email], function(err, result){
+        if(err){
+            client.end();
+            return;
+        }
+        //if no rows were returned from query, then new user
+        if (result.rows.length > 0){
+
+            console.log(result.rows);
+            client.query("UPDATE uuser SET password=$1 WHERE email=$2",[password,email],
+                function(err, result1) {
+                    if (err) {
+                        client.end();
+                        console.log("Error on Update");
+                        return;
+                        // res.status(500).send({ error: "boo:(" });
+                        //res.status(422);
+                    }
+                    else{
+                        console.log(result1);
+                        client.end();
+
+
+
+                        // create reusable transport method (opens pool of SMTP connections)
+                        var smtpTransport = nodemailer.createTransport("SMTP",{
+                            service: "Gmail",
+                            auth: {
+                                user: "music.venue5016@gmail.com",
+                                pass: "marroneo101"
+                            }
+                        });
+
+                        // setup e-mail data with unicode symbols
+                        var mailOptions = {
+                            from: "music.venue5016@gmail.com", // sender address
+                            to: "conialiedez@gmail.com, music.venue5016@gmail.com", // list of receivers
+                            subject: "Music-Venue Reset Your Passsword", // Subject line
+                            text: password, // plaintext body
+                            html: "Your new password is: "+password +". Please, go to your profile and edit the password for security reasons."// html body
+                        }
+
+                        // send mail with defined transport object
+                        smtpTransport.sendMail(mailOptions, function(error, response){
+                            if(error){
+                                console.log(error);
+                            }else{
+                                console.log("Message sent: " + response.message);
+                            }
+
+                            // if you don't want to use this transport object anymore, uncomment following line
+                            //smtpTransport.close(); // shut down the connection pool, no more messages
+                        });
+
+                    }
+                }); //end of UPDATE QUERY
+
+
+        } // END OF IF results.rows.length>0
+
+        //client.end();
+    });
+
+});
+
+
 //------------------------ END LOGIN page--------------------------------------------
 
 
@@ -1593,6 +1698,55 @@ router.get('/mvenue-database/profile/basic-info/:token', function(req, res) {
     });
 
 });
+
+
+//==== GET USER POSTS====
+
+router.get('/mvenue-database/profile/basic-info/:token', function(req, res) {
+    //TODO DEBUG
+    console.log("DEBUG: SETTINGS BASIC INFO Request entry.");
+    var uPayload;
+    var results = [];
+
+    //Token validation
+    try{
+        //Get payload data from the client that is logged in
+        uPayload = verifyToken(req.params.token);
+    }catch(err){
+        return res.status(401).json(err); //End request by returning a failure response.
+    }
+
+    console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GET BASIC INFO SETTINGS:" + JSON.stringify(uPayload));
+
+    pg.connect(connectionString, function (err, client, done) {
+        // Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({success: false, data: err});
+        }
+
+        //=============TODO Aqui va query para UPDATE POST=================
+        //Get basic info from user
+        var query = client.query("SELECT * FROM post_user WHERE user_id = $1", [req.body.user_id]);
+
+        // Stream results back one row at a time
+        query.on('row', function (row) {
+            results.push(row);
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function () {
+            done();
+
+            console.log("DEBUG: RESULTS GET BASIC INFO SETTINGS ");
+            return res.json(results);
+        });
+    });
+
+});
+
+
 
 //==== GET USERTAGS====
 /*INPUT req.body.user_id where the user_id is the user id of the user of the profile that you are seeing*/

@@ -21,7 +21,7 @@ angular.module('app').controller("RegisterControl", function($http){
                }).success(function (response) {
                     //Succesful registration
                     //Re-direct user to the login page
-                    window.location.href = "index.html";
+                    window.location.href = "login.html";
                 });
             }
             else{

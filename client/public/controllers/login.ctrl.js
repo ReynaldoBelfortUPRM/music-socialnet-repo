@@ -29,4 +29,9 @@ angular.module('app').controller("LoginControl", function($http, $location){
         });
 }
 
+    vmodel.forgotpasss = function(){
+        window.location.href = "forgotpass.html";
+
+    }
+
 });
