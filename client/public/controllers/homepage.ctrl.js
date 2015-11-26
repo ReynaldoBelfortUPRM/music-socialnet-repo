@@ -240,6 +240,25 @@ angular.module('app').controller("HomepageController", function($http){
                     alert("Server Internal Error: " + response.data);
                 }
 
-        });
+        });.then(function successCallback(response){
+		//------Recieve and manage response data-------
+
+		//Load data from server
+		vmodel.userID = response.data[1];
+		vmodel.posts = response.data[0];
+
+	}, function errorCallback(response){
+		if(response.status == 401){
+			alert("Authentication error! Your session may have been expired. Please log-in!");
+			//Erase current token
+			sessionStorage.removeItem('clientAuthentication');
+			//Re-direct user to the log-in page
+			window.location.href = "login.html";
+		}
+		else{
+			alert("Server Internal Error: " + response.data);
+		}
+
+	});
 
 });

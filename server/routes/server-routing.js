@@ -24,49 +24,7 @@ var connectionString={
 };
 
 //Database initialization
-router.get('/mvenue-database/get-id/', function(req, res) {
-    //TODO DEBUG
-    console.log("DEBUG: Homepage server entry. GET Posts");
 
-    var uPayload;
-    var posts = [];
-
-    //Token validation
-    try{
-        //Get payload data from the client that is logged in
-        uPayload = verifyToken(req.params.token);
-    }catch(err){
-        return res.status(401).json(err); //End request by returning a failure response.
-    }
-
-    console.log("DEBUG: TOKEN VERIFIED. DECODED PAYLOAD GETPOSTS:" + JSON.stringify(uPayload));
-
-    pg.connect(connectionString, function (err, client, done) {
-        // Handle connection errors
-        if (err) {
-            done();
-            console.log(err);
-            return res.status(500).json({success: false, data: err});
-        }
-
-
-        // SQL Query > Select Data
-        var query = client.query("SELECT MAX(user_id) FROM uuser");
-
-        // Stream results back one row at a time
-        query.on('row', function (row) {
-            theid.push(row);
-        });
-
-        // After all data is returned, close connection and return results
-        query.on('end', function () {
-            done();
-            return res.json(results);
-        });
-
-
-    });
-});
 
 
 
@@ -89,7 +47,8 @@ router.get('/', function(req, res, next) {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        user_id: req.body.user_id
     }
 
 
@@ -100,9 +59,9 @@ router.get('/', function(req, res, next) {
              console.log(err);
              return res.status(500).json({success: false, data: err});
          }
-         var insertquery="INSERT INTO uuser(user_id, first_name, last_name, email, password, photo_path, about) VALUES ($1, $2, $3, $4, $5, $6, $7);";
+            var insertquery="INSERT INTO uuser(first_name, last_name, email, password, photo_path, about) VALUES ($1, $2, $3, $4, $5, $6 );";
 
-            client.query(insertquery, [id, input.first_name, input.last_name, input.email, input.password,input.photo_path,input.about]);
+            client.query(insertquery, [ input.first_name, input.last_name, input.email, input.password,input.photo_path,input.about]);
 
              //----Get all post related to the user----
 

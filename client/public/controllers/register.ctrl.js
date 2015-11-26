@@ -7,12 +7,18 @@ angular.module('app').controller("RegisterControl", function($http){
             if(vmodel.password== vmodel.repassword) {
 
                 console.log("se llamara la funcion");
+
+
+
+
+
+
                 $http.post('/mvenue-database/register/', {
                     first_name: vmodel.first_name,
                     last_name: vmodel.last_name,
                     email: vmodel.email,
-                    password: vmodel.password
-                }).success(function (response) {
+                    password: vmodel.password,
+               }).success(function (response) {
                     //Succesful registration
                     //Re-direct user to the login page
                     window.location.href = "index.html";
@@ -27,5 +33,11 @@ angular.module('app').controller("RegisterControl", function($http){
         window.location.href = "index.html";
     };
 
+
+
+    var getData = function (url) {
+        var data = "";
+        return $http.get(url);
+    }
 
 });
