@@ -87,8 +87,8 @@
                                 <img ng-src="{{profilemain.basicInfo.photo_path}}" alt="" class=""> 
                             </a>                             
                             <h1>{{profilemain.basicInfo.first_name}} {{profilemain.basicInfo.last_name}}</h1> 
-                            <button type="button" class="btn btn-block btn-general" ng-if="!profilemain.followingUser and !profilemain.currentUser" ng-click="profilemain.followUser()">Follow musician</button>
-                            <button type="button" class="btn btn-block btn-general" ng-if="profilemain.followingUser and !profilemain.currentUser" ng-click="profilemain.unfollowUser()">Un-follow musician</button>                             
+                            <button type="button" class="btn btn-block btn-general" ng-if="!profilemain.followingUser && !profilemain.currentUser" ng-click="profilemain.followUser()">Follow musician</button>
+                            <button type="button" class="btn btn-block btn-general" ng-if="profilemain.followingUser && !profilemain.currentUser" ng-click="profilemain.unfollowUser()">Un-follow musician</button>                             
                         </div>                         
                     </div>                     
                     <div class="row"> 
@@ -99,7 +99,7 @@
                         <div class="well col-md-offset-1 col-md-10">{{profilemain.basicInfo.about}}</div>                         
                     </div>                     
                     <div class="row"> 
-                        <h4>My stuff</h4> 
+                        <h4>My skills n' stuff</h4> 
                         <div class="well"> 
                             <div class="row tag-list"> 
                                 <ul class="list-unstyled" style="margin-top:7px; margin-left:0px;"> 
@@ -116,7 +116,7 @@
                             <div class="row tag-list"> 
                                 <ul class="list-unstyled" style="margin-top:7px; margin-left:0px;"> 
                                     <li> 
-                                        <div class="tag-style" ng-repeat="tag in profilemain.groupInfo">{{tag.user_name}}</div>                                         
+                                        <div class="tag-style" ng-repeat="groupTag in profilemain.groupInfo">{{groupTag.name}}</div>                                         
                                     </li>                                     
                                 </ul>                                 
                             </div>                             
@@ -134,7 +134,7 @@
                                 <div class="row tag-list"> 
                                     <ul class="list-unstyled" style="margin-top:7px; margin-left:0px;"> 
                                         <li> 
-                                            <div class="tag-style" ng-repeat="tag in profilemain.followersInfo">{{tag.first_name}} {{tag.last_name}}</div>                                             
+                                            <div class="tag-style" ng-repeat="followersTag in profilemain.followersInfo">{{followersTag.first_name}} {{followersTag.last_name}}</div>                                             
                                         </li>                                         
                                     </ul>                                     
                                 </div>                                 
@@ -148,7 +148,7 @@
                                 <div class="row tag-list"> 
                                     <ul class="list-unstyled" style="margin-top:7px; margin-left:0px;"> 
                                         <li> 
-                                            <div class="tag-style" ng-repeat="tag in profilemain.followingInfo">{{tag.first_name}} {{tag.last_name}}</div>                                             
+                                            <div class="tag-style" ng-repeat="followingTag in profilemain.followingInfo">{{followingTag.first_name}} {{followingTag.last_name}}</div>                                             
                                         </li>                                         
                                     </ul>                                     
                                 </div>                                 
@@ -159,12 +159,12 @@
                 </div>                 
                 <div class="col-md-6" id="rightPanel"> 
                     <div class="row"> 
-                        <div id="masonry"> 
-                            <div ng-repeat="uPost in profilemain.posts" ng-switch="uPost.post_type"> 
+                        <div class="masonryClassWall" id="masonry"> 
+                            <div ng-repeat="uPost in profilemain.posts" ng-switch="uPost.media_type"> 
                                 <div class="post" id="post-video" ng-switch-when="0"> 
                                     <div class="container-fluid"> 
                                         <div class="row"> 
-                                            <div class="col-md-7"> 
+                                            <div class="col-md-7"> z
                                                 <div class="row post-video-row"> 
                                                     <!-- Video.js  plug-in -->                                                     
                                                     <video id="my-video" class="video-js" controls preload="none" width="300" height="150" poster="MY_VIDEO_POSTER.jpg" data-setup="{}"> 
@@ -187,8 +187,8 @@
                                                 </div>                                                 
                                             </div>                                             
                                             <div class="col-md-5"> 
-                                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelVideo" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>                                                 
-                                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnEditVideo" ng-click="homemain.supplyEditModal(uPost)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false"> 
+                                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelVideo" ng-click="profilemain.deletePost(uPost.post_id)" ng-if="uPost.id == profilemain.userID && uPost.isBusinessPost == false">&profilemains;</button>                                                 
+                                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnEditVideo" ng-click="profilemain.supplyEditModal(uPost)" ng-if="uPost.id == profilemain.userID && uPost.isBusinessPost == false"> 
                                                     <span class="glyphicon glyphicon-pencil edit-icon"></span> 
                                                 </button>                                                 
                                                 <div class="row"> 
@@ -222,8 +222,8 @@
                                                 </div>                                                 
                                             </div>                                             
                                             <div class="col-md-5"> 
-                                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelImage" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>                                                 
-                                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnEditVideo" ng-click="homemain.supplyEditModal(uPost)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false"> 
+                                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelImage" ng-click="profilemain.deletePost(uPost.post_id)" ng-if="uPost.id == profilemain.userID && uPost.isBusinessPost == false">&times;</button>                                                 
+                                                <button type="button" class="close post-close-button" aria-hidden="true" id="btnEditVideo" ng-click="profilemain.supplyEditModal(uPost)" ng-if="uPost.id == profilemain.userID && uPost.isBusinessPost == false"> 
                                                     <span class="glyphicon glyphicon-pencil edit-icon"></span> 
                                                 </button>                                                 
                                                 <div class="row"> 
@@ -239,8 +239,8 @@
                                 </div>                                 
                                 <div class="post" id="post-text" ng-switch-when="2"> 
                                     <div class="container-fluid"> 
-                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelText" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>                                         
-                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnEditVideo" ng-click="homemain.supplyEditModal(uPost)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false"> 
+                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelText" ng-click="profilemain.deletePost(uPost.post_id)" ng-if="uPost.id == profilemain.userID && uPost.isBusinessPost == false">&times;</button>                                         
+                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnEditVideo" ng-click="profilemain.supplyEditModal(uPost)" ng-if="uPost.id == profilemain.userID && uPost.isBusinessPost == false"> 
                                             <span class="glyphicon glyphicon-pencil edit-icon"></span> 
                                         </button>                                         
                                         <div class="row"> 
@@ -267,8 +267,8 @@
                                 </div>                                 
                                 <div class="post" id="post-audio" ng-switch-when="3"> 
                                     <div class="container-fluid"> 
-                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelAudio" ng-click="homemain.deletePost(uPost.post_id)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false">&times;</button>                                         
-                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnEditVideo" ng-click="homemain.supplyEditModal(uPost)" ng-if="uPost.id == homemain.userID && uPost.isBusinessPost == false"> 
+                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnDelAudio" ng-click="profilemain.deletePost(uPost.post_id)" ng-if="uPost.id == profilemain.userID && uPost.isBusinessPost == false">&times;</button>                                         
+                                        <button type="button" class="close post-close-button" aria-hidden="true" id="btnEditVideo" ng-click="profilemain.supplyEditModal(uPost)" ng-if="uPost.id == profilemain.userID && uPost.isBusinessPost == false"> 
                                             <span class="glyphicon glyphicon-pencil edit-icon"></span> 
                                         </button>                                         
                                         <div class="row"> 
